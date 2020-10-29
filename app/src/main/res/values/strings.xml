@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FoodOnline</string>
+    <string name="restaurant_name">Đồng Quê Food</string>
+    <string name="user_name">Tài khoản</string>
+    <string name="pass_word">Mật khẩu</string>
+    <string name="btn_login">Đăng nhập</string>
+    <string name="btn_sign_up">Đăng kí</string>
 </resources>
