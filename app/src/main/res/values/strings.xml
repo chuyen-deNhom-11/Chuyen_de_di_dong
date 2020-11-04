@@ -5,4 +5,9 @@
     <string name="pass_word">Mật khẩu</string>
     <string name="btn_login">Đăng nhập</string>
     <string name="btn_sign_up">Đăng kí</string>
+    
+    <string name="menu_home">Home</string>
+    <string name="menu_invoice">Hóa đơn</string>
+    <string name="menu_reservations">Đặt bàn</string>
+    <string name="menu_infomation">Thông tin</string>
 </resources>
