@@ -10,4 +10,7 @@
     <string name="menu_invoice">Hóa đơn</string>
     <string name="menu_reservations">Đặt bàn</string>
     <string name="menu_infomation">Thông tin</string>
+    <string name="name_dish">Tên món ăn</string>
+    <string name="price">Giá</string>
+    <string name="order">order</string>
 </resources>
