@@ -10,10 +10,12 @@
     <string name="menu_invoice">Hóa đơn</string>
     <string name="menu_reservations">Đặt bàn</string>
     <string name="menu_infomation">Thông tin</string>
+    <string name="name_dish">Tên món ăn</string>
+    <string name="price">Giá</string>
+    <string name="order">order</string>
 
     <string name="tv_update">Sửa</string>
     <string name="tv_signout">Đăng xuất</string>
     <string name="lv_dsthongtin">Danh sách thông tin</string>
-
 
 </resources>
