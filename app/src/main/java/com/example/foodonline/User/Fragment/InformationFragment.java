@@ -17,7 +17,7 @@ public class InformationFragment extends Fragment{
 
     public static Fragment newInstance() {
         Bundle args = new Bundle();
-        BillFragment fragment = new BillFragment();
+        InformationFragment fragment = new InformationFragment();
         fragment.setArguments(args);
         return fragment;
     }
