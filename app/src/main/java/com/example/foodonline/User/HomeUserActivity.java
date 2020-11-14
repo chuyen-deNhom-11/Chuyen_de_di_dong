@@ -30,7 +30,7 @@ public class HomeUserActivity extends AppCompatActivity {
         initialization();
         setMenuUser();
 
-        swapContentFragment(HomUserFragment.newInstance(),true, R.id.layout_user);
+        swapContentFragment(HomUserFragment.newInstance(), true, R.id.layout_user);
     }
 
     //TODO: set event menu user
@@ -38,19 +38,19 @@ public class HomeUserActivity extends AppCompatActivity {
         navMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.home_user:
-                        swapContentFragment(HomUserFragment.newInstance(),true, R.id.layout_user);
+                        swapContentFragment(HomUserFragment.newInstance(), true, R.id.layout_user);
                         return true;
                     case R.id.bill:
-                        swapContentFragment(BillFragment.newInstance(),true, R.id.layout_user);
+                        swapContentFragment(BillFragment.newInstance(), true, R.id.layout_user);
                         return true;
                     case R.id.booking:
-                        swapContentFragment(SetTableFragment.newInstance(),true, R.id.layout_user);
+                        swapContentFragment(SetTableFragment.newInstance(), true, R.id.layout_user);
                         return true;
 
                     case R.id.information:
-                        swapContentFragment(InformationFragment.newInstance(),true, R.id.layout_user);
+                        swapContentFragment(InformationFragment.newInstance(), true, R.id.layout_user);
                         return true;
                 }
                 return false;
@@ -63,8 +63,7 @@ public class HomeUserActivity extends AppCompatActivity {
     }
 
 
-
-//        TODO:  swap fragment
+    //        TODO:  swap fragment
     private void swapContentFragment(final Fragment i_newFragment, final boolean i_addToStack, final int container) {
         final FragmentManager fm = getSupportFragmentManager();
         final FragmentTransaction transaction = fm.beginTransaction();
@@ -74,3 +73,4 @@ public class HomeUserActivity extends AppCompatActivity {
         }
         transaction.commit();
     }
+}
