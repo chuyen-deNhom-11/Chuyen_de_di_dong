@@ -18,4 +18,10 @@
     <string name="tv_signout">Đăng xuất</string>
     <string name="lv_dsthongtin">Danh sách thông tin</string>
 
+    <string name="tv_name">Họ và tên</string>
+    <string name="tv_adress">Địa chỉ</string>
+    <string name="tv_confirm_passwork">Xác nhận mật khẩu</string>
+    <string name="tv_email">Email</string>
+    <string name="tv_sdt">Số điện thoại</string>
+    <string name="btn_cancel">Hủy</string>
 </resources>
