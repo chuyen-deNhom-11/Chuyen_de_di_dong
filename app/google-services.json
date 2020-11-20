@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "917026186859",
+    "firebase_url": "https://chuyen-de-android.firebaseio.com",
+    "project_id": "chuyen-de-android",
+    "storage_bucket": "chuyen-de-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917026186859:android:1dd4c5b03a3a3d46b2332e",
+        "android_client_info": {
+          "package_name": "com.example.foodonline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917026186859-0kt7pnovhc2elabbf7krffmno7n0un1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQQ69rh9xNiVthVk2mL6-PBWPy3-vG_ek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917026186859-0kt7pnovhc2elabbf7krffmno7n0un1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
