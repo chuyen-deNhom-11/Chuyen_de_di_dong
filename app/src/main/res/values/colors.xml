@@ -5,6 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorSignUp">#03DAC5</color>
     <color name="colorUpdate">#0327DA</color>
-    <color name="colorDoiMK">#0327DA</color>
-    <color name="colorDangXuat">#F44336</color>
+    <color name="colorRed">#F44336</color>
+    <color name="colorGreen">#6DEF56</color>
 </resources>
