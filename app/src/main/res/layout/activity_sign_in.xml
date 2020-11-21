@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -49,7 +50,7 @@
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/txt_PassWord"
+                android:id="@+id/txt_Username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_custom"
@@ -167,7 +168,6 @@
 
             <Button
                 android:id="@+id/btn_Register"
-
                 android:layout_width="1in"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_custom"
