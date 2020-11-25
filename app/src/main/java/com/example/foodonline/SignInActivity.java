@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SignInActivity extends AppCompatActivity {
     Intent intent;
     Button btn_Cancel;
-    EditText 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

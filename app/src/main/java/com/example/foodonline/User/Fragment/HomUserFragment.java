@@ -24,6 +24,8 @@ import com.example.foodonline.Adpter.ListItemDishAdapter;
 import com.example.foodonline.DataModel.ComboModel;
 import com.example.foodonline.DataModel.DishModel;
 import com.example.foodonline.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -67,6 +69,7 @@ public class HomUserFragment extends Fragment {
 //    Set data spinner
     private void setDataSpinner() {
         ArrayList<String> data = new ArrayList<>();
+        data.add("Tất cả");
         data.add("Món nướng");
         data.add("Món nước");
         data.add("Combo");

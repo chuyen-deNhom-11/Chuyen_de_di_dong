@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.example.foodonline.R;
 
 public class InformationFragment extends Fragment{
     Context context;
+    LinearLayout btn_history, btn_nofication;
 
     public static Fragment newInstance() {
         Bundle args = new Bundle();
@@ -32,7 +34,11 @@ public class InformationFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_information, container, false);
-
+        creat(view);
         return view;
+    }
+    private void creat(View view){
+        btn_history = view.findViewById(R.id.history);
+        btn_nofication= view.findViewById(R.id.notification);
     }
 }

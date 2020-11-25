@@ -5,7 +5,7 @@
     <string name="pass_word">Mật khẩu</string>
     <string name="btn_login">Đăng nhập</string>
     <string name="btn_sign_up">Đăng ký</string>
-    
+
     <string name="menu_home">Home</string>
     <string name="menu_invoice">Hóa đơn</string>
     <string name="menu_reservations">Đặt bàn</string>
@@ -13,6 +13,7 @@
     <string name="name_dish">Tên món ăn</string>
     <string name="price">Giá</string>
     <string name="order">order</string>
+    <string name="btn_oder_bill">Đặt hàng</string>
 
     <string name="tv_update">Sửa</string>
     <string name="tv_signout">Đăng xuất</string>
@@ -25,4 +26,11 @@
     <string name="tv_email">Email</string>
     <string name="tv_sdt">Số điện thoại</string>
     <string name="btn_cancel">Hủy</string>
+    <string name="tv_name_combo">Tên combo</string>
+    <string name="tv_oder_table">Chọn bàn</string>
+    <string name="text_oder">Quý khách có thể chọn bàn nếu có nhu cầu dùng tại nhà hàng</string>
+    <string name="tv_reselect_table">Đổi bàn</string>
+    <string name="tv_list_table">Danh sách bàn</string>
+    <string name="tv_history">Lịch sử đặt hàng</string>
+    <string name="tv_notification">Thông báo</string>
 </resources>

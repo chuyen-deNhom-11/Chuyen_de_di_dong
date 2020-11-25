@@ -7,4 +7,6 @@
     <color name="colorUpdate">#0327DA</color>
     <color name="colorRed">#F44336</color>
     <color name="colorGreen">#6DEF56</color>
+    <color name="colorYellow">#FFEB3B</color>
+    <color name="Red">#FB0000</color>
 </resources>
