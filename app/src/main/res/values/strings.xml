@@ -33,4 +33,7 @@
     <string name="tv_list_table">Danh sách bàn</string>
     <string name="tv_history">Lịch sử đặt hàng</string>
     <string name="tv_notification">Thông báo</string>
+    <string name="toatsExit">Nhấn lần nữa để thoát</string>
+    <string name="wrong_login">Sai tài khoản hoặc mật khẩu</string>
+    <string name="alert_logout">Bạn có muốn đăng xuất không</string>
 </resources>
