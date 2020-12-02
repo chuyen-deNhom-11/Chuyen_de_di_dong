@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,9 +23,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodonline.Adpter.LishItemComboAdapter;
 import com.example.foodonline.Adpter.ListComboHot;
 import com.example.foodonline.Adpter.ListItemDishAdapter;
+import com.example.foodonline.DataModel.AcountModel;
 import com.example.foodonline.DataModel.ComboModel;
 import com.example.foodonline.DataModel.DishModel;
 import com.example.foodonline.R;
+import com.example.foodonline.User.DataModel.ListOfDishModel;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -36,16 +45,19 @@ public class HomUserFragment extends Fragment {
     RecyclerView list_of_combo;
     ArrayList<DishModel> dataDish;
     ArrayList<ComboModel> dataCombo;
-    RecyclerView  image_combo_hot;
+    RecyclerView image_combo_hot;
+    private DatabaseReference database;
     private boolean derection = true;
     private int position;
+    ArrayList<String> data = new ArrayList<>();
+    ArrayList<ListOfDishModel> listOfDishModels = new ArrayList<ListOfDishModel>();
 
 
     public static Fragment newInstance() {
         Bundle args = new Bundle();
         HomUserFragment fragment = new HomUserFragment();
         fragment.setArguments(args);
-        return  fragment;
+        return fragment;
     }
 
     @Override
@@ -55,7 +67,7 @@ public class HomUserFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView( LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_user, container, false);
 
         initialization(view);
@@ -64,12 +76,12 @@ public class HomUserFragment extends Fragment {
         setItemComboHot();
         return view;
     }
-//    Set data spinner
+
+    //    Set data spinner
     private void setDataSpinner() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("Món nướng");
-        data.add("Món nước");
+        data.add("Tất cả");
         data.add("Combo");
+        readData();
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, data);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_type_of_dish.setAdapter(arrayAdapter);
@@ -77,15 +89,15 @@ public class HomUserFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String tutorialsName = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName, Toast.LENGTH_LONG).show();
-                if (tutorialsName.equals("Combo")){
+//                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName, Toast.LENGTH_LONG).show();
+                if (tutorialsName.equals("Combo")) {
                     list_of_combo.setVisibility(View.VISIBLE);
                     list_of_dishes.setVisibility(View.GONE);
-                    setItemDishCombo();
-                }else {
+                    setItemDishCombo(position);
+                } else {
                     list_of_combo.setVisibility(View.GONE);
                     list_of_dishes.setVisibility(View.VISIBLE);
-                    setItemDish();
+                    setItemDish(position);
                 }
             }
 
@@ -95,34 +107,47 @@ public class HomUserFragment extends Fragment {
         });
     }
 
-    private void setItemDish(){
-        dataDish=new ArrayList<>();
-        dataDish.add(new DishModel("a","Tên món ăn","b","100","a","s","s"));
-        dataDish.add(new DishModel("a","Tên món ăn","b","100","a","s","s"));
-        dataDish.add(new DishModel("a","Tên món ăn","b","100","a","s","s"));
-        ListItemDishAdapter listItemDishAdapter = new ListItemDishAdapter(context,R.layout.fragment_home_user,dataDish);
+    private void setItemDish(int position) {
+        if (position <= 1) {
+            dataDish = new ArrayList<>();
+            dataDish.add(new DishModel("a", "Tên món ăn", "b", "100", "a", "s", "s"));
+            dataDish.add(new DishModel("a", "Tên món ăn", "b", "100", "a", "s", "s"));
+            dataDish.add(new DishModel("a", "Tên món ăn", "b", "100", "a", "s", "s"));
+        } else {
+            String[] listDish = listOfDishModels.get(position-2).getDish().split("\\,");
+            dataDish = new ArrayList<>();
+
+            for (String item : listDish) {
+                Toast.makeText(context, item + "", Toast.LENGTH_LONG).show();
+                dataDish.add(new DishModel("a", item+"", "b", "100", "a", "s", "s"));
+
+            }
+        }
+        ListItemDishAdapter listItemDishAdapter = new ListItemDishAdapter(context, R.layout.fragment_home_user, dataDish);
         list_of_dishes.setAdapter(listItemDishAdapter);
     }
-    private void setItemDishCombo(){
-        dataCombo=new ArrayList<>();
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
-        LinearLayoutManager layoutManager = new GridLayoutManager(context,2);
+
+    private void setItemDishCombo(int position) {
+        dataCombo = new ArrayList<>();
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
+        LinearLayoutManager layoutManager = new GridLayoutManager(context, 2);
         list_of_combo.setLayoutManager(layoutManager);
         LishItemComboAdapter listItemDishAdapter = new LishItemComboAdapter(dataCombo);
         list_of_combo.setAdapter(listItemDishAdapter);
     }
-    private void setItemComboHot(){
-        dataCombo=new ArrayList<>();
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
-        dataCombo.add(new ComboModel("combo","Tên Combo","a","7","100.000"));
+
+    private void setItemComboHot() {
+        dataCombo = new ArrayList<>();
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         image_combo_hot.setLayoutManager(layoutManager);
@@ -138,13 +163,13 @@ public class HomUserFragment extends Fragment {
             public void run() {
 
                 if (derection) {
-                    position ++;
-                    if(position>=dataCombo.size()){
+                    position++;
+                    if (position >= dataCombo.size()) {
                         derection = false;
                     }
-                }else{
-                    position =0;
-                    if (position <= 0){
+                } else {
+                    position = 0;
+                    if (position <= 0) {
                         derection = true;
                     }
                 }
@@ -154,10 +179,42 @@ public class HomUserFragment extends Fragment {
         });
     }
 
-    private void initialization(View view){
+    private void initialization(View view) {
         spinner_type_of_dish = view.findViewById(R.id.spinner_name_list_dishes);
         list_of_dishes = view.findViewById(R.id.list_of_dishes);
         list_of_combo = view.findViewById(R.id.list_of_combo);
         image_combo_hot = view.findViewById(R.id.image_combo_hot);
+    }
+
+    private void readData() {
+        database = FirebaseDatabase.getInstance().getReference();
+        database.child("typeOfDish").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                ListOfDishModel listOfDishModel = snapshot.getValue(ListOfDishModel.class);
+                data.add(listOfDishModel.getName());
+                listOfDishModels.add(new ListOfDishModel(listOfDishModel.getName(), listOfDishModel.getDish()));
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
