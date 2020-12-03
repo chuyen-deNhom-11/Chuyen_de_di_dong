@@ -1,13 +1,11 @@
 package com.example.foodonline;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,13 +29,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import static com.example.foodonline.LoginActivity.EMAIL_ADDRESS;
+import java.util.regex.Pattern;
+
+
 import static com.example.foodonline.utils.Constant.USER_REFERENCES;
+
 
 
 public class SignInActivity extends AppCompatActivity {
     Intent intent;
     Button btn_Cancel;
+
 
     public static FirebaseAuth firebaseAuth;
     public static FirebaseDatabase firebaseDatabase;
@@ -56,6 +58,8 @@ public class SignInActivity extends AppCompatActivity {
     EditText edtEmail;
     EditText edtPhoneNumber;
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,9 @@ public class SignInActivity extends AppCompatActivity {
 
         create();
         eventClick();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+        myRef.setValue("Hello, World!");
     }
 
 
@@ -191,4 +198,14 @@ public class SignInActivity extends AppCompatActivity {
 
 
     }
+    public final Pattern EMAIL_ADDRESS
+            = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z][a-zA-Z\\-]{1,25}" +
+                    ")+"
+    );
 }

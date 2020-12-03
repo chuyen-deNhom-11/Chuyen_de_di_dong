@@ -22,8 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".User.HomeUserActivity" />
+
         <activity android:name=".SignInActivity" />
+        <activity android:name=".User.HomeUserActivity"/>
+        <activity android:name=".User.NoficationActivity"/>
+        <activity android:name=".User.HistoryActivity"/>
     </application>
 
 </manifest>

@@ -3,11 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Màn hình Đặt bàn"/>
+    android:orientation="vertical">
+<TextView
+    android:gravity="center"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:layout_margin="25dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/tv_list_table"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_table"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.foodonline.DataModel;
 
+
 import android.widget.EditText;
 
 public class UserModel {
@@ -23,13 +24,6 @@ public class UserModel {
         this.email = email;
     }
 
-    public UserModel(String uid, String name, String email, String password, String type) {
-        this.uid = uid;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.type = type;
-    }
 
 
     public UserModel(String uid, String name, String email, String taiKhoan, String address, String phoneNumber, String password, String type) {
@@ -73,19 +67,22 @@ public class UserModel {
 
     public void setUid(String uid) {
         this.uid = uid;
-    }
 
+    }
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
     }
 
+
     public String getEmail() {
         return email;
     }
+
 
     public void setEmail(String email) {
         this.email = email;
@@ -106,4 +103,5 @@ public class UserModel {
     public void setType(String type) {
         this.type = type;
     }
+
 }
