@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         sign_up = findViewById(R.id.sign_up);
         editTextEmail = findViewById(R.id.edt_email);
         editTextPass = findViewById(R.id.edt_pass);
+        sign_in = findViewById(R.id.sign_in);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -160,7 +161,6 @@ public class LoginActivity extends AppCompatActivity {
 //        creat();
 //        eventClick();
         });
-        onBackPressed();
     }
 
 //    private void eventClick() {
