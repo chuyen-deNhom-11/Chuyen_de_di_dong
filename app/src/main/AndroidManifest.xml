@@ -20,6 +20,7 @@
         <activity android:name=".SignInActivity"/>
         <activity android:name=".User.NoficationActivity"/>
         <activity android:name=".User.HistoryActivity"/>
+        <activity android:name=".Censor.CensorActivity"/>
     </application>
 
 </manifest>
