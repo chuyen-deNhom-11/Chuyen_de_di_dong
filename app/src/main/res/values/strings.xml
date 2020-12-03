@@ -5,7 +5,7 @@
     <string name="pass_word">Mật khẩu</string>
     <string name="btn_login">Đăng nhập</string>
     <string name="btn_sign_up">Đăng ký</string>
-    
+
     <string name="menu_home">Home</string>
     <string name="menu_invoice">Hóa đơn</string>
     <string name="menu_reservations">Đặt bàn</string>
@@ -25,4 +25,6 @@
     <string name="tv_email">Email</string>
     <string name="tv_sdt">Số điện thoại</string>
     <string name="btn_cancel">Hủy</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

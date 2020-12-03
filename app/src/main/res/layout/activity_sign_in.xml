@@ -49,7 +49,7 @@
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/txt_PassWord"
+                android:id="@+id/txt_takhoan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_custom"
@@ -128,6 +128,28 @@
                 android:hint="@string/tv_sdt"
                 android:padding="10dp" />
         </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/btn_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/btn_radio_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Admin" />
+
+            <RadioButton
+                android:id="@+id/btn_radio_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User" />
+        </RadioGroup>
 
 
     </LinearLayout>
