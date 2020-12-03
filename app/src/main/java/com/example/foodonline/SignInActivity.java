@@ -62,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void checkInputText() {
         if (txt_Name.getText().toString().equals("") || txt_Username.getText().toString().equals("") || txt_Pass.getText().toString().equals("") || txt_ConfirmPass.getText().toString().equals("") || txt_adress.getText().toString().equals("") || txt_email.getText().toString().equals("") || txt_PhoneNumber.getText().toString().equals("")) {
-            Toast.makeText(this, "Thiếu dữ liệu", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Nhập thiếu thông tin", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
         }

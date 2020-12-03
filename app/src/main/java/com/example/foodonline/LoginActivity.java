@@ -1,12 +1,12 @@
 package com.example.foodonline;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodonline.User.HomeUserActivity;
 import com.google.firebase.database.DatabaseReference;
@@ -25,10 +25,10 @@ public class LoginActivity extends AppCompatActivity {
         sign_in = findViewById(R.id.sign_in);
 
 // Write a message to the database
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
-//
-//        myRef.setValue("Hello, World!");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
         sign_up = findViewById(R.id.sign_up);
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
