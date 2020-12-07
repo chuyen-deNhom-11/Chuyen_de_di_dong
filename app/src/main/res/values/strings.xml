@@ -36,4 +36,6 @@
     <string name="toatsExit">Nhấn lần nữa để thoát</string>
     <string name="wrong_login">Sai tài khoản hoặc mật khẩu</string>
     <string name="alert_logout">Bạn có muốn đăng xuất không</string>
+    <string name="check_password">Kiểm tra lại mật khẩu</string>
+    <string name="check_input_text">Nhập thiếu thông tin</string>
 </resources>

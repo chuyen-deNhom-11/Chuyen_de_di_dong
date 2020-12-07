@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.foodonline.Adpter.LishItemComboAdapter;
 import com.example.foodonline.DataModel.NoficationModel;
 import com.example.foodonline.DataModel.UserModel;
 import com.example.foodonline.LoginActivity;
@@ -42,7 +43,7 @@ public class InformationFragment extends Fragment {
     public static Fragment newInstance(String userId) {
         Bundle args = new Bundle();
         InformationFragment fragment = new InformationFragment();
-        args.putString("username", userId);
+        args.putString("userID", userId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,7 +63,7 @@ public class InformationFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            userID = bundle.getString("username");
+            userID = bundle.getString("userID");
         }
         readData();
         return view;
@@ -106,7 +107,7 @@ public class InformationFragment extends Fragment {
     }
     private void readData(){
         database = FirebaseDatabase.getInstance().getReference();
-        database.child("user").addChildEventListener(new ChildEventListener() {
+        database.child("Users").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (snapshot.getKey().equals(userID)){
@@ -139,5 +140,6 @@ public class InformationFragment extends Fragment {
             }
         });
     }
+
 
 }

@@ -2,9 +2,11 @@ package com.example.foodonline.User.Fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodonline.Admin.HomeAdminActivity;
 import com.example.foodonline.Adpter.LishItemComboAdapter;
 import com.example.foodonline.Adpter.ListComboHot;
 import com.example.foodonline.Adpter.ListItemDishAdapter;
@@ -28,6 +31,7 @@ import com.example.foodonline.DataModel.ComboModel;
 import com.example.foodonline.DataModel.DishModel;
 import com.example.foodonline.R;
 import com.example.foodonline.User.DataModel.ListOfDishModel;
+import com.example.foodonline.User.ListDishComboActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,9 +41,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 
-public class HomUserFragment extends Fragment {
+public class HomUserFragment extends Fragment implements LishItemComboAdapter.OnComboLisener{
 
     Context context;
+    Intent intent;
     Spinner spinner_type_of_dish;
     ListView list_of_dishes;
     RecyclerView list_of_combo;
@@ -139,9 +144,10 @@ public class HomUserFragment extends Fragment {
         dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
         LinearLayoutManager layoutManager = new GridLayoutManager(context, 2);
         list_of_combo.setLayoutManager(layoutManager);
-        LishItemComboAdapter listItemDishAdapter = new LishItemComboAdapter(dataCombo);
+        LishItemComboAdapter listItemDishAdapter = new LishItemComboAdapter(dataCombo,  this);
         list_of_combo.setAdapter(listItemDishAdapter);
     }
+
 
     private void setItemComboHot() {
         dataCombo = new ArrayList<>();
@@ -216,5 +222,12 @@ public class HomUserFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onComboClick(int position) {
+        intent = new Intent(context, ListDishComboActivity.class);
+        Toast.makeText(context,"Combo" +(position+1),Toast.LENGTH_LONG).show();
+        startActivity(intent);
     }
 }
