@@ -119,10 +119,10 @@ public class LoginActivity extends AppCompatActivity {
                                     intent.putExtra("userID", fAuth.getCurrentUser().getUid());
                                     startActivity(intent);
                                 }
-                            }
-                            else if (type.equals("1")){
-                                intent = new Intent(LoginActivity.this, HomeUserActivity.class);
-                                startActivity(intent);
+                                else if (type.equals("1")){
+                                    intent = new Intent(LoginActivity.this, HomeUserActivity.class);
+                                    startActivity(intent);
+                                }
                             }
                         }
 
