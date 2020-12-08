@@ -2,9 +2,12 @@ package com.example.foodonline.User.Fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,6 +23,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodonline.Admin.HomeAdminActivity;
 import com.example.foodonline.Adpter.LishItemComboAdapter;
 import com.example.foodonline.Adpter.ListComboHot;
 import com.example.foodonline.Adpter.ListItemDishAdapter;
@@ -28,18 +32,22 @@ import com.example.foodonline.DataModel.ComboModel;
 import com.example.foodonline.DataModel.DishModel;
 import com.example.foodonline.R;
 import com.example.foodonline.User.DataModel.ListOfDishModel;
+import com.example.foodonline.User.ListDishComboActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
-public class HomUserFragment extends Fragment {
+public class HomUserFragment extends Fragment implements LishItemComboAdapter.OnComboLisener {
 
     Context context;
+    Intent intent;
     Spinner spinner_type_of_dish;
     ListView list_of_dishes;
     RecyclerView list_of_combo;
@@ -49,8 +57,10 @@ public class HomUserFragment extends Fragment {
     private DatabaseReference database;
     private boolean derection = true;
     private int position;
+    String[] listDish;
     ArrayList<String> data = new ArrayList<>();
     ArrayList<ListOfDishModel> listOfDishModels = new ArrayList<ListOfDishModel>();
+    FirebaseDatabase fData = FirebaseDatabase.getInstance();
 
 
     public static Fragment newInstance() {
@@ -108,23 +118,74 @@ public class HomUserFragment extends Fragment {
     }
 
     private void setItemDish(int position) {
-        if (position <= 1) {
+        if (position == 0) {
             dataDish = new ArrayList<>();
-            dataDish.add(new DishModel("a", "Tên món ăn", "b", "100", "a", "s", "s"));
-            dataDish.add(new DishModel("a", "Tên món ăn", "b", "100", "a", "s", "s"));
-            dataDish.add(new DishModel("a", "Tên món ăn", "b", "100", "a", "s", "s"));
-        } else {
-            String[] listDish = listOfDishModels.get(position-2).getDish().split("\\,");
+            fData.getReference().child("Dish").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    DishModel dishModel = snapshot.getValue(DishModel.class);
+                    dataDish.add(new DishModel(snapshot.getKey(), dishModel.getName(), dishModel.getImage(), dishModel.getPrice(), dishModel.getDescription(), dishModel.getIdTypeDish(), dishModel.getIdCombo()));
+                    ListItemDishAdapter listItemDishAdapter = new ListItemDishAdapter(context, R.layout.fragment_home_user, dataDish);
+                    list_of_dishes.setAdapter(listItemDishAdapter);
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    Log.d("TAG", "onChildChanged");
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                    Log.d("TAG", "onChildRemoved");
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    Log.d("TAG", "onChildRemoved");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.d("TAG", "onCancelled");
+                }
+            });
+        } else if (position > 1){
+            listDish = listOfDishModels.get(position - 2).getDish().split("\\,");
             dataDish = new ArrayList<>();
+            fData.getReference().child("Dish").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    for (String item : listDish) {
+                        if (item.equals(snapshot.getKey())) {
+                            DishModel dishModel = snapshot.getValue(DishModel.class);
+                            dataDish.add(new DishModel(snapshot.getKey(), dishModel.getName(), dishModel.getImage(), dishModel.getPrice(), dishModel.getDescription(), dishModel.getIdTypeDish(), dishModel.getIdCombo()));
+                        }
+                    }
+                    ListItemDishAdapter listItemDishAdapter = new ListItemDishAdapter(context, R.layout.fragment_home_user, dataDish);
+                    list_of_dishes.setAdapter(listItemDishAdapter);
+                }
 
-            for (String item : listDish) {
-                Toast.makeText(context, item + "", Toast.LENGTH_LONG).show();
-                dataDish.add(new DishModel("a", item+"", "b", "100", "a", "s", "s"));
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    Log.d("TAG", "onChildChanged");
+                }
 
-            }
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                    Log.d("TAG", "onChildRemoved");
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    Log.d("TAG", "onChildRemoved");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.d("TAG", "onCancelled");
+                }
+            });
         }
-        ListItemDishAdapter listItemDishAdapter = new ListItemDishAdapter(context, R.layout.fragment_home_user, dataDish);
-        list_of_dishes.setAdapter(listItemDishAdapter);
     }
 
     private void setItemDishCombo(int position) {
@@ -139,9 +200,10 @@ public class HomUserFragment extends Fragment {
         dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000"));
         LinearLayoutManager layoutManager = new GridLayoutManager(context, 2);
         list_of_combo.setLayoutManager(layoutManager);
-        LishItemComboAdapter listItemDishAdapter = new LishItemComboAdapter(dataCombo);
+        LishItemComboAdapter listItemDishAdapter = new LishItemComboAdapter(dataCombo, this);
         list_of_combo.setAdapter(listItemDishAdapter);
     }
+
 
     private void setItemComboHot() {
         dataCombo = new ArrayList<>();
@@ -216,5 +278,12 @@ public class HomUserFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onComboClick(int position) {
+        intent = new Intent(context, ListDishComboActivity.class);
+        Toast.makeText(context, "Combo" + (position + 1), Toast.LENGTH_LONG).show();
+        startActivity(intent);
     }
 }

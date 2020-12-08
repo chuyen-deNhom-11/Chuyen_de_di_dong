@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@drawable/layout_item">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/name_dish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name_dish"
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/type_dish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Loại món ăn"
+            android:textSize="15dp"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/img_dish"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            app:srcCompat="@drawable/dish" />
+    </LinearLayout>
+
+</LinearLayout>

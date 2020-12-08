@@ -8,12 +8,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 
 import com.example.foodonline.DataModel.DishModel;
 import com.example.foodonline.R;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class ListItemDishAdapter extends ArrayAdapter<DishModel> {
     private Context context;
     private int resource;
     private List<DishModel> arrCustomer;
+    FirebaseDatabase fData;
 
     public ListItemDishAdapter(Context context, int resource, ArrayList<DishModel> arrCustomer) {
         super(context, resource, arrCustomer);
@@ -38,7 +41,7 @@ public class ListItemDishAdapter extends ArrayAdapter<DishModel> {
 
     @NonNull
     @Override
-    public View getView(int position,  View view,  ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
 
         ViewHolder viewHolder;
 
@@ -56,6 +59,14 @@ public class ListItemDishAdapter extends ArrayAdapter<DishModel> {
         DishModel dishModel = arrCustomer.get(position);
         viewHolder.price.setText(dishModel.getPrice());
         viewHolder.name_dish.setText(dishModel.getName());
+
+        viewHolder.btn_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context,"Đã thêm món " + arrCustomer.get(position).getName()+" vào hóa đơn",Toast.LENGTH_LONG).show();
+
+            }
+        });
 
         return view;
     }

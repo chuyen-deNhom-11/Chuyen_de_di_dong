@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,6 +26,8 @@
         <activity android:name=".User.HomeUserActivity"/>
         <activity android:name=".User.NoficationActivity"/>
         <activity android:name=".User.HistoryActivity"/>
+        <activity android:name=".Censor.CensorActivity"/>
+        <activity android:name=".User.ListDishComboActivity"/>
     </application>
 
 </manifest>

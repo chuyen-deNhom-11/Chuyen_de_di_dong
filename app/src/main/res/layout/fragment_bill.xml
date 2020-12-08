@@ -60,6 +60,7 @@
         android:background="@drawable/layout_item">
 
         <ListView
+            android:layout_marginLeft="3dp"
             android:id="@+id/list_dish"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

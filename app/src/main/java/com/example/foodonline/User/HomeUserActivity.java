@@ -33,7 +33,7 @@ public class HomeUserActivity extends AppCompatActivity {
         initialization();
         setMenuUser();
         intent = getIntent();
-        userId = intent.getStringExtra("username");
+        userId = intent.getStringExtra("userID");
 
         swapContentFragment(HomUserFragment.newInstance(), true, R.id.layout_user);
     }

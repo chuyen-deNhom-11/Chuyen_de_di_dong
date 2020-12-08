@@ -4,50 +4,36 @@ package com.example.foodonline.DataModel;
 import android.widget.EditText;
 
 public class UserModel {
-    private String uid,name,email,taiKhoan,address,phoneNumber,password,type;
 
+    String id,name,email,password,adress,numberPhone,type;
 
-//    EditText edtName;
-//    EditText edtTaiKhoan;
-//    EditText edtPass;
-//    EditText edtConfirmPass;
-//    EditText edtAddress;
-//    EditText edtEmail;
-//    EditText edtPhoneNumber;
-
-
-    public UserModel() {
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public UserModel(String name, String email) {
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 
-
-
-    public UserModel(String uid, String name, String email, String taiKhoan, String address, String phoneNumber, String password, String type) {
-        this.uid = uid;
-        this.name = name;
-        this.email = email;
-        this.taiKhoan = taiKhoan;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public void setNumberPhone(String numberPhone) {
+        this.numberPhone = numberPhone;
+    }
+
+    public void setType(String type) {
         this.type = type;
-    }
 
-    public String getTaiKhoan() {
-        return taiKhoan;
-    }
-
-    public void setTaiKhoan(String taiKhoan) {
-        this.taiKhoan = taiKhoan;
-    }
-
-    public String getAddress() {
-        return address;
-    }
 
     public void setAddress(String address) {
         this.address = address;
@@ -92,9 +78,26 @@ public class UserModel {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getPassword() {
+        return password;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public UserModel(String id, String name, String email, String password, String adress, String numberPhone, String type) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.adress = adress;
+        this.numberPhone = numberPhone;
+        this.type = type;
+    }
+
+    public UserModel() {
+
 
     public String getType() {
         return type;
