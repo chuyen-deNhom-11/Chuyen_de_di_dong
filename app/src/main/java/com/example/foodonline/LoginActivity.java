@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                                 else if (type.equals("1")){
-                                    intent = new Intent(LoginActivity.this, HomeUserActivity.class);
+                                    intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
                                     startActivity(intent);
                                 }
                             }
