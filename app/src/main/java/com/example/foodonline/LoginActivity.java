@@ -96,8 +96,8 @@ public class LoginActivity extends AppCompatActivity {
     private void creat() {
         sign_in = findViewById(R.id.sign_in);
         sign_up = findViewById(R.id.sign_up);
-        et_acount = findViewById(R.id.et_acount);
-        etPassword = findViewById(R.id.etPassword);
+        et_acount = findViewById(R.id.edt_email);
+        etPassword = findViewById(R.id.edt_pass);
         fAuth = FirebaseAuth.getInstance();
     }
 
@@ -140,16 +140,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public final Pattern EMAIL_ADDRESS
-            = Pattern.compile(
-            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                    "\\@" +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-                    "(" +
-                    "\\." +
-                    "[a-zA-Z][a-zA-Z\\-]{1,25}" +
-                    ")+"
-    );
+//    public final Pattern EMAIL_ADDRESS
+//            = Pattern.compile(
+//            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+//                    "\\@" +
+//                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+//                    "(" +
+//                    "\\." +
+//                    "[a-zA-Z][a-zA-Z\\-]{1,25}" +
+//                    ")+"
+//    );
 
 
     //    TODO: set click back
