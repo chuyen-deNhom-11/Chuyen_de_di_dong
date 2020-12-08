@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_user"
+        android:title="Nhân viên"
+        android:icon="@drawable/ic_baseline_home"/>
+    <item
+        android:id="@+id/bill"
+        android:title="Bán"
+        android:icon="@drawable/ic_baseline_list"/>
+    <item
+        android:id="@+id/booking"
+        android:title="Món ăn"
+        android:icon="@drawable/ic_table"/>
+    <item
+        android:id="@+id/information"
+        android:title="Tài khoản"
+        android:icon="@drawable/ic_baseline_account"/>
+</menu>

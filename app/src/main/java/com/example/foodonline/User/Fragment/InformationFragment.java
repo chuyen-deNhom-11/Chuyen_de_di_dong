@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,14 +21,12 @@ import com.example.foodonline.DataModel.NoficationModel;
 import com.example.foodonline.DataModel.UserModel;
 import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
-import com.example.foodonline.SignInActivity;
 import com.example.foodonline.User.NoficationActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class InformationFragment extends Fragment {
     Context context;
@@ -113,9 +110,9 @@ public class InformationFragment extends Fragment {
                 if (snapshot.getKey().equals(userID)){
                     UserModel user = snapshot.getValue(UserModel.class);
                     tv_Name.setText(user.getName());
-                    tv_PhoneNumber.setText(user.getNumberPhone());
+//                    tv_PhoneNumber.setText(user.getNumberPhone());
                     tv_Email.setText(user.getEmail());
-                    tv_Adress.setText(user.getAdress());
+//                    tv_Adress.setText(user.getAdress());
                 }
             }
 

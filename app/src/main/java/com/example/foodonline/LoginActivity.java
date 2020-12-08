@@ -139,6 +139,19 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
+    public final Pattern EMAIL_ADDRESS
+            = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z][a-zA-Z\\-]{1,25}" +
+                    ")+"
+    );
+
+
     //    TODO: set click back
     private long backPressTime;
 
@@ -153,4 +166,5 @@ public class LoginActivity extends AppCompatActivity {
         }
         backPressTime = System.currentTimeMillis();
     }
+
 }
