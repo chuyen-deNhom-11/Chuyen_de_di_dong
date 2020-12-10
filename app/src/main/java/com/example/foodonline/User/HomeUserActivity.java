@@ -1,6 +1,7 @@
 package com.example.foodonline.User;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -22,7 +23,8 @@ import com.example.foodonline.User.Fragment.HomUserFragment;
 public class HomeUserActivity extends AppCompatActivity {
 
     BottomNavigationView navMenu;
-
+    Intent intent;
+    String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,8 @@ public class HomeUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_user);
         initialization();
         setMenuUser();
+        intent = getIntent();
+        userId = intent.getStringExtra("userID");
 
         swapContentFragment(HomUserFragment.newInstance(), true, R.id.layout_user);
     }
@@ -51,7 +55,7 @@ public class HomeUserActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.information:
-                        swapContentFragment(InformationFragment.newInstance(), true, R.id.layout_user);
+                        swapContentFragment(InformationFragment.newInstance(userId), true, R.id.layout_user);
                         return true;
                 }
                 return false;
