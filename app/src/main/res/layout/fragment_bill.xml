@@ -41,14 +41,12 @@
             android:id="@+id/tv_name_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nguyễn văn A - 0123456789"
             android:textSize="15dp" />
 
         <TextView
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="54 võ văn ngân, Quận thủ đức TP.HCM"
             android:textSize="15dp" />
     </LinearLayout>
 
@@ -63,7 +61,8 @@
             android:layout_marginLeft="3dp"
             android:id="@+id/list_dish"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"/>
 
     </LinearLayout>
 
@@ -76,19 +75,42 @@
         android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/transport_fee"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/transport_fee"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/total_price"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:textSize="20dp"
+                android:text="@string/transport_fee" />
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:imeOptions="actionDone"
+                android:singleLine="true" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/total_price"
-            android:textSize="20dp" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:textSize="20dp"
+                android:text="@string/total_price" />
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:imeOptions="actionDone"
+                android:singleLine="true" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -106,6 +128,7 @@
             android:text="@string/text_oder" />
 
         <TextView
+            android:id="@+id/tv_select_table"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -142,6 +165,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/change_tables"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -182,7 +206,7 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btn_Register"
+                android:id="@+id/btn_Oder"
                 android:layout_width="1in"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_custom"

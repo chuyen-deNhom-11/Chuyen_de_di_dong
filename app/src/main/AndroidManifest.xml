@@ -28,6 +28,7 @@
         <activity android:name=".User.HistoryActivity"/>
         <activity android:name=".Censor.CensorActivity"/>
         <activity android:name=".User.ListDishComboActivity"/>
+        <activity android:name=".User.ListTableActivity"/>
     </application>
 
 </manifest>

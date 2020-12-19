@@ -35,7 +35,7 @@ public class HomeUserActivity extends AppCompatActivity {
         intent = getIntent();
         userId = intent.getStringExtra("userID");
 
-        swapContentFragment(HomUserFragment.newInstance(), true, R.id.layout_user);
+        swapContentFragment(HomUserFragment.newInstance(userId), true, R.id.layout_user);
     }
 
     //TODO: set event menu user
@@ -45,10 +45,10 @@ public class HomeUserActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.home_user:
-                        swapContentFragment(HomUserFragment.newInstance(), true, R.id.layout_user);
+                        swapContentFragment(HomUserFragment.newInstance(userId), true, R.id.layout_user);
                         return true;
                     case R.id.bill:
-                        swapContentFragment(BillFragment.newInstance(), true, R.id.layout_user);
+                        swapContentFragment(BillFragment.newInstance(userId), true, R.id.layout_user);
                         return true;
                     case R.id.booking:
                         swapContentFragment(SetTableFragment.newInstance(), true, R.id.layout_user);

@@ -1,33 +1,35 @@
 package com.example.foodonline.Adpter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodonline.DataModel.ComboModel;
-import com.example.foodonline.DataModel.DishModel;
 import com.example.foodonline.R;
-import com.example.foodonline.User.ListDishComboActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LishItemComboAdapter extends RecyclerView.Adapter<LishItemComboAdapter.ViewHolder> {
     private ArrayList<ComboModel> list;
     private Context context;
-   private OnComboLisener mOnComboLisener;
+    private OnComboLisener mOnComboLisener;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
     public LishItemComboAdapter(ArrayList<ComboModel> dataRoom, OnComboLisener onComboLisener) {
         this.list = dataRoom;
@@ -35,7 +37,7 @@ public class LishItemComboAdapter extends RecyclerView.Adapter<LishItemComboAdap
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        LinearLayout image_combo;
+        ImageView image_combo;
         TextView name_combo, total_dish, price_combo;
         OnComboLisener onComboLisener;
 
@@ -65,11 +67,17 @@ public class LishItemComboAdapter extends RecyclerView.Adapter<LishItemComboAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         ComboModel comboModel = list.get(position);
         holder.name_combo.setText(comboModel.getNameCombo());
-        holder.total_dish.setText(comboModel.getTotalCombo() + " Món");
+        holder.total_dish.setText(comboModel.getTotalDish() + " Món");
         holder.price_combo.setText("Giá: " + comboModel.getPriceCombo());
+        storageRef.child("combo/" + comboModel.getImageCombo()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(context).load(uri.toString()).into(holder.image_combo);
+            }
+        });
     }
 
     @Override
