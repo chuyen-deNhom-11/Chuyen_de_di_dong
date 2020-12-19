@@ -2,65 +2,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:background="@drawable/btn_custom"
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/name_food"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lẩu hải sản"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/name_food"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lẩu hải sản"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Số lượng: 1" />
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Số lượng: 1" />
 
-        <TextView
-            android:id="@+id/table"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bàn: 1" />
+            <TextView
+                android:id="@+id/table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bàn: 1" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_custom"
+                android:backgroundTint="@color/colorRed"
+                android:text="@string/btn_cancel"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_done_cook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_custom"
+                android:backgroundTint="@color/colorGreen"
+                android:text="@string/btn_cook_done"
+                android:textAllCaps="false" />
+
+
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1.5"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/btn_custom"
-            android:backgroundTint="@color/colorRed"
-            android:text="@string/btn_cancel"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_done_cook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_custom"
-            android:backgroundTint="@color/colorGreen"
-            android:text="@string/btn_cook_done"
-            android:textAllCaps="false" />
-
-
-    </LinearLayout>
 
 </LinearLayout>
