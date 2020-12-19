@@ -1,11 +1,11 @@
 package com.example.foodonline.DataModel;
 
 public class ComboModel {
-    String id;
-    String nameCombo;
-    String imageCombo;
-    String totalCombo;
-    String priceCombo;
+    String id, nameCombo, imageCombo, totalDish, priceCombo, dish;
+
+    public String getDish() {
+        return dish;
+    }
 
     public String getId() {
         return id;
@@ -23,17 +23,19 @@ public class ComboModel {
         return priceCombo;
     }
 
-    public String getTotalCombo() {
-        return totalCombo;
+    public String getTotalDish() {
+        return totalDish;
     }
 
-    public ComboModel(String id, String nameCombo, String imageCombo, String totalCombo, String priceCombo) {
+    public ComboModel(String id, String nameCombo, String imageCombo, String totalDish, String priceCombo, String dish) {
         this.id = id;
         this.nameCombo = nameCombo;
         this.imageCombo = imageCombo;
-        this.totalCombo = totalCombo;
+        this.totalDish = totalDish;
         this.priceCombo = priceCombo;
+        this.dish = dish;
     }
+
     public ComboModel() {
     }
 }

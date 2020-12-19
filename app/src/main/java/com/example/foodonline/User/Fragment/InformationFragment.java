@@ -22,12 +22,14 @@ import com.example.foodonline.DataModel.UserModel;
 import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
 import com.example.foodonline.User.NoficationActivity;
+import com.example.foodonline.utils.Constant;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import static com.example.foodonline.utils.Constant.USER_REFERENCES;
+import static com.example.foodonline.utils.Constant.USER_ID;
 public class InformationFragment extends Fragment {
     Context context;
     LinearLayout btn_history, btn_nofication;
@@ -40,7 +42,7 @@ public class InformationFragment extends Fragment {
     public static Fragment newInstance(String userId) {
         Bundle args = new Bundle();
         InformationFragment fragment = new InformationFragment();
-        args.putString("userID", userId);
+        args.putString(USER_ID, userId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,7 +62,7 @@ public class InformationFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            userID = bundle.getString("userID");
+            userID = bundle.getString(USER_ID);
         }
         readData();
         return view;
@@ -104,15 +106,15 @@ public class InformationFragment extends Fragment {
     }
     private void readData(){
         database = FirebaseDatabase.getInstance().getReference();
-        database.child("Users").addChildEventListener(new ChildEventListener() {
+        database.child(USER_REFERENCES).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (snapshot.getKey().equals(userID)){
                     UserModel user = snapshot.getValue(UserModel.class);
                     tv_Name.setText(user.getName());
-//                    tv_PhoneNumber.setText(user.getNumberPhone());
+                    tv_PhoneNumber.setText(user.getNumberPhone());
                     tv_Email.setText(user.getEmail());
-//                    tv_Adress.setText(user.getAdress());
+                    tv_Adress.setText(user.getAdress());
                 }
             }
 
