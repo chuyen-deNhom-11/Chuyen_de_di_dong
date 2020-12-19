@@ -20,8 +20,10 @@ import java.util.ArrayList;
 public class ListTableAdapter extends RecyclerView.Adapter<ListTableAdapter.ViewHolder> {
     private ArrayList<TableModel> list;
     private Context context;
-    public ListTableAdapter(ArrayList<TableModel>tableModels){
+    private ClickLisener onClickLisener;
+    public ListTableAdapter(ArrayList<TableModel>tableModels,ClickLisener onClickLisener){
         this.list = tableModels;
+        this.onClickLisener = onClickLisener;
     }
     @NonNull
     @Override
@@ -29,7 +31,7 @@ public class ListTableAdapter extends RecyclerView.Adapter<ListTableAdapter.View
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         context = parent.getContext();
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.item_table, parent, false);
-        return new ViewHolder(layout);
+        return new ViewHolder(layout,onClickLisener);
     }
 
     @Override
@@ -54,14 +56,24 @@ public class ListTableAdapter extends RecyclerView.Adapter<ListTableAdapter.View
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView image_table;
         TextView name_table;
-
-        public ViewHolder(View convertView) {
+        ClickLisener onClickLisener;
+        public ViewHolder(View convertView, ClickLisener onClickLisener) {
             super(convertView);
             image_table = convertView.findViewById(R.id.image_table);
             name_table = convertView.findViewById(R.id.name_table);
+            this.onClickLisener = onClickLisener;
+            convertView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onClickLisener.onClick(getAdapterPosition());
+        }
+    }
+    public interface ClickLisener {
+        void onClick(int posotion);
     }
 }
