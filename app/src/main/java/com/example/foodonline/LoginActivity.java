@@ -81,9 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                         case KeyEvent.KEYCODE_ENTER:
                             userName = et_acount.getText().toString();
                             passWord = etPassword.getText().toString();
-                                loginUser(userName, passWord);
+                            loginUser(userName, passWord);
 
-                        return true;
+                            return true;
                         default:
                             break;
                     }
