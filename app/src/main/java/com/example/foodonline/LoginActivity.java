@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.foodonline.utils.Constant.USER_ID;
+import static com.example.foodonline.utils.Constant.USER_REFERENCES;
 public class LoginActivity extends AppCompatActivity {
 
     Button sign_in;
@@ -108,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    FirebaseDatabase.getInstance().getReference().child("Users").child(fAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    FirebaseDatabase.getInstance().getReference().child(USER_REFERENCES).child(fAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             HashMap hashUser = (HashMap) snapshot.getValue();
@@ -116,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                                 type = hashUser.get("type").toString();
                                 if (type.equals("0")){
                                     intent = new Intent(LoginActivity.this, HomeUserActivity.class);
-                                    intent.putExtra("userID", fAuth.getCurrentUser().getUid());
+                                    intent.putExtra(USER_ID, fAuth.getCurrentUser().getUid());
                                     startActivity(intent);
                                 }
                                 else if (type.equals("1")){

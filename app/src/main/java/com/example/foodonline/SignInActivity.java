@@ -81,14 +81,14 @@ public class SignInActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         UserModel userModel = new UserModel();
-                        userModel.setId(fAuth.getUid());
+                        userModel.setUid(fAuth.getUid());
                         userModel.setEmail(txt_email.getText().toString());
                         userModel.setName(txt_Name.getText().toString());
                         userModel.setAdress(txt_adress.getText().toString());
                         userModel.setNumberPhone(txt_PhoneNumber.getText().toString());
                         userModel.setPassword(txt_Pass.getText().toString());
                         userModel. setType("0");
-                        FirebaseDatabase.getInstance().getReference("Users").child(userModel.getId()).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        FirebaseDatabase.getInstance().getReference("Users").child(userModel.getUid()).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 intent = new Intent(SignInActivity.this, LoginActivity.class);
