@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,10 +23,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.foodonline.Adpter.ListDishBillAdapter;
+import com.example.foodonline.DataModel.BillModel;
 import com.example.foodonline.DataModel.CartModel;
 import com.example.foodonline.DataModel.UserModel;
 import com.example.foodonline.R;
 import com.example.foodonline.User.ListTableActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,10 +46,12 @@ public class BillFragment extends Fragment {
     ListView list_dish;
     String userID;
     ImageView btn_reset;
+    TextView tv_name_date_booking,tv_time;
     FirebaseDatabase fData = FirebaseDatabase.getInstance();
-    String name, phoneNumber, adress;
-    TextView tv_name_phone, tv_address,tv_select_table,change_tables;
-    Button btn_Cancel,btn_Oder;
+    String name, phoneNumber, adress, sTime, sDate, sNameTable, sTableID = "";
+    TextView tv_name_phone, tv_address, tv_select_table, change_tables, total_price;
+    LinearLayout bookingTrue, bookingFalse;
+    Button btn_Cancel, btn_Oder;
     ListDishBillAdapter listDishBillAdapter;
     int totalPrice = 0;
     Intent intent;
@@ -77,8 +81,13 @@ public class BillFragment extends Fragment {
         tv_address = view.findViewById(R.id.address);
         tv_select_table = view.findViewById(R.id.tv_select_table);
         btn_Cancel = view.findViewById(R.id.btn_Cancel);
-        btn_Oder = view.findViewById(R.id.btn_order);
+        btn_Oder = view.findViewById(R.id.btn_Oder);
         change_tables = view.findViewById(R.id.change_tables);
+        total_price = view.findViewById(R.id.total_price);
+        bookingFalse = view.findViewById(R.id.bookingFalse);
+        bookingTrue = view.findViewById(R.id.bookingTrue);
+        tv_time = view.findViewById(R.id.tv_time);
+        tv_name_date_booking = view.findViewById(R.id.tv_name_date_booking);
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -89,10 +98,11 @@ public class BillFragment extends Fragment {
         readData();
         setListDish();
         setResetInfornationListener();
+        selectTable();
         return view;
     }
 
-    private void eventClickListener(){
+    private void eventClickListener() {
         list_dish.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -115,11 +125,12 @@ public class BillFragment extends Fragment {
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        fData.getReference().child("Cart").child(userID).removeValue();
-                        for (int i=0 ; i<cartModels.size();i++){
-                            cartModels.remove(i);
-                        }
-                        listDishBillAdapter.notifyDataSetChanged();
+                        fData.getReference().child("Cart").child(userID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                setListDish();
+                            }
+                        });
                     }
                 });
                 builder.setNegativeButton("Không", null);
@@ -131,25 +142,56 @@ public class BillFragment extends Fragment {
         change_tables.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectTableListener();
+                fData.getReference().child("Cart").child(userID).child("table").removeValue();
+            }
+        });
+
+//        TODO: Set Oder Bill
+        btn_Oder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BillModel b = new BillModel(userID, name, adress, phoneNumber, totalPrice + "", sNameTable, sDate, sTime, sTableID, cartModels.size(), 0);
+                fData.getReference().child("Bill").push().setValue(b, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        fData.getReference().child("Bill").child(ref.getKey()).child("Dish").setValue(cartModels).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                fData.getReference().child("Cart").child(userID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                        builder.setMessage("Bạn Đặt hàng thành công");
+                                        builder.setNegativeButton("ok", null);
+                                        Dialog dialog = builder.create();
+                                        dialog.show();
+                                    }
+                                });
+                                setListDish();
+                            }
+                        });
+                    }
+                });
             }
         });
     }
+
     private void setListDish() {
-        totalPrice =0;
+        totalPrice = 0;
         cartModels = new ArrayList<>();
         fData.getReference().child("Cart").child(userID).child("dish").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 CartModel cart = snapshot.getValue(CartModel.class);
                 cartModels.add(new CartModel(snapshot.getKey(), cart.getNameFood(), cart.getSoLuong(), cart.getPrice()));
-                totalPrice = totalPrice + (cart.getPrice()* cart.getSoLuong());
+                totalPrice = totalPrice + (cart.getPrice() * cart.getSoLuong());
+                total_price.setText(totalPrice + "");
                 listDishBillAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.d("TAG", "onChildChanged");
+                setTotalPrice();
             }
 
             @Override
@@ -194,6 +236,7 @@ public class BillFragment extends Fragment {
                         name = etName.getText().toString();
                         phoneNumber = etPhoneNumber.getText().toString();
                         adress = etAdress.getText().toString();
+
                         setTextInfonation();
                     }
                 });
@@ -212,7 +255,7 @@ public class BillFragment extends Fragment {
                 if (snapshot.getKey().equals(userID)) {
                     UserModel user = snapshot.getValue(UserModel.class);
                     name = user.getName();
-                    phoneNumber = user.getNumberPhone();
+                    phoneNumber = user.getPhoneNumber();
                     adress = user.getAdress();
                     setTextInfonation();
                 }
@@ -238,15 +281,54 @@ public class BillFragment extends Fragment {
                 Log.d("TAG", "onCancelled");
             }
         });
+
+        fData.getReference().child("Cart").child(userID).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                sDate = snapshot.child("dateBooking").getValue(String.class);
+                sTime = snapshot.child("timeBooking").getValue(String.class);
+                sNameTable = snapshot.child("tableName").getValue(String.class);
+                sTableID = snapshot.child("tableID").getValue(String.class);
+                if (sTableID !=null){
+                    selectTable();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                sDate = snapshot.child("dateBooking").getValue(String.class);
+                sTime = snapshot.child("timeBooking").getValue(String.class);
+                sNameTable = snapshot.child("tableName").getValue(String.class);
+                sTableID = snapshot.child("tableID").getValue(String.class);
+                if (sTableID !=null){
+                    selectTable();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Log.d("TAG", "onChildRemoved");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("TAG", "onCancelled");
+            }
+        });
     }
 
     private void setTextInfonation() {
         tv_name_phone.setText(name + " - " + phoneNumber);
         tv_address.setText(adress);
     }
-    private void removeDish(final int position){
+
+    private void removeDish(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Bạn có muốn xóa món "+ cartModels.get(position).getNameFood() +" khỏi hóa đơn không ?");
+        builder.setMessage("Bạn có muốn xóa món " + cartModels.get(position).getNameFood() + " khỏi hóa đơn không ?");
         builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -254,7 +336,7 @@ public class BillFragment extends Fragment {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                         cartModels.remove(position);
-                        Log.d("Position", position+"");
+                        Log.d("Position", position + "");
                         listDishBillAdapter.notifyDataSetChanged();
                         list_dish.setAdapter(listDishBillAdapter);
                         setTotalPrice();
@@ -266,15 +348,31 @@ public class BillFragment extends Fragment {
         Dialog dialog = builder.create();
         dialog.show();
     }
-    private void setTotalPrice(){
-        totalPrice = 0 ;
-        for (int i=0;i< cartModels.size();i++){
-            totalPrice = totalPrice + (cartModels.get(i).getPrice()* cartModels.get(i).getSoLuong());
+
+    private void setTotalPrice() {
+        totalPrice = 0;
+        for (int i = 0; i < cartModels.size(); i++) {
+            totalPrice = totalPrice + (cartModels.get(i).getPrice() * cartModels.get(i).getSoLuong());
         }
-        Log.d("totalPrice:", totalPrice+"");
+        total_price.setText(totalPrice + "");
+        Log.d("totalPrice:", totalPrice + "");
     }
-    private void selectTableListener(){
+
+    private void selectTableListener() {
         intent = new Intent(context, ListTableActivity.class);
+        intent.putExtra(USER_ID, userID);
         startActivity(intent);
+    }
+
+    private void selectTable() {
+        if (sTableID.equals("")) {
+            bookingFalse.setVisibility(View.VISIBLE);
+            bookingTrue.setVisibility(View.GONE);
+        } else {
+            bookingFalse.setVisibility(View.GONE);
+            bookingTrue.setVisibility(View.VISIBLE);
+            tv_name_date_booking.setText(sNameTable +" - "+sTime);
+            tv_time.setText(sDate);
+        }
     }
 }

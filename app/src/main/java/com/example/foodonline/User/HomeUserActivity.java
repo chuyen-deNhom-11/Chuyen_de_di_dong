@@ -51,7 +51,7 @@ public class HomeUserActivity extends AppCompatActivity {
                         swapContentFragment(BillFragment.newInstance(userId), true, R.id.layout_user);
                         return true;
                     case R.id.booking:
-                        swapContentFragment(SetTableFragment.newInstance(), true, R.id.layout_user);
+                        swapContentFragment(SetTableFragment.newInstance(userId), true, R.id.layout_user);
                         return true;
 
                     case R.id.information:

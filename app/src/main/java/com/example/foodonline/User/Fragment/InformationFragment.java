@@ -16,13 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.foodonline.Adpter.LishItemComboAdapter;
-import com.example.foodonline.DataModel.NoficationModel;
 import com.example.foodonline.DataModel.UserModel;
 import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
 import com.example.foodonline.User.NoficationActivity;
-import com.example.foodonline.utils.Constant;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -112,7 +109,7 @@ public class InformationFragment extends Fragment {
                 if (snapshot.getKey().equals(userID)){
                     UserModel user = snapshot.getValue(UserModel.class);
                     tv_Name.setText(user.getName());
-                    tv_PhoneNumber.setText(user.getNumberPhone());
+                    tv_PhoneNumber.setText(user.getPhoneNumber());
                     tv_Email.setText(user.getEmail());
                     tv_Adress.setText(user.getAdress());
                 }

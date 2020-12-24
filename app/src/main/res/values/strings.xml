@@ -45,7 +45,9 @@
     <string name="btn_exit">Thoát</string>
     <string name="btn_reset_pass">Đổi mật khẩu</string>
     <string name="tv_day">Ngày đặt</string>
-    <string name="tv_time">Thời gian</string>
+    <string name="tv_date">Ngày</string>
+    <string name="tv_time">Giờ</string>
     <string name="tv_name_tale">Tên bàn</string>
     <string name="tv_total_people">Số người</string>
+    <string name="tv_delete">Xóa</string>
 </resources>
