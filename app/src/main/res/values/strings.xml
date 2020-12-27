@@ -54,5 +54,8 @@
     <string name="tv_time">Thời gian</string>
     <string name="tv_name_tale">Tên bàn</string>
     <string name="tv_total_people">Số người</string>
+    <string name="ca_1">Ca 1</string>
+    <string name="ca_2">Ca 2</string>
+    <string name="ca_3">Ca 3</string>
 
 </resources>
