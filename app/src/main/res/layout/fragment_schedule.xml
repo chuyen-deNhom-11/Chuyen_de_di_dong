@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightBlue"
+    android:orientation="vertical"
+    tools:context=".Admin.fragment.M001ScheduleFragment">
+
+    <include layout="@layout/action_bar_staff" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="20dp">
+
+        <Spinner
+            android:id="@+id/spinner_day"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:dropDownVerticalOffset="3dp"
+            android:overlapAnchor="false"
+            android:paddingLeft="16dp"
+            android:spinnerMode="dropdown" />
+    </androidx.cardview.widget.CardView>
+
+
+    <RadioGroup
+        android:id="@+id/radio_group_shift"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
+
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="@string/ca_1"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="@string/ca_2"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="@string/ca_3"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+    </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_listStaff"
+        class="androidx.appcompat.app.AlertController$RecycleListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/item_staff">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>

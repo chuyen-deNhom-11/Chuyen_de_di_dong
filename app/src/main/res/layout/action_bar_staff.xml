@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="16dp"
+    >
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="30dp"
+        android:layout_height="@dimen/d_40"
+        android:src="@drawable/ic_back"
+        android:paddingVertical="10dp"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quản lý nhân viên"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
+
+</LinearLayout>

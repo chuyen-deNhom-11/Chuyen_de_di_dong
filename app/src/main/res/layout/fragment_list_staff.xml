@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightBlue"
+    android:orientation="vertical"
+    tools:context=".Admin.fragment.M001ScheduleFragment">
+
+
+
+    <include layout="@layout/action_bar_staff"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="10dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:id="@+id/tv_attender"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:text="Phục vụ"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_chief"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorBlueDark"
+                android:gravity="center"
+                android:text="Đầu bếp"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_moderator"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorBlueDark"
+                android:gravity="center"
+                android:text="Kiểm duyệt"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+        </TableRow>
+    </androidx.cardview.widget.CardView>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_staff"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_staff">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/background_round"
+            android:padding="5dp"
+            android:src="@drawable/ic_add"
+            app:tint="@color/colorPrimaryDark" />
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/background_round"
+            android:padding="5dp"
+            android:paddingHorizontal="5dp"
+            android:src="@drawable/ic_schedule"
+            app:tint="@color/colorPrimaryDark" />
+
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:text="Ops!\nBạn chưa thêm nhân viên nào\n trong mục này!!"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</LinearLayout>

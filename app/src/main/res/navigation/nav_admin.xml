@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/adminHomeFragment">
+    <fragment
+        android:id="@+id/adminHomeFragment"
+        android:name="com.example.foodonline.Admin.fragment.M001ListStaffFragment"
+        tools:layout="@layout/fragment_list_staff">
+        <action
+            app:enterAnim="@anim/alpha_in"
+            app:exitAnim="@anim/alpha_out"
+            app:popEnterAnim="@anim/alpha_in"
+            app:popExitAnim="@anim/alpha_out"
+            android:id="@+id/action_to_schedule"
+            app:destination="@+id/scheduleFragment" />
+
+        <action
+            app:enterAnim="@anim/alpha_in"
+            app:exitAnim="@anim/alpha_out"
+            app:popEnterAnim="@anim/alpha_in"
+            app:popExitAnim="@anim/alpha_out"
+            android:id="@+id/action_to_staff_detail"
+            app:destination="@+id/staffDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tableFragment"
+        android:name="com.example.foodonline.Admin.fragment.M002TableFragment"
+        tools:layout="@layout/fragment_ban" />
+
+    <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.example.foodonline.Admin.fragment.M003FoodFragment"
+        tools:layout="@layout/fragment_mon_an" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.foodonline.Admin.fragment.M004AccountFragment"
+        tools:layout="@layout/fragment_tai_khoan" />
+
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.example.foodonline.Admin.fragment.M001ScheduleFragment"
+        tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/staffDetailFragment"
+        android:name="com.example.foodonline.Admin.fragment.M001StaffDetailFragment"
+        tools:layout="@layout/fragment_staff_detail" />
+
+</navigation>
