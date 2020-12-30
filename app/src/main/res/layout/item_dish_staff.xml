@@ -13,43 +13,57 @@
         app:cardCornerRadius="20dp">
 
         <TableRow
-            android:id="@+id/item_staff"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBlue001"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:id="@+id/iv_atatar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/ic_chef" />
+            android:background="@color/colorPrimaryDark"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingHorizontal="16dp">
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="5dp">
 
                 <TextView
-                    android:id="@+id/tv_staff_name"
+                    android:id="@+id/tv_food_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nguyên Trần"
+                    android:singleLine="true"
+                    android:text="Sườn xào chua ngọt"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_job"
+                    android:id="@+id/tv_food_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Đầu bếp"
-                    android:textColor="@color/white_opaque"
-                    android:textSize="18dp" />
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"
+                    android:text="Đồ ăn mặn"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/tv_food_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"
+                    android:text="Giá: 10000 VND"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_food_image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_food_demo" />
         </TableRow>
 
     </androidx.cardview.widget.CardView>

@@ -16,4 +16,6 @@
     <color name="colorBlue001">#304ffe</color>
     <color name="white_opaque">#CCFFFFFF</color>
     <color name="colorBlueDark">#802D48AD</color>
+    <color name="colorBlue002">#369BF4</color>
+    <color name="colorLightGray">#D1D1D1</color>
 </resources>

@@ -68,8 +68,10 @@ public class StaffAdapter extends BaseRecylerAdapter<StaffAdapter.StaffHolder, A
 
         @Override
         public void onClick(View view) {
-            if (view.getId() == R.id.item_staff){
-                mCallBack.callBack(KEY_CLICK_STAFF, data);
+            if (view.getId() == R.id.item_staff) {
+                if (mCallBack != null) {
+                    mCallBack.callBack(KEY_CLICK_STAFF, data);
+                }
             }
         }
     }

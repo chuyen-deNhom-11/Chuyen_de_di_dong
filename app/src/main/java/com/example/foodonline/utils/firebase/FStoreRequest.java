@@ -1,20 +1,16 @@
-package com.neos.caapp.utils.firebase;
+package com.example.foodonline.utils.firebase;
 
-import android.content.ContentResolver;
 import android.net.Uri;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.neos.caapp.CAApplication;
-import com.neos.caapp.model.mess.ReportMessageEntity;
-import com.neos.caapp.view.widget.CADateConverter;
 
 import java.util.UUID;
 
 public class FStoreRequest {
     private final StorageReference mStore;
-    private String path;
     private final Uri file;
+    private final String path;
 
 
     public FStoreRequest(String sourcePath, Uri file) {
@@ -26,22 +22,11 @@ public class FStoreRequest {
     public void callRequest(String tag, OnFStoreCallBack callBack) {
         String fileName = generateUniqueName();
         StorageReference fileChild = mStore.child(fileName);
-        ContentResolver cR = CAApplication.getInstance().getContentResolver();
-        String type = cR.getType(file);
-        int filetype = -1;
-        if (type.startsWith("image")) {
-            filetype = ReportMessageEntity.TYPE_IMG;
-        } else if (type.startsWith("video")) {
-            filetype = ReportMessageEntity.TYPE_VIDEO;
-        } else {
-            callBack.uploadFailded(tag, new NullPointerException());
-            return;
-        }
-        int finalFiletype = filetype;
+
         fileChild.putFile(file)
                 .addOnSuccessListener(taskSnapshot -> {
                     fileChild.getDownloadUrl().addOnSuccessListener(uri -> {
-                        callBack.uploadFileDone(tag, uri.toString(), finalFiletype);
+                        callBack.uploadFileDone(tag, uri.toString());
                     });
                 }).addOnFailureListener(e -> {
             callBack.uploadFailded(tag, e);
@@ -49,15 +34,20 @@ public class FStoreRequest {
     }
 
     private String generateUniqueName() {
-        long timeNow = CADateConverter.getCurrentDateMiliseconde();
+        long timeNow = getDateMilisecond();
         String uniqueName = UUID.randomUUID().toString() + timeNow;
         return uniqueName;
+    }
+
+    public long getDateMilisecond() {
+        long time = System.currentTimeMillis();
+        return time;
     }
 
 
     public interface OnFStoreCallBack {
 
-        default void uploadFileDone(String tag, String toString, int fileType) {
+        default void uploadFileDone(String tag, String fileLink) {
 
         }
 

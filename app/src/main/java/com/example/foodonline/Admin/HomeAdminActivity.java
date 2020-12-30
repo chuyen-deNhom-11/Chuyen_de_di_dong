@@ -12,23 +12,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeAdminActivity extends BaseActivity {
 
-
     private BottomNavigationView bottomNav;
     private NavController navController;
-
 
     @Override
     protected void initViews() {
         bottomNav = findViewById(R.id.bottom_navigation);
         navController = Navigation.findNavController(this, R.id.host_fragment);
         NavigationUI.setupWithNavController(bottomNav, navController);
+
     }
 
     @Override
     protected void initListenner() {
         hideBottomNavigationWith(
                 R.id.scheduleFragment,
-                R.id.staffDetailFragment
+                R.id.staffDetailFragment,
+                R.id.addFoodFragment
         );
     }
 
