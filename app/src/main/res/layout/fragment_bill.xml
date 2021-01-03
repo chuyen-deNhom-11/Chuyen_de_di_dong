@@ -5,8 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <LinearLayout
+        android:id="@+id/layout_close"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:visibility="gone"
+        android:gravity="right">
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_baseline_close_24"
+            tools:ignore="VectorDrawableCompat" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_ship"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
@@ -71,28 +86,12 @@
         android:layout_height="0dp"
         android:layout_margin="5dp"
         android:layout_weight="1"
+        android:padding="10dp"
         android:background="@drawable/layout_item"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".7"
-                android:textSize="20dp"
-                android:text="@string/transport_fee" />
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:imeOptions="actionDone"
-                android:singleLine="true" />
-        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -105,6 +104,8 @@
                 android:textSize="20dp"
                 android:text="@string/total_price" />
             <TextView
+                android:gravity="right"
+                android:id="@+id/total_price"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight=".4"
@@ -112,12 +113,15 @@
                 android:singleLine="true" />
         </LinearLayout>
     </LinearLayout>
-
+<!--booking flase-->
     <LinearLayout
+        android:id="@+id/bookingFalse"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
         android:layout_weight="1"
+        android:visibility="gone"
         android:background="@drawable/layout_item"
         android:orientation="horizontal">
 
@@ -136,8 +140,10 @@
             android:text="@string/tv_oder_table"
             android:textColor="@color/colorUpdate" />
     </LinearLayout>
-
+<!--booking true-->
     <LinearLayout
+        android:padding="10dp"
+        android:id="@+id/bookingTrue"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
@@ -154,11 +160,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_name_date_booking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bàn 001   -    Ngày 01/01/2020" />
 
             <TextView
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thời gian: 10:00" />
@@ -170,11 +178,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/tv_reselect_table"
+            android:text="@string/tv_delete"
             android:textColor="@color/colorUpdate" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"

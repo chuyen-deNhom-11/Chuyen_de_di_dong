@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.foodonline.DataModel.ComboModel;
 import com.example.foodonline.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,8 +29,7 @@ public class LishItemComboAdapter extends RecyclerView.Adapter<LishItemComboAdap
     private ArrayList<ComboModel> list;
     private Context context;
     private OnComboLisener mOnComboLisener;
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference();
+
 
     public LishItemComboAdapter(ArrayList<ComboModel> dataRoom, OnComboLisener onComboLisener) {
         this.list = dataRoom;
@@ -72,12 +72,7 @@ public class LishItemComboAdapter extends RecyclerView.Adapter<LishItemComboAdap
         holder.name_combo.setText(comboModel.getNameCombo());
         holder.total_dish.setText(comboModel.getTotalDish() + " Món");
         holder.price_combo.setText("Giá: " + comboModel.getPriceCombo());
-        storageRef.child("combo/" + comboModel.getImageCombo()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.with(context).load(uri.toString()).into(holder.image_combo);
-            }
-        });
+        Glide.with(context).load(comboModel.getImageCombo()).into(holder.image_combo);
     }
 
     @Override

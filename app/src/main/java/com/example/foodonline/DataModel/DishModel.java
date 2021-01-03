@@ -1,7 +1,7 @@
 package com.example.foodonline.DataModel;
 
 public class DishModel {
-    String id, name, image, price, description, idTypeDish, idCombo;
+    String id, name, image, price, description, idCombo;
     boolean check;
 
     public boolean isCheck() {
@@ -28,10 +28,6 @@ public class DishModel {
         return description;
     }
 
-    public String getIdTypeDish() {
-        return idTypeDish;
-    }
-
     public String getIdCombo() {
         return idCombo;
     }
@@ -43,13 +39,12 @@ public class DishModel {
     public DishModel() {
     }
 
-    public DishModel(String id, String name, String image, String price, String description, String idTypeDish, String idCombo) {
+    public DishModel(String id, String name, String image, String price, String description, String idCombo) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.price = price;
         this.description = description;
-        this.idTypeDish = idTypeDish;
         this.idCombo = idCombo;
     }
 

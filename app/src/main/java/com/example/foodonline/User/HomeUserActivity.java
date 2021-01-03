@@ -24,7 +24,7 @@ public class HomeUserActivity extends AppCompatActivity {
 
     BottomNavigationView navMenu;
     Intent intent;
-    String userId;
+    String userId,sType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +33,7 @@ public class HomeUserActivity extends AppCompatActivity {
         setMenuUser();
         intent = getIntent();
         userId = intent.getStringExtra("userID");
+        sType = intent.getStringExtra("type");
 
         swapContentFragment(HomUserFragment.newInstance(userId), true, R.id.layout_user);
     }
@@ -47,10 +48,10 @@ public class HomeUserActivity extends AppCompatActivity {
                         swapContentFragment(HomUserFragment.newInstance(userId), true, R.id.layout_user);
                         return true;
                     case R.id.bill:
-                        swapContentFragment(BillFragment.newInstance(userId), true, R.id.layout_user);
+                        swapContentFragment(BillFragment.newInstance(userId,sType), true, R.id.layout_user);
                         return true;
                     case R.id.booking:
-                        swapContentFragment(SetTableFragment.newInstance(), true, R.id.layout_user);
+                        swapContentFragment(SetTableFragment.newInstance(userId), true, R.id.layout_user);
                         return true;
 
                     case R.id.information:
