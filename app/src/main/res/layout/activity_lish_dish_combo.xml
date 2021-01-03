@@ -5,7 +5,8 @@
     android:orientation="vertical">
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dp"
+    android:layout_weight="1"
     android:orientation="vertical"
     android:padding="20dp">
     <TextView
@@ -27,12 +28,14 @@
     <ListView
         android:id="@+id/lv_list_dish_combo"
         android:layout_width="match_parent"
-        android:layout_height="594dp" />
+        android:layout_height="0dp"
+        android:layout_weight="7"/>
     <Button
         android:layout_margin="5dp"
         android:id="@+id/btn_oder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
         android:textAllCaps="false"
         android:gravity="center"
         android:text="@string/order" />

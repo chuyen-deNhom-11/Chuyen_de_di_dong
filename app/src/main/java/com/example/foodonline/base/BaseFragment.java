@@ -1,6 +1,7 @@
 package com.example.foodonline.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import com.example.foodonline.App;
+import com.example.foodonline.R;
 
 public abstract class BaseFragment extends Fragment implements View.OnClickListener {
 
@@ -40,6 +44,15 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         initListenners();
         initComponent();
         initData();
+    }
+
+    public void showMediaPicker(int requestCode) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, App.getInstance()
+                .getString(R.string.select_picture)), requestCode);
     }
 
     protected abstract void initViews();

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
 import com.example.foodonline.DataModel.DishModel;
 import com.example.foodonline.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -67,12 +68,7 @@ public class ListDishComboAdapter extends ArrayAdapter<DishModel> {
                     notifyDataSetChanged();
                 }
             });
-            storageRef.child("food/" + dishModel.getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Picasso.with(context).load(uri.toString()).into(viewHolder.img_dish);
-                }
-            });
+            Glide.with(context).load(dishModel.getImage()).into(viewHolder.img_dish);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }

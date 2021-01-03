@@ -6,15 +6,22 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodonline.Admin.event.OnActionCallBack;
+
 public abstract class BaseDialog extends Dialog implements View.OnClickListener {
     protected Context mContext;
     protected Object data;
+    protected OnActionCallBack mCallback;
 
     public BaseDialog(@NonNull Context context, Object data) {
         super(context);
         init(context, data);
     }
 
+
+    public void setCallback(OnActionCallBack callback) {
+        this.mCallback = callback;
+    }
 
     public BaseDialog(@NonNull Context context, int themeResId, Object data) {
         super(context, themeResId);
@@ -49,6 +56,7 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
             }
         }
     }
+
 
     @Override
     public void onClick(View view) {

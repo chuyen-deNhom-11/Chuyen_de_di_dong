@@ -13,8 +13,8 @@
         android:id="@+id/image_combo"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/ic_baseline_image"
-        tools:ignore="Orientation">
+        app:srcCompat="@drawable/ic_baseline_image"
+        tools:ignore="VectorDrawableCompat">
 
 
     </ImageView>
@@ -34,6 +34,7 @@
         <TextView
             android:id="@+id/total_dish"
             android:padding="3dp"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Số món"/>
