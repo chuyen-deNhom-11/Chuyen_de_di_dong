@@ -115,9 +115,10 @@ public class LoginActivity extends AppCompatActivity {
                             HashMap hashUser = (HashMap) snapshot.getValue();
                             if (hashUser != null) {
                                 type = hashUser.get("type").toString();
-                                if (type.equals("0")){
+                                if (type.equals("0")||type.equals("4")){
                                     intent = new Intent(LoginActivity.this, HomeUserActivity.class);
                                     intent.putExtra(USER_ID, fAuth.getCurrentUser().getUid());
+                                    intent.putExtra("type",type);
                                     startActivity(intent);
                                 }
                                 else if (type.equals("1")){

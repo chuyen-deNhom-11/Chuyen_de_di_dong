@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
 import com.example.foodonline.DataModel.CartModel;
 import com.example.foodonline.DataModel.DishModel;
 import com.example.foodonline.R;
@@ -71,26 +72,22 @@ public class ListItemDishAdapter extends ArrayAdapter<DishModel> {
             viewHolder.img_dish = view.findViewById(R.id.img_dish);
             viewHolder.name_dish = view.findViewById(R.id.name_dish);
             viewHolder.price = view.findViewById(R.id.price);
+            DishModel dishModel = arrCustomer.get(position);
+            viewHolder.price.setText(dishModel.getPrice());
+            viewHolder.name_dish.setText(dishModel.getName());
+
+            viewHolder.btn_order.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showDialog(position);
+                }
+            });
+            Glide.with(context).load(dishModel.getImage()).into(viewHolder.img_dish);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        DishModel dishModel = arrCustomer.get(position);
-        viewHolder.price.setText(dishModel.getPrice());
-        viewHolder.name_dish.setText(dishModel.getName());
 
-        viewHolder.btn_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog(position);
-            }
-        });
-        storageRef.child("food/" + dishModel.getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.with(context).load(uri.toString()).into(viewHolder.img_dish);
-            }
-        });
         return view;
     }
 

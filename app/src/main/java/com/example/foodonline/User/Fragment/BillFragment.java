@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,22 +45,23 @@ public class BillFragment extends Fragment {
     Context context;
     ArrayList<CartModel> cartModels;
     ListView list_dish;
-    String userID;
+    String userID, sType;
     ImageView btn_reset;
-    TextView tv_name_date_booking,tv_time;
+    TextView tv_name_date_booking, tv_time;
     FirebaseDatabase fData = FirebaseDatabase.getInstance();
     String name, phoneNumber, adress, sTime, sDate, sNameTable, sTableID = "";
     TextView tv_name_phone, tv_address, tv_select_table, change_tables, total_price;
-    LinearLayout bookingTrue, bookingFalse;
+    LinearLayout bookingTrue, bookingFalse, layout_ship;
     Button btn_Cancel, btn_Oder;
     ListDishBillAdapter listDishBillAdapter;
-    int totalPrice = 0;
+    int totalPrice = 0, typeBooking = 0;
     Intent intent;
 
-    public static Fragment newInstance(String userId) {
+    public static Fragment newInstance(String userId, String sType) {
         Bundle args = new Bundle();
         BillFragment fragment = new BillFragment();
         args.putString(USER_ID, userId);
+        args.putString("type", sType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -88,10 +90,12 @@ public class BillFragment extends Fragment {
         bookingTrue = view.findViewById(R.id.bookingTrue);
         tv_time = view.findViewById(R.id.tv_time);
         tv_name_date_booking = view.findViewById(R.id.tv_name_date_booking);
+        layout_ship = view.findViewById(R.id.layout_ship);
 
         Bundle bundle = getArguments();
         if (bundle != null) {
             userID = bundle.getString(USER_ID);
+            sType = bundle.getString("type");
         }
 
         eventClickListener();
@@ -99,6 +103,7 @@ public class BillFragment extends Fragment {
         setListDish();
         setResetInfornationListener();
         selectTable();
+        oder();
         return view;
     }
 
@@ -146,30 +151,60 @@ public class BillFragment extends Fragment {
             }
         });
 
-//        TODO: Set Oder Bill
+    }
+
+    private void oder() {
+        if(sType.equals("4")){
+            layout_ship.setVisibility(View.GONE);
+            typeBooking = 1;
+        }
         btn_Oder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BillModel b = new BillModel(userID, name, adress, phoneNumber, totalPrice + "", sNameTable, sDate, sTime, sTableID, cartModels.size(), 0);
-                fData.getReference().child("Bill").push().setValue(b, new DatabaseReference.CompletionListener() {
+                if (sType.equals("4")) {
+                    if (sTableID == null || sTableID.equals("")) {
+                        Toast.makeText(context, "Vui lòng chọn bàn", Toast.LENGTH_SHORT).show();
+                    } else {
+                        oderLisenner();
+                    }
+                } else {
+                    if (sTableID != null || !sTableID.equals("")) {
+                        typeBooking = 1;
+                    }
+                    oderLisenner();
+                }
+            }
+        });
+    }
+
+    private void oderLisenner() {
+        //       TODO: Set Oder Bill
+
+        BillModel b = new BillModel(userID, name, adress, phoneNumber, totalPrice + "", sNameTable, sDate, sTime, sTableID, cartModels.size(), getDateMilisecond(), typeBooking, 0);
+        fData.getReference().child("Bill").push().setValue(b, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull final DatabaseReference ref) {
+                if (sTableID != null) {
+                    fData.getReference().child("Table").child(sTableID).child("status").setValue(1);
+                    if (sType.equals("4")) {
+                        fData.getReference().child("Table").child(sTableID).child("status").setValue(2);
+                        fData.getReference().child("Table").child(sTableID).child("id_nvoice").setValue(ref.getKey());
+                    }
+                }
+                fData.getReference().child("Bill").child(ref.getKey()).child("Dish").setValue(cartModels).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                        fData.getReference().child("Bill").child(ref.getKey()).child("Dish").setValue(cartModels).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    public void onSuccess(Void aVoid) {
+                        fData.getReference().child("Cart").child(userID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                fData.getReference().child("Cart").child(userID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                        builder.setMessage("Bạn Đặt hàng thành công");
-                                        builder.setNegativeButton("ok", null);
-                                        Dialog dialog = builder.create();
-                                        dialog.show();
-                                    }
-                                });
-                                setListDish();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                builder.setMessage("Bạn Đặt hàng thành công");
+                                builder.setNegativeButton("ok", null);
+                                Dialog dialog = builder.create();
+                                dialog.show();
                             }
                         });
+                        setListDish();
                     }
                 });
             }
@@ -196,7 +231,7 @@ public class BillFragment extends Fragment {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                Log.d("TAG", "onChildRemoved");
+                total_price.setText("");
             }
 
             @Override
@@ -209,7 +244,7 @@ public class BillFragment extends Fragment {
                 Log.d("TAG", "onCancelled");
             }
         });
-        listDishBillAdapter = new ListDishBillAdapter(context, R.layout.fragment_bill, cartModels, userID);
+        listDishBillAdapter = new ListDishBillAdapter(context, R.layout.fragment_bill, cartModels, userID,"BillFragment");
         list_dish.setAdapter(listDishBillAdapter);
     }
 
@@ -289,9 +324,10 @@ public class BillFragment extends Fragment {
                 sTime = snapshot.child("timeBooking").getValue(String.class);
                 sNameTable = snapshot.child("tableName").getValue(String.class);
                 sTableID = snapshot.child("tableID").getValue(String.class);
-                if (sTableID !=null){
+                if (sTableID != null) {
                     selectTable();
                 }
+                oder();
             }
 
             @Override
@@ -300,13 +336,22 @@ public class BillFragment extends Fragment {
                 sTime = snapshot.child("timeBooking").getValue(String.class);
                 sNameTable = snapshot.child("tableName").getValue(String.class);
                 sTableID = snapshot.child("tableID").getValue(String.class);
-                if (sTableID !=null){
+                if (sTableID != null) {
                     selectTable();
                 }
+                oder();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                sDate = "";
+                sTime = "";
+                sNameTable = "";
+                sTableID = "";
+                if (sTableID != null) {
+                    selectTable();
+                }
+                oder();
             }
 
             @Override
@@ -371,8 +416,15 @@ public class BillFragment extends Fragment {
         } else {
             bookingFalse.setVisibility(View.GONE);
             bookingTrue.setVisibility(View.VISIBLE);
-            tv_name_date_booking.setText(sNameTable +" - "+sTime);
+            tv_name_date_booking.setText(sNameTable + " - " + sTime);
             tv_time.setText(sDate);
         }
+    }
+
+    public long getDateMilisecond() {
+        long oneDay = 86400000;
+        long time = System.currentTimeMillis();
+        long startDayTime = time - time % oneDay - 25200000;
+        return startDayTime;
     }
 }

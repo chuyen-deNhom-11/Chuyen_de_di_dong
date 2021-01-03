@@ -2,6 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-
+    android:orientation="horizontal"
+    android:padding="10dp">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/tv_title"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="title"/>
+        <TextView
+            android:id="@+id/tv_time"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="time"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_status"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:text="status"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
 </LinearLayout>

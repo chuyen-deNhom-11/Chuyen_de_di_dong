@@ -4,13 +4,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,21 +16,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodonline.Adpter.ListDishComboAdapter;
-import com.example.foodonline.DataModel.BillModel;
 import com.example.foodonline.DataModel.CartModel;
 import com.example.foodonline.DataModel.ComboModel;
 import com.example.foodonline.DataModel.DishModel;
-import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
-import com.example.foodonline.SignInActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -77,7 +69,7 @@ public class ListDishComboActivity extends AppCompatActivity {
             }
         });
     }
-
+    String combo;
     private void setAdapter() {
         fData.getReference().child(COMBO).addChildEventListener(new ChildEventListener() {
             @Override
@@ -86,8 +78,18 @@ public class ListDishComboActivity extends AppCompatActivity {
                     ComboModel comboModel = snapshot.getValue(ComboModel.class);
                     price_combo.setText(comboModel.getPriceCombo());
                     name_combo.setText(comboModel.getNameCombo());
+                    combo = null;
+                    for (DataSnapshot postSnapshot : snapshot.child("dish").getChildren()){
+                        if (combo!=null){
+                            combo = combo +","+postSnapshot.getValue(String.class);
+                        }
+                        else {
+                            combo = postSnapshot.getValue(String.class);
+                        }
+                    }
+                    comboModel.setListDish(combo);
                     dataDish = new ArrayList<>();
-                    listDish = comboModel.getDish().split("\\,");
+                    listDish = comboModel.getListDish().split("\\,");
 
                     for (final String item : listDish) {
                         FirebaseDatabase.getInstance().getReference().child("Dish").addChildEventListener(new ChildEventListener() {
@@ -96,10 +98,9 @@ public class ListDishComboActivity extends AppCompatActivity {
                                 if (snapshot.getKey().equals(item)) {
                                     DishModel dishModel = snapshot.getValue(DishModel.class);
                                     dataDish.add(new DishModel(item, dishModel.getName(), dishModel.getImage(), dishModel.getPrice(), true));
-                                    listDishComboAdapter.notifyDataSetChanged();
+                                    listDishComboAdapter = new ListDishComboAdapter(ListDishComboActivity.this, R.layout.activity_lish_dish_combo, dataDish);
+                                    lv_list_dish_combo.setAdapter(listDishComboAdapter);
                                 }
-                                listDishComboAdapter = new ListDishComboAdapter(ListDishComboActivity.this, R.layout.activity_lish_dish_combo, dataDish);
-                                lv_list_dish_combo.setAdapter(listDishComboAdapter);
                             }
 
                             @Override
