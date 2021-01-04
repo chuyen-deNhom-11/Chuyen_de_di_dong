@@ -1,7 +1,7 @@
 package com.example.foodonline.DataModel;
 
 public class TableModel {
-        String id, nameTable , position;
+        String id, nameTable , position,id_nvoice;
         int status,numberPeople;
 
     public void setId(String id) {
@@ -44,6 +44,14 @@ public class TableModel {
         return status;
     }
 
+    public String getId_nvoice() {
+        return id_nvoice;
+    }
+
+    public void setId_nvoice(String id_nvoice) {
+        this.id_nvoice = id_nvoice;
+    }
+
     public TableModel(String id, String nameTable, int numberPeople, String position, int status) {
         this.id = id;
         this.nameTable = nameTable;
@@ -57,6 +65,14 @@ public class TableModel {
         this.nameTable = nameTable;
         this.numberPeople = numberPeople;
         this.status = status;
+    }
+
+    public TableModel(String id, String nameTable, String id_nvoice, int status, int numberPeople) {
+        this.id = id;
+        this.nameTable = nameTable;
+        this.id_nvoice = id_nvoice;
+        this.status = status;
+        this.numberPeople = numberPeople;
     }
 
     public TableModel() {

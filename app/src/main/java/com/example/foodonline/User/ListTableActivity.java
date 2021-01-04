@@ -172,22 +172,27 @@ public class ListTableActivity extends AppCompatActivity implements ListTableAda
 
     @Override
     public void onClick(int posotion) {
-        showDialog();
-        sTableID = tableModels.get(posotion).getId();
-        sNameTable = tableModels.get(posotion).getNameTable();
-        name_table.setText(sNameTable);
-        img_select_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                datePikerDialog();
-            }
-        });
-        img_select_time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                timePikerDialog();
-            }
-        });
+        if (tableModels.get(posotion).getStatus()!=2){
+            showDialog();
+            sTableID = tableModels.get(posotion).getId();
+            sNameTable = tableModels.get(posotion).getNameTable();
+            name_table.setText(sNameTable);
+            img_select_date.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    datePikerDialog();
+                }
+            });
+            img_select_time.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    timePikerDialog();
+                }
+            });
+        }else {
+            Toast.makeText(this,"Bạn này đã có người sử dụng",Toast.LENGTH_SHORT).show();
+        }
+
     }
     private void datePikerDialog() {
         Calendar cal = Calendar.getInstance();

@@ -29,6 +29,7 @@ public class HomeUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_user);
+        getSupportActionBar().hide();
         initialization();
         setMenuUser();
         intent = getIntent();
@@ -51,7 +52,7 @@ public class HomeUserActivity extends AppCompatActivity {
                         swapContentFragment(BillFragment.newInstance(userId,sType), true, R.id.layout_user);
                         return true;
                     case R.id.booking:
-                        swapContentFragment(SetTableFragment.newInstance(userId), true, R.id.layout_user);
+                        swapContentFragment(SetTableFragment.newInstance(userId,sType), true, R.id.layout_user);
                         return true;
 
                     case R.id.information:
