@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodonline.Admin.HomeAdminActivity;
+import com.example.foodonline.Censor.CensorActivity;
+import com.example.foodonline.Chef.ChefActivity;
 import com.example.foodonline.DataModel.AcountModel;
 import com.example.foodonline.User.HomeUserActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -122,6 +124,14 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else if (type.equals("1")){
                                     intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
+                                    startActivity(intent);
+                                }
+                                else if (type.equals("2")){
+                                    intent = new Intent(LoginActivity.this, CensorActivity.class);
+                                    startActivity(intent);
+                                }
+                                else if (type.equals("3")){
+                                    intent = new Intent(LoginActivity.this, ChefActivity.class);
                                     startActivity(intent);
                                 }
                             }

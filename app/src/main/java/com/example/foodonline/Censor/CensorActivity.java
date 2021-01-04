@@ -1,6 +1,9 @@
 package com.example.foodonline.Censor;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,6 +41,16 @@ public class CensorActivity extends AppCompatActivity {
         censorAdapter_censor = new CensorAdapter(CensorActivity.this, R.layout.item_invoice, data_censor);
 
         list_invoice.setAdapter(censorAdapter_censor);
+
+        list_invoice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(CensorActivity.this,InvoiceActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     private void setControl() {

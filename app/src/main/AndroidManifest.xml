@@ -28,13 +28,12 @@
 
         <activity android:name=".Chef.ChefActivity" />
 
-        <activity android:name=".User.HomeUserActivity"/>
         <activity android:name=".User.NoficationActivity"/>
         <activity android:name=".User.HistoryActivity"/>
         <activity android:name=".Censor.CensorActivity"/>
         <activity android:name=".User.ListDishComboActivity"/>
         <activity android:name=".User.ListTableActivity"/>
-
+        <activity android:name=".Censor.InvoiceActivity"/>
     </application>
 
 </manifest>
