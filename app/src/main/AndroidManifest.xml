@@ -15,8 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name= ".SplashActivity"/>
-        <activity android:name=".Admin.HomeAdminActivity">
+        <activity android:name= ".Admin.HomeAdminActivity"/>
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

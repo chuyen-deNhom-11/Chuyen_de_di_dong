@@ -1,16 +1,22 @@
 package com.example.foodonline.User.Fragment;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -23,11 +29,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodonline.Adpter.ListDishBillAdapter;
 import com.example.foodonline.Adpter.ListTableAdapter;
+import com.example.foodonline.DataModel.BillModel;
 import com.example.foodonline.DataModel.BookingTableModel;
+import com.example.foodonline.DataModel.CartModel;
 import com.example.foodonline.DataModel.TableModel;
 import com.example.foodonline.DataModel.UserModel;
 import com.example.foodonline.R;
+import com.example.foodonline.User.HistoryActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -49,16 +59,23 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
     EditText edt_Name, edt_PhoneNumber, edt_adress, edt_bokking_day, edt_time_booking;
     FirebaseDatabase fData = FirebaseDatabase.getInstance();
     ListTableAdapter listTableAdapter;
-    String userID, sUserName, sPhone, sAdress, sDateBooking, sTimeBooking, sTableID, sTableName;
-    ImageView img_select_date, img_select_time;
-    Button btn_Cancel, btn_booking;
+    String userID,sType,sNvoice, sUserName, sPhone, sAdress, sDateBooking, sTimeBooking, sTableID, sTableName;
+    ImageView img_select_date, img_select_time,img_close;;
+    Button btn_Oder,btn_Cancel, btn_booking;
+    LinearLayout layout_close;
+    ArrayList<CartModel> cartModels;
+    ListView list_dish;
+    LinearLayout layout_ship;
+    Intent intent;
+    TextView total_price,tv_name_phone,address,tv_name_date_booking,tv_time,change_tables;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    public static Fragment newInstance(String userId) {
+    public static Fragment newInstance(String userId,String sType) {
         Bundle args = new Bundle();
         SetTableFragment fragment = new SetTableFragment();
         args.putString(USER_ID, userId);
+        args.putString("type", sType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -77,19 +94,21 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
         Bundle bundle = getArguments();
         if (bundle != null) {
             userID = bundle.getString(USER_ID);
+            sType = bundle.getString("type");
         }
         readData();
         setItemTable();
         return view;
     }
-
+    int j=0;
     private void setItemTable() {
         tableModels = new ArrayList<>();
         fData.getReference().child("Table").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                TableModel table = snapshot.getValue(TableModel.class);
-                tableModels.add(new TableModel(snapshot.getKey(), table.getNameTable(), table.getNumberPeople(), table.getStatus()));
+                tableModels.add(snapshot.getValue(TableModel.class));
+                tableModels.get(j).setId(snapshot.getKey());
+                j++;
                 listTableAdapter.notifyDataSetChanged();
             }
 
@@ -100,6 +119,10 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
                         tableModels.get(i).setNameTable(snapshot.child("nameTable").getValue(String.class));
                         tableModels.get(i).setNumberPeople(snapshot.child("numberPeople").getValue(Integer.class));
                         tableModels.get(i).setStatus(snapshot.child("status").getValue(Integer.class));
+                        sNvoice = snapshot.child("id_nvoice").getValue(String.class);
+                        if(sNvoice != null){
+                            tableModels.get(i).setId_nvoice(sNvoice);
+                        }
                         listTableAdapter.notifyDataSetChanged();
                     }
                 }
@@ -214,28 +237,110 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
 
     @Override
     public void onClick(int posotion) {
-        sTableName = tableModels.get(posotion).getNameTable();
-        sTableID = tableModels.get(posotion).getId();
-        dialogBooking();
-        name_table.setText(sTableName);
-        total_people.setText(tableModels.get(posotion).getNumberPeople() + " người");
-        edt_Name.setText(sUserName);
-        edt_PhoneNumber.setText(sPhone);
-        edt_adress.setText(sAdress);
-        img_select_date.setOnClickListener(new View.OnClickListener() {
+        if(tableModels.get(posotion).getStatus()!=2){
+            dialogBooking();
+            sTableName = tableModels.get(posotion).getNameTable();
+            sTableID = tableModels.get(posotion).getId();
+            name_table.setText(sTableName);
+            total_people.setText(tableModels.get(posotion).getNumberPeople() + " người");
+            edt_Name.setText(sUserName);
+            edt_PhoneNumber.setText(sPhone);
+            edt_adress.setText(sAdress);
+            img_select_date.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    datePikerDialog();
+                }
+            });
+            img_select_time.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    timePikerDialog();
+                }
+            });
+        }else {
+            if (sType.equals("4")){
+                dialogBill(posotion);
+            }else {
+                Toast.makeText(context,"Bàn này đang có người sử dụng",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private void dialogBill( final int positon){
+        final Dialog dialog = new Dialog(context, R.style.MyAlertDialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.fragment_bill);
+        layout_close = dialog.findViewById(R.id.layout_close);
+        layout_close.setVisibility(View.VISIBLE);
+        img_close = dialog.findViewById(R.id.img_close);
+        list_dish = dialog.findViewById(R.id.list_dish);
+        img_close.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                datePikerDialog();
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
-        img_select_time.setOnClickListener(new View.OnClickListener() {
+        total_price = dialog.findViewById(R.id.total_price);
+        btn_Oder = dialog.findViewById(R.id.btn_Oder);
+        btn_Cancel = dialog.findViewById(R.id.btn_Cancel);
+        layout_ship = dialog.findViewById(R.id.layout_ship);
+        layout_ship.setVisibility(View.GONE);
+        readDataBill(tableModels.get(positon).getId_nvoice());
+        sTableID = tableModels.get(positon).getId();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
+        dialog.show();
+        btn_Oder.setText("Thanh toán");
+        btn_Oder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                timePikerDialog();
+            public void onClick(View v) {
+               fData.getReference().child("Bill").child(tableModels.get(positon).getId_nvoice()).child("status").setValue(4).addOnSuccessListener(new OnSuccessListener<Void>() {
+                   @Override
+                   public void onSuccess(Void aVoid) {
+                       fData.getReference().child("Table").child(sTableID).child("status").setValue(0);
+                       fData.getReference().child("Table").child(sTableID).child("id_nvoice").removeValue();
+                       dialog.dismiss();
+                       Toast.makeText(context, "Thanh Toán thành công", Toast.LENGTH_SHORT).show();
+                   }
+               });
             }
         });
     }
+    private void readDataBill(final String sID){
+        cartModels = new ArrayList<>();
+        fData.getReference().child("Bill").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.getKey().equals(sID)){
+                    total_price.setText(snapshot.child("price").getValue(String.class));
+                    for (DataSnapshot postSnapshot : snapshot.child("Dish").getChildren()){
+                        cartModels.add(postSnapshot.getValue(CartModel.class));
+                        ListDishBillAdapter listDishBillAdapter = new ListDishBillAdapter(context,R.layout.fragment_bill,cartModels,userID,"HistoryActivity");
+                        list_dish.setAdapter(listDishBillAdapter);
+                    }
+                }
+            }
 
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     private void datePikerDialog() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);

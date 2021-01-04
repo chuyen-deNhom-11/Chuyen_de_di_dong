@@ -47,7 +47,7 @@ public class ListTableAdapter extends RecyclerView.Adapter<ListTableAdapter.View
             holder.name_table.setTextColor(ContextCompat.getColor(context,R.color.Red));
         }
         else {
-            holder.image_table.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_food));
+            holder.image_table.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_table_0));
             holder.name_table.setTextColor(ContextCompat.getColor(context,R.color.black));
         }
     }
