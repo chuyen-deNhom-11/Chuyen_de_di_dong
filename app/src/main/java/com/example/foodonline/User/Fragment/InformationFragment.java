@@ -25,9 +25,11 @@ import com.example.foodonline.Adpter.HistoryAdapter;
 import com.example.foodonline.DataModel.UserModel;
 import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
+import com.example.foodonline.SignInActivity;
 import com.example.foodonline.User.HistoryActivity;
 import com.example.foodonline.User.NoficationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -186,8 +188,6 @@ public class InformationFragment extends Fragment {
         View alertLayout = inflater.inflate(R.layout.dialog_reset_password, null);
 
         edt_old_password = alertLayout.findViewById(R.id.edt_old_password);
-        edt_new_password = alertLayout.findViewById(R.id.edt_new_password);
-        edt_again_password = alertLayout.findViewById(R.id.edt_again_password);
         btn_cancel = alertLayout.findViewById(R.id.btn_cancel);
         btn_reset_password = alertLayout.findViewById(R.id.btn_reset_password);
 
@@ -205,6 +205,21 @@ public class InformationFragment extends Fragment {
         btn_reset_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (edt_old_password.getText().toString().equals(sPassword)) {
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(sEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            dialog.dismiss();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setMessage("Vui lòng kiểm tra tin nhắn trong email !");
+                            builder.setPositiveButton("ok",null);
+                            Dialog dialogNotification = builder.create();
+                            dialogNotification.show();
+                        }
+                    });
+                }else{
+                    Toast.makeText(context,"Sai mật khẩu",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

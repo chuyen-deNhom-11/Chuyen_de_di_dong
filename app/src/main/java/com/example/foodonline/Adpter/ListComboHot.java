@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.foodonline.DataModel.ComboModel;
 import com.example.foodonline.DataModel.DishModel;
 import com.example.foodonline.R;
@@ -55,7 +56,7 @@ public class ListComboHot extends RecyclerView.Adapter<ListComboHot.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return list.size();
+            return list.size();
     }
 
     @Override
