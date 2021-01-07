@@ -26,17 +26,25 @@ import java.util.List;
 public class ListComboHot extends RecyclerView.Adapter<ListComboHot.ViewHolder> {
     private ArrayList<ComboModel> list;
     private Context context;
+    private OnComboHotLisener mOncomboHot;
 
-    public ListComboHot(ArrayList<ComboModel> dataRoom) {
+    public ListComboHot(ArrayList<ComboModel> dataRoom,OnComboHotLisener mOncomboHot) {
         this.list = dataRoom;
+        this.mOncomboHot = mOncomboHot;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout image_combo;
-
-        public ViewHolder(View convertView) {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        ImageView image_combo;
+        OnComboHotLisener onComboHotLisener;
+        public ViewHolder(View convertView,OnComboHotLisener onComboHotLisener) {
             super(convertView);
-            image_combo = convertView.findViewById(R.id.image_combo);
+            image_combo = convertView.findViewById(R.id.img_combo);
+            this.onComboHotLisener = onComboHotLisener;
+            convertView.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View view) {
+            onComboHotLisener.onComboHotClick(getAdapterPosition());
         }
     }
 
@@ -46,12 +54,15 @@ public class ListComboHot extends RecyclerView.Adapter<ListComboHot.ViewHolder> 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         context = parent.getContext();
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.item_combo_hot, parent, false);
-        return new ViewHolder(layout);
+        return new ViewHolder(layout,mOncomboHot);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ComboModel comboModel = list.get(position);
+        if (comboModel.getImageCombo()!=null){
+            Glide.with(context).load(comboModel.getImageCombo()).into(holder.image_combo);
+        }
     }
 
     @Override
@@ -62,5 +73,8 @@ public class ListComboHot extends RecyclerView.Adapter<ListComboHot.ViewHolder> 
     @Override
     public int getItemViewType(int position) {
         return R.layout.item_combo_hot;
+    }
+    public interface OnComboHotLisener {
+        void onComboHotClick(int position);
     }
 }
