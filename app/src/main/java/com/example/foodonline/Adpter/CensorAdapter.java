@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.foodonline.DataModel.CensorModel;
+import com.example.foodonline.DataModel.BillModel;
 import com.example.foodonline.R;
 
 import java.util.ArrayList;
@@ -15,9 +15,10 @@ import java.util.ArrayList;
 public class CensorAdapter extends BaseAdapter {
     Context context;
     int layout;
-    ArrayList<CensorModel> data;
+    ArrayList<BillModel> data;
+    String sTypeBooking;
 
-    public CensorAdapter(Context context, int layout, ArrayList<CensorModel> data){
+    public CensorAdapter(Context context, int layout, ArrayList<BillModel> data){
         this.context=context;
         this.layout=layout;
         this.data=data;
@@ -48,11 +49,18 @@ public class CensorAdapter extends BaseAdapter {
         TextView tv_oderer = (TextView) convertView.findViewById(R.id.tv_oderer);
         TextView tv_price = (TextView) convertView.findViewById(R.id.tv_price);
         //Gán giá trị
-        CensorModel censorModel = data.get(position);
-        tv_type_booking.setText(censorModel.getTv_type_booking());
-        tv_number_dish.setText(censorModel.getTv_number_dish());
-        tv_oderer.setText(censorModel.getTv_oderer());
-        tv_price.setText(censorModel.getTv_price());
+        BillModel billModel = data.get(position);
+        if (billModel.getType() == 0){
+            sTypeBooking = "Online";
+        }else if (billModel.getType() == 1){
+            sTypeBooking = billModel.getNameTable() +"(online)";
+        }else {
+            sTypeBooking = billModel.getNameTable();
+        }
+        tv_type_booking.setText(sTypeBooking);
+        tv_number_dish.setText(billModel.getAmount()+"");
+        tv_oderer.setText(billModel.getName());
+        tv_price.setText(billModel.getPrice());
 
         return convertView;
     }

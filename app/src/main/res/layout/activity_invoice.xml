@@ -53,6 +53,7 @@
                 android:text="Khách hàng : " />
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -76,6 +77,7 @@
                 android:text="Số người :" />
 
             <TextView
+                android:id="@+id/tv_total_people"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -100,6 +102,7 @@
                 android:text="Số điện thoại :" />
 
             <TextView
+                android:id="@+id/tv_PhoneNumber"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -124,6 +127,7 @@
                 android:text="Địa chỉ : " />
 
             <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -172,6 +176,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"

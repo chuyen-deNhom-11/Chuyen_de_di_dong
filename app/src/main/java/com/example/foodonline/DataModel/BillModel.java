@@ -11,6 +11,10 @@ public class BillModel {
         this.id = id;
     }
 
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public String getId() {
         return id;
     }
