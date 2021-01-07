@@ -24,7 +24,6 @@ public class NoficationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nofication);
         setTitle("Thông báo");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         list_item_nofication = findViewById(R.id.list_item_nofication);
 
         setItemNofication();

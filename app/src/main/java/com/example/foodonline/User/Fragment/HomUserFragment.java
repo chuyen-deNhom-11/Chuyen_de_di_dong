@@ -7,15 +7,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,11 +21,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodonline.Admin.HomeAdminActivity;
 import com.example.foodonline.Adpter.LishItemComboAdapter;
 import com.example.foodonline.Adpter.ListComboHot;
 import com.example.foodonline.Adpter.ListItemDishAdapter;
-import com.example.foodonline.DataModel.AcountModel;
 import com.example.foodonline.DataModel.ComboModel;
 import com.example.foodonline.DataModel.DishModel;
 import com.example.foodonline.R;
@@ -39,16 +34,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static com.example.foodonline.utils.Constant.COMBO;
 import static com.example.foodonline.utils.Constant.COMBO_ID;
 import static com.example.foodonline.utils.Constant.USER_ID;
 
-public class HomUserFragment extends Fragment implements LishItemComboAdapter.OnComboLisener{
+public class HomUserFragment extends Fragment implements LishItemComboAdapter.OnComboLisener {
 
     Context context;
     Intent intent;
@@ -134,7 +127,7 @@ public class HomUserFragment extends Fragment implements LishItemComboAdapter.On
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     DishModel dishModel = snapshot.getValue(DishModel.class);
-                    dataDish.add(new DishModel(snapshot.getKey(), dishModel.getName(), dishModel.getImage(), dishModel.getPrice(), dishModel.getDescription(), dishModel.getIdTypeDish(), dishModel.getIdCombo()));
+                    dataDish.add(new DishModel(snapshot.getKey(), dishModel.getName(), dishModel.getImage(), dishModel.getPrice(), dishModel.getDescription(), dishModel.getIdCombo()));
                     ListItemDishAdapter listItemDishAdapter = new ListItemDishAdapter(context, R.layout.fragment_home_user, dataDish,userID);
                     list_of_dishes.setAdapter(listItemDishAdapter);
                 }
@@ -160,7 +153,7 @@ public class HomUserFragment extends Fragment implements LishItemComboAdapter.On
                 }
             });
         } else if (position > 1){
-            listDish = listOfDishModels.get(position - 2).getDish().split("\\,");
+            listDish = listOfDishModels.get(position - 2).getsListDish().split("\\,");
             dataDish = new ArrayList<>();
             fData.getReference().child("Dish").addChildEventListener(new ChildEventListener() {
                 @Override
@@ -168,7 +161,7 @@ public class HomUserFragment extends Fragment implements LishItemComboAdapter.On
                     for (String item : listDish) {
                         if (item.equals(snapshot.getKey())) {
                             DishModel dishModel = snapshot.getValue(DishModel.class);
-                            dataDish.add(new DishModel(snapshot.getKey(), dishModel.getName(), dishModel.getImage(), dishModel.getPrice(), dishModel.getDescription(), dishModel.getIdTypeDish(), dishModel.getIdCombo()));
+                            dataDish.add(new DishModel(snapshot.getKey(), dishModel.getName(), dishModel.getImage(), dishModel.getPrice(), dishModel.getDescription(), dishModel.getIdCombo()));
                         }
                     }
                     ListItemDishAdapter listItemDishAdapter = new ListItemDishAdapter(context, R.layout.fragment_home_user, dataDish,userID);
@@ -197,7 +190,7 @@ public class HomUserFragment extends Fragment implements LishItemComboAdapter.On
             });
         }
     }
-
+    String combo;
     private void setItemDishCombo(int position) {
         dataCombo = new ArrayList<>();
 
@@ -205,11 +198,22 @@ public class HomUserFragment extends Fragment implements LishItemComboAdapter.On
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 ComboModel comboModel = snapshot.getValue(ComboModel.class);
-                dataCombo.add(new ComboModel(snapshot.getKey(),comboModel.getNameCombo(),comboModel.getImageCombo(),comboModel.getTotalDish(),comboModel.getPriceCombo(),comboModel.getDish()));
-                LinearLayoutManager layoutManager = new GridLayoutManager(context, 2);
-                list_of_combo.setLayoutManager(layoutManager);
-                LishItemComboAdapter listItemDishAdapter = new LishItemComboAdapter(dataCombo, HomUserFragment.this);
-                list_of_combo.setAdapter(listItemDishAdapter);
+                combo = null;
+                for (DataSnapshot postSnapshot : snapshot.child("dish").getChildren()){
+                    if (combo!=null){
+                        combo = combo +","+postSnapshot.getValue(String.class);
+                    }
+                    else {
+                        combo = postSnapshot.getValue(String.class);
+                    }
+                }
+                if (combo != null) {
+                    dataCombo.add(new ComboModel(snapshot.getKey(), comboModel.getNameCombo(), comboModel.getImageCombo(), comboModel.getTotalDish(), comboModel.getPriceCombo()));
+                    LinearLayoutManager layoutManager = new GridLayoutManager(context, 2);
+                    list_of_combo.setLayoutManager(layoutManager);
+                    LishItemComboAdapter listItemDishAdapter = new LishItemComboAdapter(dataCombo, HomUserFragment.this);
+                    list_of_combo.setAdapter(listItemDishAdapter);
+                }
             }
 
             @Override
@@ -237,9 +241,9 @@ public class HomUserFragment extends Fragment implements LishItemComboAdapter.On
 
     private void setItemComboHot() {
         dataCombo = new ArrayList<>();
-        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000","asd"));
-        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000","asd"));
-        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000","asd"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000", "asd"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000", "asd"));
+        dataCombo.add(new ComboModel("combo", "Tên Combo", "a", "7", "100.000", "asd"));
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         image_combo_hot.setLayoutManager(layoutManager);
@@ -277,15 +281,24 @@ public class HomUserFragment extends Fragment implements LishItemComboAdapter.On
         list_of_combo = view.findViewById(R.id.list_of_combo);
         image_combo_hot = view.findViewById(R.id.image_combo_hot);
     }
-
+    String sDish;
     private void readData() {
         database = FirebaseDatabase.getInstance().getReference();
         database.child("typeOfDish").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 ListOfDishModel listOfDishModel = snapshot.getValue(ListOfDishModel.class);
+                sDish =null;
+                for (DataSnapshot postSnapshot : snapshot.child("dish").getChildren()){
+                    if (sDish!=null){
+                        sDish = sDish +","+postSnapshot.getValue(String.class);
+                    }
+                    else {
+                        sDish = postSnapshot.getValue(String.class);
+                    }
+                }
                 data.add(listOfDishModel.getName());
-                listOfDishModels.add(new ListOfDishModel(listOfDishModel.getName(), listOfDishModel.getDish()));
+                listOfDishModels.add(new ListOfDishModel(snapshot.getKey(), listOfDishModel.getName(),sDish));
             }
 
             @Override
@@ -313,8 +326,8 @@ public class HomUserFragment extends Fragment implements LishItemComboAdapter.On
     @Override
     public void onComboClick(int position) {
         intent = new Intent(context, ListDishComboActivity.class);
-        intent.putExtra(COMBO_ID,dataCombo.get(position).getId());
-        intent.putExtra(USER_ID,userID);
+        intent.putExtra(COMBO_ID, dataCombo.get(position).getId());
+        intent.putExtra(USER_ID, userID);
         startActivity(intent);
     }
 }

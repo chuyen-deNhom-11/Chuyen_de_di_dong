@@ -3,7 +3,7 @@ package com.example.foodonline.DataModel;
 
 public class UserModel {
 
-    String uid, name, email, password, adress, numberPhone, type;
+    String uid, name, email, password, adress, phoneNumber, type;
 
     public String getUid() {
         return uid;
@@ -45,12 +45,12 @@ public class UserModel {
         this.adress = adress;
     }
 
-    public String getNumberPhone() {
-        return numberPhone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setNumberPhone(String numberPhone) {
-        this.numberPhone = numberPhone;
+    public void setNumberPhone(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getType() {
@@ -67,8 +67,14 @@ public class UserModel {
         this.email = email;
         this.password = password;
         this.adress = adress;
-        this.numberPhone = numberPhone;
+        this.phoneNumber = numberPhone;
         this.type = type;
+    }
+
+    public UserModel(String name, String adress, String numberPhone) {
+        this.name = name;
+        this.adress = adress;
+        this.phoneNumber = numberPhone;
     }
 
     public UserModel() {

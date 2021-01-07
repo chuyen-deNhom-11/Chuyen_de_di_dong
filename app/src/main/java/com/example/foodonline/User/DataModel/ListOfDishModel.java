@@ -1,21 +1,31 @@
 package com.example.foodonline.User.DataModel;
 
 public class ListOfDishModel {
-    String name,dish;
+    String id,name,sListDish;
 
     public String getName() {
         return name;
     }
 
-    public String getDish() {
-        return dish;
+    public String getId() {
+        return id;
     }
 
-    public ListOfDishModel(String name, String dish) {
+    public String getsListDish() {
+        return sListDish;
+    }
+
+    public void setListDish(String listDish) {
+        this.sListDish = listDish;
+    }
+
+    public ListOfDishModel(String name, String id,String sListDish) {
+        this.id = id;
         this.name = name;
-        this.dish = dish;
+        this.sListDish = sListDish;
     }
 
     public ListOfDishModel() {
     }
+
 }
