@@ -1,6 +1,7 @@
 package com.example.foodonline.User;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,9 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodonline.Adpter.HistoryAdapter;
@@ -24,6 +27,7 @@ import com.example.foodonline.Adpter.ListDishBillAdapter;
 import com.example.foodonline.DataModel.BillModel;
 import com.example.foodonline.DataModel.CartModel;
 import com.example.foodonline.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -102,7 +106,7 @@ public class HistoryActivity extends AppCompatActivity {
     private void readDataBookingTable(){
 
     }
-    private void clickItemListener(int position){
+    private void clickItemListener(final int position){
         final Dialog dialog = new Dialog(this, R.style.MyAlertDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.fragment_bill);
@@ -139,6 +143,28 @@ public class HistoryActivity extends AppCompatActivity {
         }
         if (arrayListBill.get(position).getStatus() == 0){
             btn_Oder.setText("Đặt cọc");
+            btn_Cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);
+                    builder.setMessage("Bạn có muốn hủy hóa đơn này?");
+                    builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(final DialogInterface dialog, int which) {
+                            fData.getReference().child("Bill").child(arrayListBill.get(position).getId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(HistoryActivity.this,"Hủy thành công",Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            });
+                        }
+                    });
+                    builder.setNegativeButton("Không", null);
+                    Dialog dialog = builder.create();
+                    dialog.show();
+                }
+            });
         }
         else {
             layout_button.setVisibility(View.GONE);

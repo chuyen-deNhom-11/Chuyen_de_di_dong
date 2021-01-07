@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
@@ -36,7 +37,9 @@ import com.example.foodonline.DataModel.BookingTableModel;
 import com.example.foodonline.DataModel.CartModel;
 import com.example.foodonline.DataModel.TableModel;
 import com.example.foodonline.DataModel.UserModel;
+import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
+import com.example.foodonline.SignInActivity;
 import com.example.foodonline.User.HistoryActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -302,6 +305,29 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
                        Toast.makeText(context, "Thanh Toán thành công", Toast.LENGTH_SHORT).show();
                    }
                });
+            }
+        });
+        btn_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Bạn có muốn hủy đặt bàn không?");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, int which) {
+                        fData.getReference().child("Bill").child(tableModels.get(positon).getId_nvoice()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                fData.getReference().child("Table").child(sTableID).child("status").setValue(0);
+                                fData.getReference().child("Table").child(sTableID).child("id_nvoice").removeValue();
+                                Toast.makeText(context, "Hủy thành công", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+                builder.setNegativeButton("Không", null);
+                Dialog dialog = builder.create();
+                dialog.show();
             }
         });
     }

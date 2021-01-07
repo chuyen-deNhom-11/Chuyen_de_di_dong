@@ -162,14 +162,18 @@ public class BillFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (sType.equals("4")) {
+                    typeBooking = 2;
                     if (sTableID == null || sTableID.equals("")) {
                         Toast.makeText(context, "Vui lòng chọn bàn", Toast.LENGTH_SHORT).show();
                     } else {
                         oderLisenner();
                     }
                 } else {
-                    if (sTableID != null || !sTableID.equals("")) {
-                        typeBooking = 1;
+                    if (sTableID == null || sTableID.equals("")) {
+                        typeBooking = 0;
+                    }
+                    else {
+                        typeBooking=1;
                     }
                     oderLisenner();
                 }

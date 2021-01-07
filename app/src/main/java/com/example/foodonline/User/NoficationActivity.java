@@ -2,6 +2,8 @@ package com.example.foodonline.User;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +38,17 @@ public class NoficationActivity extends AppCompatActivity {
         data.add(new NoficationModel("a","b","c","1/11/2020",0));
         ListNofictionAdapter nofictionAdapter = new ListNofictionAdapter(this,R.layout.activity_nofication,data);
         list_item_nofication.setAdapter(nofictionAdapter);
+        list_item_nofication.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectItemNofication(position);
+            }
+        });
+    }
+    private void selectItemNofication(int position){
+        if (data.get(position).getStatus() == 1){
+
+        }
     }
     @Override
     public boolean onOptionsItemSelected( MenuItem item) {

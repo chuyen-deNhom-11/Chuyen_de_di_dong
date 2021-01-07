@@ -50,7 +50,7 @@ public class ListNofictionAdapter extends ArrayAdapter<NoficationModel> {
         NoficationModel noficationModel = arrCustomer.get(position);
         viewHolder.time_nofication.setText(noficationModel.getTime());
         if(noficationModel.getStatus() == 1 ){
-            viewHolder.image_mail.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_email));
+            viewHolder.image_mail.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_nofication   ));
         }else {
             viewHolder.image_mail.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_baseline_mail_outline));
 
