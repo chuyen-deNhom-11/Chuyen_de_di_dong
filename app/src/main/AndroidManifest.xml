@@ -35,7 +35,7 @@
         <activity android:name=".Censor.CensorActivity"/>
         <activity android:name=".User.ListDishComboActivity"/>
         <activity android:name=".User.ListTableActivity"/>
-
+        <activity android:name=".Censor.InvoiceActivity"/>
     </application>
 
 </manifest>

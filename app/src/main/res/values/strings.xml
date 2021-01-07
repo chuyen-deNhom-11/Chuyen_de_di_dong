@@ -55,6 +55,8 @@
     <string name="tv_time">Giờ</string>
     <string name="tv_name_tale">Tên bàn</string>
     <string name="tv_total_people">Số người</string>
+    
+
 
     <string name="tv_delete">Xóa</string>
     <string-array name="select_history">
