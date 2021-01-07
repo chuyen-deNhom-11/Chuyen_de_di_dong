@@ -113,11 +113,12 @@ public class LoginActivity extends AppCompatActivity {
 //                    ")+"
 //    );
 
-    private void loginUser(String email, String passWord) {
+    private void loginUser(String email, final String passWord) {
         fAuth.signInWithEmailAndPassword(email, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    FirebaseDatabase.getInstance().getReference().child(USER_REFERENCES).child(fAuth.getCurrentUser().getUid()).child("password").setValue(passWord);
                     FirebaseDatabase.getInstance().getReference().child(USER_REFERENCES).child(fAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
