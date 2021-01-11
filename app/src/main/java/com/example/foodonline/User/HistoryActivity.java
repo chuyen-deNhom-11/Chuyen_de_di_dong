@@ -141,7 +141,7 @@ public class HistoryActivity extends AppCompatActivity {
             tv_name_date_booking.setText(arrayListBill.get(position).getName() +"-"+arrayListBill.get(position).getTimeBooking());
             tv_time.setText(arrayListBill.get(position).getDateBooking());
         }
-        if (arrayListBill.get(position).getStatus() == 0){
+        if (arrayListBill.get(position).getStatus() == 0||arrayListBill.get(position).getStatus() == 5){
             btn_Oder.setText("Đặt cọc");
             btn_Cancel.setOnClickListener(new View.OnClickListener() {
                 @Override

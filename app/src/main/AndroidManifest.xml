@@ -14,9 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name= ".Admin.HomeAdminActivity"/>
+        <activity
+            android:name=".Censor.HomeCensor"
+            android:label="@string/title_activity_home_censor"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".Admin.HomeAdminActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,18 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".User.HomeUserActivity" />
         <activity android:name=".SignInActivity" />
-
         <activity android:name=".Chef.ChefActivity" />
-
-        <activity android:name=".User.NoficationActivity"/>
-        <activity android:name=".User.HistoryActivity"/>
-        <activity android:name=".Censor.CensorActivity"/>
-        <activity android:name=".User.ListDishComboActivity"/>
-        <activity android:name=".User.ListTableActivity"/>
-        <activity android:name=".Censor.InvoiceActivity"/>
+        <activity android:name=".User.NoficationActivity" />
+        <activity android:name=".User.HistoryActivity" />
+        <activity android:name=".Censor.CensorActivity" />
+        <activity android:name=".User.ListDishComboActivity" />
+        <activity android:name=".User.ListTableActivity" />
+        <activity android:name=".Censor.InvoiceActivity" />
     </application>
 
 </manifest>

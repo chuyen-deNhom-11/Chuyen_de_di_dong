@@ -67,6 +67,8 @@ public class HistoryAdapter extends ArrayAdapter<BillModel> {
                 sStatus = "Yêu cầu đặt cọc";
             }else if(bill.getStatus() ==0){
                 sStatus = "Chờ duyệt";
+            }else if (bill.getStatus() == 1|| bill.getStatus() == 2){
+                sStatus = "Đã nhận đơn hàng";
             }
             else if (bill.getStatus()==4){
                 sStatus = "đã giao hàng";

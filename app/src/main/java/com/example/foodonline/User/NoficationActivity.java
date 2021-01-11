@@ -32,10 +32,6 @@ public class NoficationActivity extends AppCompatActivity {
     }
     private void setItemNofication(){
         data = new ArrayList<>();
-
-
-        data.add(new NoficationModel("a","b","c","1/1/2020",1));
-        data.add(new NoficationModel("a","b","c","1/11/2020",0));
         ListNofictionAdapter nofictionAdapter = new ListNofictionAdapter(this,R.layout.activity_nofication,data);
         list_item_nofication.setAdapter(nofictionAdapter);
         list_item_nofication.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -46,7 +42,7 @@ public class NoficationActivity extends AppCompatActivity {
         });
     }
     private void selectItemNofication(int position){
-        if (data.get(position).getStatus() == 1){
+        if (data.get(position).getStatus() == 0){
 
         }
     }

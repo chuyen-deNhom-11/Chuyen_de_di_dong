@@ -1,22 +1,20 @@
-package com.example.foodonline.Chef;
+package com.example.foodonline.Censor.Fragment;
 
-import android.content.DialogInterface;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.fragment.app.Fragment;
 
 import com.example.foodonline.Adpter.ChefAdapter;
-import com.example.foodonline.Adpter.ListTableAdapter;
+import com.example.foodonline.Chef.ChefActivity;
 import com.example.foodonline.DataModel.ChefModel;
 import com.example.foodonline.R;
 import com.google.firebase.database.ChildEventListener;
@@ -26,21 +24,27 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class ChefActivity extends AppCompatActivity {
+public class DishFragment extends Fragment {
     Button btn_cancel, btn_done_cook;
-    ListView lv_DS_Chef;
-
+    ListView list_invoice;
+    Context context;
     ArrayList<ChefModel> data_chef = new ArrayList<>();
     ChefAdapter chefAdapter_chef;
     FirebaseDatabase fData = FirebaseDatabase.getInstance();
 
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chef);
-        setControl();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_censor, container, false);
+        setControl(root);
         setEvent();
+        return root;
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
     int i=0;
     private void setEvent() {
@@ -49,22 +53,21 @@ public class ChefActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (snapshot.child("status").getValue(Integer.class) == 2){
-                    for (DataSnapshot postSnapshot : snapshot.child("Dish").getChildren()) {
-                        if (postSnapshot.child("status").getValue(Integer.class) == null||postSnapshot.child("status").getValue(Integer.class) ==2) {
-                            data_chef.add(postSnapshot.getValue(ChefModel.class));
-                            data_chef.get(i).setIdBill(snapshot.getKey());
-                            data_chef.get(i).setType(snapshot.child("type").getValue(Integer.class));
-                            data_chef.get(i).setTable(snapshot.child("nameTable").getValue(String.class));
-                            data_chef.get(i).setKeyDish(postSnapshot.getKey());
-                            i++;
-                            chefAdapter_chef.notifyDataSetChanged();
-                        }
+                    for (DataSnapshot postSnapshot : snapshot.child("Dish").getChildren()){
+                        data_chef.add(postSnapshot.getValue(ChefModel.class));
+                        data_chef.get(i).setIdBill(snapshot.getKey());
+                        data_chef.get(i).setType(snapshot.child("type").getValue(Integer.class));
+                        data_chef.get(i).setTable(snapshot.child("nameTable").getValue(String.class));
+                        data_chef.get(i).setKeyDish(postSnapshot.getKey());
+                        i++;
+                        chefAdapter_chef.notifyDataSetChanged();
                     }
                 }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override
@@ -82,16 +85,15 @@ public class ChefActivity extends AppCompatActivity {
 
             }
         });
-        chefAdapter_chef = new ChefAdapter(ChefActivity.this, R.layout.item_chef, data_chef,"ChefActivity");
-        lv_DS_Chef.setAdapter(chefAdapter_chef);
+        chefAdapter_chef = new ChefAdapter(context, R.layout.item_chef, data_chef,"DishFragment");
+        list_invoice.setAdapter(chefAdapter_chef);
 
 
     }
 
-
-    private void setControl() {
-        btn_cancel = findViewById(R.id.btn_cancel);
-        btn_done_cook = findViewById(R.id.btn_done_cook);
-        lv_DS_Chef = findViewById(R.id.lv_chef);
+    private void setControl(View view) {
+        btn_cancel = view.findViewById(R.id.btn_cancel);
+        btn_done_cook = view.findViewById(R.id.btn_done_cook);
+        list_invoice = view.findViewById(R.id.list_invoice);
     }
 }
