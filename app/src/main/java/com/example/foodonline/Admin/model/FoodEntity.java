@@ -1,7 +1,8 @@
 package com.example.foodonline.Admin.model;
 
 public class FoodEntity {
-    private String combo, description, image , name, price, type, key;
+    private String combo, description, image, name, price, type, key;
+    private boolean isVisible, isCheck;
 
     public FoodEntity(String combo, String description, String image, String name, String price, String type) {
         this.combo = combo;
@@ -13,10 +14,6 @@ public class FoodEntity {
     }
 
     public FoodEntity() {
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
     public String getCombo() {
@@ -69,5 +66,25 @@ public class FoodEntity {
 
     public String getKey() {
         return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean isVisible) {
+        this.isVisible = isVisible;
+    }
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
     }
 }

@@ -6,22 +6,11 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/tvUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingRight="10dp"
-        android:text="@string/tv_update"
-        android:textColor="@color/colorUpdate"
-        android:textSize="18dp"
-
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/d_50"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -33,7 +22,7 @@
             android:src="@drawable/ic_baseline_account" />
 
         <TextView
-            android:id="@+id/tv_Name"
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -64,7 +53,7 @@
                 android:text="Email:" />
 
             <TextView
-                android:id="@+id/tv_Email"
+                android:id="@+id/tv_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -85,7 +74,7 @@
                 android:text="SDT:" />
 
             <TextView
-                android:id="@+id/tv_PhoneNumber"
+                android:id="@+id/tv_phone_no"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -107,7 +96,7 @@
                 android:text="Địa chỉ:" />
 
             <TextView
-                android:id="@+id/tv_Adress"
+                android:id="@+id/tv_adress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -119,8 +108,18 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:orientation="vertical"
-            android:paddingRight="10dp">
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/tv_change_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Đổi mật khẩu"
+                android:textColor="@color/colorGreen"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
 
             <TextView

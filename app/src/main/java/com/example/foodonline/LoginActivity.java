@@ -128,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                                     intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
                                     startActivity(intent);
                                 }
+                                App.getInstance().getStorage().saveUId(fAuth.getCurrentUser().getUid());
                             }
                         }
 

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="1dp">
 
-    <include layout="@layout/action_bar_food" />
+    <include layout="@layout/action_bar_table" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,17 +25,18 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_food"
+                android:src="@drawable/ic_people"
                 app:tint="@color/colorBlue001" />
 
 
             <EditText
-                android:id="@+id/edt_comboo_name"
+                android:inputType="number"
+                android:id="@+id/edt_people_number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
-                android:hint="Tên comboo"
+                android:hint="Số lượng người tối đa"
                 android:textColor="@color/black"
                 android:textSize="22dp" />
 
@@ -47,27 +48,10 @@
             android:background="@color/colorLightBlue" />
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorLightBlue" />
-
-
-        <ImageView
-            android:id="@+id/iv_comboo"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginHorizontal="20dp"
-            android:background="@color/colorLightGray"
-            android:gravity="center"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_upload" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_add"
+        android:id="@+id/tv_edit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/d_50"
         android:layout_marginHorizontal="20dp"
@@ -75,7 +59,7 @@
         android:layout_marginBottom="20dp"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
-        android:text="Thêm"
+        android:text="Sửa"
         android:textColor="@color/white"
         android:textSize="20dp" />
 

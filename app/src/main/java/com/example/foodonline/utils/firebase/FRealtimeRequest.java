@@ -69,6 +69,13 @@ public class FRealtimeRequest {
         return this;
     }
 
+    public FRealtimeRequest query(String child, long value) {
+        DatabaseReference raf = dbRef.child(path);
+        query = raf.orderByChild(child).equalTo(value);
+        return this;
+    }
+
+
     public FRealtimeRequest order(String childSort) {
         DatabaseReference raf = dbRef.child(path);
         query = raf.orderByChild(childSort);

@@ -9,8 +9,7 @@
     tools:context=".Admin.fragment.M001ScheduleFragment">
 
 
-
-    <include layout="@layout/action_bar_staff"/>
+    <include layout="@layout/action_bar_staff" />
 
 
     <androidx.cardview.widget.CardView
@@ -77,9 +76,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_staff"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="30dp"
+            android:visibility="gone"
             tools:listitem="@layout/item_staff">
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -96,6 +96,7 @@
             android:padding="5dp"
             android:src="@drawable/ic_add"
             app:tint="@color/colorPrimaryDark" />
+
         <ImageView
             android:id="@+id/iv_edit"
             android:layout_width="50dp"
@@ -112,15 +113,15 @@
 
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_empty"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
             android:text="Ops!\nBạn chưa thêm nhân viên nào\n trong mục này!!"
             android:textColor="@color/black"
             android:textSize="25dp"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:visibility="gone" />
     </RelativeLayout>
 
 </LinearLayout>

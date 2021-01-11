@@ -24,7 +24,7 @@ public class M003AddCombooDialog extends BaseDialog implements FRealtimeRequest.
     private static final Object CODE_SHOW_PICKER = 1002;
     private static final String KEY_SAVE_COMBOO_IMG = "KEY_SAVE_COMBOO_IMG";
     private static final String KEY_SAVE_COMBOO = "KEY_SAVE_COMBOO";
-    private EditText edtCombooName, edtPrice;
+    private EditText edtCombooName;
     private ImageView ivComboo;
     private Uri mCombooImage;
 
@@ -42,7 +42,6 @@ public class M003AddCombooDialog extends BaseDialog implements FRealtimeRequest.
     protected void initViews() {
         ((TextView) findViewById(R.id.tv_title)).setText("Thêm comboo");
         edtCombooName = findViewById(R.id.edt_comboo_name);
-        edtPrice = findViewById(R.id.edt_price);
         ivComboo = findViewById(R.id.iv_comboo);
     }
 
@@ -79,10 +78,6 @@ public class M003AddCombooDialog extends BaseDialog implements FRealtimeRequest.
             case R.id.tv_add:
                 if (edtCombooName.getText().toString().isEmpty()) {
                     edtCombooName.setError("Không bỏ trống mục này");
-                    return;
-                }
-                if (edtPrice.getText().toString().isEmpty()) {
-                    edtPrice.setError("Không bỏ trống mục này");
                     return;
                 }
                 if (mCombooImage == null) {
@@ -131,7 +126,7 @@ public class M003AddCombooDialog extends BaseDialog implements FRealtimeRequest.
 
     private void saveComboo(String link) {
         ProgressLoading.show(mContext);
-        CombooEntity entity = new CombooEntity( link,edtCombooName.getText().toString(), edtPrice.getText().toString());
+        CombooEntity entity = new CombooEntity(link,edtCombooName.getText().toString());
         new FRealtimeRequest("Combo")
                 .method(FRealtimeRequest.METHOD_PUSH)
                 .data(entity)

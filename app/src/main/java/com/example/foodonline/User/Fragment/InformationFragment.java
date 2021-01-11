@@ -16,13 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.foodonline.Adpter.LishItemComboAdapter;
-import com.example.foodonline.DataModel.NoficationModel;
 import com.example.foodonline.DataModel.UserModel;
 import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
 import com.example.foodonline.User.NoficationActivity;
-import com.example.foodonline.utils.Constant;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -71,10 +68,10 @@ public class InformationFragment extends Fragment {
     private void creat(View view) {
         btn_history = view.findViewById(R.id.history);
         btn_nofication = view.findViewById(R.id.notification);
-        tv_Name = view.findViewById(R.id.tv_Name);
-        tv_PhoneNumber = view.findViewById(R.id.tv_PhoneNumber);
-        tv_Adress = view.findViewById(R.id.tv_Adress);
-        tv_Email = view.findViewById(R.id.tv_Email);
+        tv_Name = view.findViewById(R.id.tv_name);
+        tv_PhoneNumber = view.findViewById(R.id.tv_phone_no);
+        tv_Adress = view.findViewById(R.id.tv_adress);
+        tv_Email = view.findViewById(R.id.tv_email);
         tv_LogOut = view.findViewById(R.id.tv_LogOut);
     }
 
