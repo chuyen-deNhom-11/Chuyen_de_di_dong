@@ -1,6 +1,7 @@
 package com.example.foodonline.Adpter;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,15 @@ import com.example.foodonline.DataModel.NoficationModel;
 import com.example.foodonline.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ListNofictionAdapter extends ArrayAdapter<NoficationModel> {
     private Context context;
     private int resource;
     private List<NoficationModel> arrCustomer;
+    SimpleDateFormat formatter = null;
+    String dateString;
     public ListNofictionAdapter(@NonNull Context context, int resource,  ArrayList<NoficationModel> arrCustomer) {
         super(context, resource, arrCustomer);
         this.context = context;
@@ -48,12 +52,15 @@ public class ListNofictionAdapter extends ArrayAdapter<NoficationModel> {
             viewHolder = (ListNofictionAdapter.ViewHover) view.getTag();
         }
         NoficationModel noficationModel = arrCustomer.get(position);
-        viewHolder.time_nofication.setText(noficationModel.getTime());
-        if(noficationModel.getStatus() == 1 ){
-            viewHolder.image_mail.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_email));
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            formatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
+            dateString = formatter.format(new Date(noficationModel.getTime()));
+        }
+        viewHolder.time_nofication.setText(dateString);
+        if(noficationModel.getStatus() == 0 ){
+            viewHolder.image_mail.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_nofication));
         }else {
             viewHolder.image_mail.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_baseline_mail_outline));
-
         }
 
         return view;

@@ -12,6 +12,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         initViews();
+        getSupportActionBar().hide();
         initListenner();
         initData();
     }

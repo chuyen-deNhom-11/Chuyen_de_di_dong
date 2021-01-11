@@ -13,6 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodonline.Admin.HomeAdminActivity;
+import com.example.foodonline.Censor.CensorActivity;
+import com.example.foodonline.Censor.HomeCensor;
+import com.example.foodonline.Chef.ChefActivity;
+import com.example.foodonline.DataModel.AcountModel;
 import com.example.foodonline.User.HomeUserActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -48,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
         creat();
         eventClick();
     }
@@ -109,26 +114,36 @@ public class LoginActivity extends AppCompatActivity {
 //                    ")+"
 //    );
 
-    private void loginUser(String email, String passWord) {
+    private void loginUser(String email, final String passWord) {
         fAuth.signInWithEmailAndPassword(email, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    FirebaseDatabase.getInstance().getReference().child(USER_REFERENCES).child(fAuth.getCurrentUser().getUid()).child("password").setValue(passWord);
                     FirebaseDatabase.getInstance().getReference().child(USER_REFERENCES).child(fAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             HashMap hashUser = (HashMap) snapshot.getValue();
                             if (hashUser != null) {
                                 type = hashUser.get("type").toString();
-                                if (type.equals("0")) {
+                                if (type.equals("0")||type.equals("4")){
                                     intent = new Intent(LoginActivity.this, HomeUserActivity.class);
                                     intent.putExtra(USER_ID, fAuth.getCurrentUser().getUid());
+                                    intent.putExtra("type",type);
                                     startActivity(intent);
                                 } else if (type.equals("1")) {
                                     intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
                                     startActivity(intent);
                                 }
-                                App.getInstance().getStorage().saveUId(fAuth.getCurrentUser().getUid());
+                                else if (type.equals("2")){
+                                    intent = new Intent(LoginActivity.this, HomeCensor.class);
+                                    intent.putExtra(USER_ID, fAuth.getCurrentUser().getUid());
+                                    startActivity(intent);
+                                }
+                                else if (type.equals("3")){
+                                    intent = new Intent(LoginActivity.this, ChefActivity.class);
+                                    startActivity(intent);
+                                }
                             }
                         }
 
