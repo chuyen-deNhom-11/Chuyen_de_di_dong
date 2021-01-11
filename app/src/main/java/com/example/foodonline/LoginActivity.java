@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodonline.Admin.HomeAdminActivity;
 import com.example.foodonline.Censor.CensorActivity;
+import com.example.foodonline.Censor.HomeCensor;
 import com.example.foodonline.Chef.ChefActivity;
 import com.example.foodonline.DataModel.AcountModel;
 import com.example.foodonline.User.HomeUserActivity;
@@ -135,7 +136,8 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                                 else if (type.equals("2")){
-                                    intent = new Intent(LoginActivity.this, CensorActivity.class);
+                                    intent = new Intent(LoginActivity.this, HomeCensor.class);
+                                    intent.putExtra(USER_ID, fAuth.getCurrentUser().getUid());
                                     startActivity(intent);
                                 }
                                 else if (type.equals("3")){

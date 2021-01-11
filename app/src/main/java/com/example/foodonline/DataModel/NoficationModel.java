@@ -1,14 +1,15 @@
 package com.example.foodonline.DataModel;
 
 public class NoficationModel {
-    String id, taiKhoan, hoaDon,time;
+    String id, taiKhoan, hoaDon;
     int status;
+    long time;
 
     public String getId() {
         return id;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
@@ -24,10 +25,7 @@ public class NoficationModel {
         return status;
     }
 
-    public NoficationModel(String id, String taiKhoan, String hoaDon, String time, int status) {
-        this.id = id;
-        this.taiKhoan = taiKhoan;
-        this.hoaDon = hoaDon;
+    public NoficationModel(long time, int status) {
         this.time = time;
         this.status = status;
     }

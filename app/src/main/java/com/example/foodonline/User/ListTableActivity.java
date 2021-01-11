@@ -55,7 +55,7 @@ public class ListTableActivity extends AppCompatActivity implements ListTableAda
     ImageView img_select_date, img_select_time;
     Button btn_Cancel,btn_booking;
     Intent intent;
-    String userId;
+    String userId,sType;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,15 +65,19 @@ public class ListTableActivity extends AppCompatActivity implements ListTableAda
         list_table = findViewById(R.id.list_table);
         intent = getIntent();
         userId = intent.getStringExtra(USER_ID);
+        sType = intent.getStringExtra("sType");
         setItemTable();
     }
+    int i=0;
     private void setItemTable(){
         tableModels = new ArrayList<>();
         fData.getReference().child("Table").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                TableModel table = snapshot.getValue(TableModel.class);
-                tableModels.add(new TableModel(snapshot.getKey(),table.getNameTable(),table.getNumberPeople(),table.getStatus()));
+                tableModels.add(snapshot.getValue(TableModel.class));
+                tableModels.get(i).setId(snapshot.getKey());
+                tableModels.get(i).setNameTable("Bàn "+(i+1));
+                i++;
                 listTableAdapter.notifyDataSetChanged();
             }
 
@@ -81,7 +85,6 @@ public class ListTableActivity extends AppCompatActivity implements ListTableAda
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 for (int i =0;i<tableModels.size();i++){
                     if (snapshot.getKey().equals(tableModels.get(i).getId())){
-                        tableModels.get(i).setNameTable(snapshot.child("nameTable").getValue(String.class));
                         tableModels.get(i).setNumberPeople(snapshot.child("numberPeople").getValue(Integer.class));
                         tableModels.get(i).setStatus(snapshot.child("status").getValue(Integer.class));
                         listTableAdapter.notifyDataSetChanged();
@@ -167,15 +170,17 @@ public class ListTableActivity extends AppCompatActivity implements ListTableAda
         });
     }
 
-    String sDateBooking,sTimeBooking,sTableID,sNameTable;
+    String sDateBooking,sTimeBooking,sTableID,sNameTable,sIdNvoice;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     @Override
     public void onClick(int posotion) {
+        sIdNvoice=tableModels.get(posotion).getId_nvoice();
+        sTableID = tableModels.get(posotion).getId();
+        sNameTable = tableModels.get(posotion).getNameTable();
+
         if (tableModels.get(posotion).getStatus()!=2){
             showDialog();
-            sTableID = tableModels.get(posotion).getId();
-            sNameTable = tableModels.get(posotion).getNameTable();
             name_table.setText(sNameTable);
             img_select_date.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -189,8 +194,15 @@ public class ListTableActivity extends AppCompatActivity implements ListTableAda
                     timePikerDialog();
                 }
             });
-        }else {
-            Toast.makeText(this,"Bạn này đã có người sử dụng",Toast.LENGTH_SHORT).show();
+        }else if (sType.equals("4")){
+            fData.getReference().child("Cart").child(userId).child("table").child("idBill").setValue(sIdNvoice);
+            fData.getReference().child("Cart").child(userId).child("table").child("tableID").setValue(sTableID);
+            fData.getReference().child("Cart").child(userId).child("table").child("tableName").setValue(sNameTable);
+            finish();
+            Toast.makeText(this,"Đã chọn bàn "+sNameTable,Toast.LENGTH_SHORT).show();
+        }else
+            {
+            Toast.makeText(this,"Bàn này đã có người sử dụng",Toast.LENGTH_SHORT).show();
         }
 
     }

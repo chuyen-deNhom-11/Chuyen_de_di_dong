@@ -40,6 +40,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ln_cooking"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
@@ -65,6 +66,26 @@
                 android:text="@string/btn_cook_done"
                 android:textAllCaps="false" />
 
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ln_confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_custom"
+                android:backgroundTint="@color/colorRed"
+                android:text="@string/btn_cancel"
+                android:textAllCaps="false" />
 
         </LinearLayout>
     </LinearLayout>

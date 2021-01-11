@@ -111,6 +111,7 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 tableModels.add(snapshot.getValue(TableModel.class));
                 tableModels.get(j).setId(snapshot.getKey());
+                tableModels.get(j).setNameTable("Bàn "+(j+1));
                 j++;
                 listTableAdapter.notifyDataSetChanged();
             }
@@ -119,7 +120,6 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 for (int i = 0; i < tableModels.size(); i++) {
                     if (snapshot.getKey().equals(tableModels.get(i).getId())) {
-                        tableModels.get(i).setNameTable(snapshot.child("nameTable").getValue(String.class));
                         tableModels.get(i).setNumberPeople(snapshot.child("numberPeople").getValue(Integer.class));
                         tableModels.get(i).setStatus(snapshot.child("status").getValue(Integer.class));
                         sNvoice = snapshot.child("id_nvoice").getValue(String.class);

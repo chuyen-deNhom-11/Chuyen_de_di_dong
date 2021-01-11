@@ -35,6 +35,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -44,12 +45,13 @@ import static com.example.foodonline.utils.Constant.USER_REFERENCES;
 public class BillFragment extends Fragment {
     Context context;
     ArrayList<CartModel> cartModels;
+    ArrayList<CartModel> cartMd;
     ListView list_dish;
     String userID, sType;
     ImageView btn_reset;
     TextView tv_name_date_booking, tv_time;
     FirebaseDatabase fData = FirebaseDatabase.getInstance();
-    String name, phoneNumber, adress, sTime, sDate, sNameTable, sTableID = "";
+    String name, phoneNumber, adress, sTime, sDate, sNameTable, sTableID = "",sBillId;
     TextView tv_name_phone, tv_address, tv_select_table, change_tables, total_price;
     LinearLayout bookingTrue, bookingFalse, layout_ship;
     Button btn_Cancel, btn_Oder;
@@ -161,12 +163,37 @@ public class BillFragment extends Fragment {
         btn_Oder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (sType.equals("4")) {
-                    typeBooking = 2;
-                    if (sTableID == null || sTableID.equals("")) {
-                        Toast.makeText(context, "Vui lòng chọn bàn", Toast.LENGTH_SHORT).show();
-                    } else {
-                        oderLisenner();
+                    if (sBillId != null){
+                        for (int i =0; i<cartMd.size();i++){
+                            cartModels.add(cartMd.get(i));
+                        }
+                        setTotalPrice();
+                        FirebaseDatabase.getInstance().getReference().child("Bill").child(sBillId).child("Dish").setValue(cartModels).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                FirebaseDatabase.getInstance().getReference().child("Bill").child(sBillId).child("price").setValue(totalPrice+"");
+                                FirebaseDatabase.getInstance().getReference().child("Cart").child(userID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                        builder.setMessage("Bạn Đặt hàng thành công");
+                                        builder.setNegativeButton("ok", null);
+                                        Dialog dialog = builder.create();
+                                        dialog.show();
+                                    }
+                                });
+                                setListDish();
+                            }
+                        });
+                    }else {
+                        typeBooking = 2;
+                        if (sTableID == null || sTableID.equals("")) {
+                            Toast.makeText(context, "Vui lòng chọn bàn", Toast.LENGTH_SHORT).show();
+                        } else {
+                            oderLisenner();
+                        }
                     }
                 } else {
                     if (sTableID == null || sTableID.equals("")) {
@@ -328,10 +355,29 @@ public class BillFragment extends Fragment {
                 sTime = snapshot.child("timeBooking").getValue(String.class);
                 sNameTable = snapshot.child("tableName").getValue(String.class);
                 sTableID = snapshot.child("tableID").getValue(String.class);
+                sBillId = snapshot.child("idBill").getValue(String.class);
                 if (sTableID != null) {
                     selectTable();
                 }
-                oder();
+                if (sBillId != null){
+                    cartMd = new ArrayList<>();
+                    fData.getReference().child("Bill").child(sBillId).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot postSnapshot : snapshot.child("Dish").getChildren()) {
+                                cartMd.add(postSnapshot.getValue(CartModel.class));
+                                oder();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });}
+                else{
+                    oder();
+                }
             }
 
             @Override
@@ -340,10 +386,29 @@ public class BillFragment extends Fragment {
                 sTime = snapshot.child("timeBooking").getValue(String.class);
                 sNameTable = snapshot.child("tableName").getValue(String.class);
                 sTableID = snapshot.child("tableID").getValue(String.class);
+                sBillId = snapshot.child("idBill").getValue(String.class);
                 if (sTableID != null) {
                     selectTable();
                 }
-                oder();
+                if (sBillId != null){
+                    fData.getReference().child("Bill").child(sBillId).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            cartMd = new ArrayList<>();
+                            for (DataSnapshot postSnapshot : snapshot.child("Dish").getChildren()) {
+                                cartMd.add(postSnapshot.getValue(CartModel.class));
+                                oder();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });}
+                else{
+                    oder();
+                }
             }
 
             @Override
@@ -410,6 +475,7 @@ public class BillFragment extends Fragment {
     private void selectTableListener() {
         intent = new Intent(context, ListTableActivity.class);
         intent.putExtra(USER_ID, userID);
+        intent.putExtra("sType",sType);
         startActivity(intent);
     }
 
