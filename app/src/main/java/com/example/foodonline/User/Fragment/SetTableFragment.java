@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,15 +31,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodonline.Adpter.ListDishBillAdapter;
 import com.example.foodonline.Adpter.ListTableAdapter;
-import com.example.foodonline.DataModel.BillModel;
 import com.example.foodonline.DataModel.BookingTableModel;
 import com.example.foodonline.DataModel.CartModel;
 import com.example.foodonline.DataModel.TableModel;
 import com.example.foodonline.DataModel.UserModel;
-import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
-import com.example.foodonline.SignInActivity;
-import com.example.foodonline.User.HistoryActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -68,9 +63,9 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
     LinearLayout layout_close;
     ArrayList<CartModel> cartModels;
     ListView list_dish;
-    LinearLayout layout_ship;
+    LinearLayout layout_ship,ln_deposit_money;
     Intent intent;
-    TextView total_price,tv_name_phone,address,tv_name_date_booking,tv_time,change_tables;
+    TextView total_price,tv_deposit;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -159,7 +154,7 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
                 if (snapshot.getKey().equals(userID)) {
                     UserModel user = snapshot.getValue(UserModel.class);
                     sUserName = user.getName();
-                    sPhone = user.getPhoneNumber();
+                    sPhone = user.getNumberPhone();
                     sAdress = user.getAdress();
                 }
             }
@@ -277,6 +272,8 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
         layout_close.setVisibility(View.VISIBLE);
         img_close = dialog.findViewById(R.id.img_close);
         list_dish = dialog.findViewById(R.id.list_dish);
+        ln_deposit_money = dialog.findViewById(R.id.ln_deposit_money);
+        tv_deposit = dialog.findViewById(R.id.tv_deposit);
         img_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -331,6 +328,8 @@ public class SetTableFragment extends Fragment implements ListTableAdapter.Click
             }
         });
     }
+    String sDepositMoney;
+    int Total;
     private void readDataBill(final String sID){
         cartModels = new ArrayList<>();
         fData.getReference().child("Bill").addChildEventListener(new ChildEventListener() {

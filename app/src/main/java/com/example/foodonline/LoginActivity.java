@@ -142,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else if (type.equals("3")){
                                     intent = new Intent(LoginActivity.this, ChefActivity.class);
+                                    intent.putExtra(USER_ID, fAuth.getCurrentUser().getUid());
                                     startActivity(intent);
                                 }
                             }

@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class InvoiceActivity extends AppCompatActivity {
     Button btn_HuyDon, btn_XNDon;
     Intent intent;
-    String sIdBill,sLayout,sUserID,sDepositMoney;
+    String sIdBill,sLayout,sUserID,sDepositMoney,sTableID;
     int iType,iStatus;
     TextView tv_price,tv_address,tv_PhoneNumber,tv_total_people,tv_name,tv_type_booking,tv_deposit;
     ListView lv_detail_invoice;
@@ -46,7 +46,6 @@ public class InvoiceActivity extends AppCompatActivity {
     public static final String COC = "Cọc tiền";
     public static final String THANHTOAN = "Thanh toán";
     public static final String NAU = "Nấu";
-    public static final String XACNHAN = "Xác nhận";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +102,12 @@ public class InvoiceActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             fData.getReference().child("Bill").child(sIdBill).child("status").setValue(2);
+                            if (sLayout.equals("ApprovedFragment")){
+                                if (iType==1){
+                                    fData.getReference().child("Table").child(sTableID).child("status").setValue(2);
+                                    fData.getReference().child("Table").child(sTableID).child("id_nvoice").setValue(sIdBill);
+                                }
+                            }
                             finish();
                         }
                     });
@@ -148,6 +153,9 @@ public class InvoiceActivity extends AppCompatActivity {
                     iStatus = snapshot.child("status").getValue(Integer.class);
                     tv_PhoneNumber.setText(snapshot.child("phone").getValue(String.class));
                     sDepositMoney = snapshot.child("depositMoney").getValue(String.class);
+                    if (snapshot.child("tableID").getValue(String.class)!=null){
+                        sTableID= snapshot.child("tableID").getValue(String.class);
+                    }
                     if (sDepositMoney != null){
                         ln_deposit_money.setVisibility(View.VISIBLE);
                         tv_deposit.setText(sDepositMoney);

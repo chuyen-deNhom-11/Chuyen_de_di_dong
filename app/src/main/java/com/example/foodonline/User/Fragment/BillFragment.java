@@ -321,7 +321,7 @@ public class BillFragment extends Fragment {
                 if (snapshot.getKey().equals(userID)) {
                     UserModel user = snapshot.getValue(UserModel.class);
                     name = user.getName();
-                    phoneNumber = user.getPhoneNumber();
+                    phoneNumber = user.getNumberPhone();
                     adress = user.getAdress();
                     setTextInfonation();
                 }

@@ -4,12 +4,15 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,9 +25,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.foodonline.Adpter.DepositMoneyAdapter;
 import com.example.foodonline.Adpter.HistoryAdapter;
 import com.example.foodonline.Adpter.ListDishBillAdapter;
 import com.example.foodonline.DataModel.BillModel;
+import com.example.foodonline.DataModel.BookingTableModel;
 import com.example.foodonline.DataModel.CartModel;
 import com.example.foodonline.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,14 +49,17 @@ public class HistoryActivity extends AppCompatActivity {
     String sUserId;
     ArrayList<BillModel> arrayListBill;
     ArrayList<CartModel> cartModels;
+    ArrayList<String> dataSpinner = new ArrayList<>();
+    ArrayList<BookingTableModel> bookingTableModels = new ArrayList<>();
+    DepositMoneyAdapter depositMoneyAdapter;
     HistoryAdapter historyAdapter;
     Spinner spn_select_type;
     ListView lv_list_history,list_dish;
-    LinearLayout layout_close,layout_button,bookingTrue;
+    LinearLayout layout_close,layout_button,bookingTrue,ln_deposit_money;
     ImageView img_close;
     Intent intent;
     Button btn_Oder,btn_Cancel;
-    TextView total_price,tv_name_phone,address,tv_name_date_booking,tv_time,change_tables;
+    TextView total_price,tv_name_phone,address,tv_name_date_booking,tv_time,change_tables,tv_deposit;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,26 +67,46 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
         intent = getIntent();
         sUserId = intent.getStringExtra(USER_ID);
+        dataSpinner.add("Lịch sử đặt món ăn");
+        dataSpinner.add("Lịch sử đặt bàn");
         initialization();
 //        setHistoryAdapter();
+        selectSpinner();
         readDataBill();
-        if (arrayListBill != null){
-            historyAdapter = new HistoryAdapter(HistoryActivity.this,R.layout.activity_history,arrayListBill);
-            lv_list_history.setAdapter(historyAdapter);
-        }
+    }
+    private void selectSpinner(){
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dataSpinner);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spn_select_type.setAdapter(arrayAdapter);
+        spn_select_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position ==0){
+                    readDataBill();
+                }else {
+                    readDataBookingTable();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
     int i=0;
     private void readDataBill(){
         arrayListBill = new ArrayList<>();
+        i=0;
         fData.getReference().child("Bill").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                BillModel bill = snapshot.getValue(BillModel.class);
-                if (bill.getUser().equals(sUserId)){
+                if (snapshot.child("user").getValue(String.class).equals(sUserId)){
                     arrayListBill.add(snapshot.getValue(BillModel.class));
                     arrayListBill.get(i).setId(snapshot.getKey());
                     i++;
-                    historyAdapter.notifyDataSetChanged();
+                    historyAdapter = new HistoryAdapter(HistoryActivity.this,R.layout.activity_history,arrayListBill);
+                    lv_list_history.setAdapter(historyAdapter);
                 }
             }
 
@@ -102,8 +130,46 @@ public class HistoryActivity extends AppCompatActivity {
 
             }
         });
+
     }
     private void readDataBookingTable(){
+        i=0;
+        bookingTableModels = new ArrayList<>();
+        fData.getReference().child("BookingTable").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.child("userId").getValue(String.class).equals(sUserId)){
+                    bookingTableModels.add(snapshot.getValue(BookingTableModel.class));
+                    bookingTableModels.get(i).setId(snapshot.getKey());
+                    if(snapshot.child("status").getValue(Integer.class)!=null){
+                        bookingTableModels.get(i).setStatus(snapshot.child("status").getValue(Integer.class));
+                    }
+                    i++;
+                    depositMoneyAdapter= new DepositMoneyAdapter(HistoryActivity.this,R.layout.fragment_censor,bookingTableModels,"HistoryActivity");
+                    lv_list_history.setAdapter(depositMoneyAdapter);
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
     private void clickItemListener(final int position){
@@ -143,6 +209,35 @@ public class HistoryActivity extends AppCompatActivity {
         }
         if (arrayListBill.get(position).getStatus() == 0||arrayListBill.get(position).getStatus() == 5){
             btn_Oder.setText("Đặt cọc");
+            btn_Oder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View alertLayout = inflater.inflate(R.layout.dialog_deposit_money, null);
+                    EditText edt_deposit_money = alertLayout.findViewById(R.id.edt_deposit_money);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);
+                    builder.setView(alertLayout);
+                    builder.setTitle("Nhập tiền cọc");
+                    builder.setPositiveButton("Đặt cọc", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (!edt_deposit_money.getText().toString().equals("")){
+                                fData.getReference().child("Bill").child(arrayListBill.get(position).getId()).child("depositMoney").setValue(edt_deposit_money.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        fData.getReference().child("Bill").child(arrayListBill.get(position).getId()).child("status").setValue(6);
+                                    }
+                                });
+                            }else {
+                                Toast.makeText(HistoryActivity.this, "Vui lòng nhập tiền cọc !",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("Hủy", null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            });
             btn_Cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -36,6 +36,7 @@
         <activity android:name=".User.ListDishComboActivity" />
         <activity android:name=".User.ListTableActivity" />
         <activity android:name=".Censor.InvoiceActivity" />
+        <activity android:name=".Chef.InfomationActivity"/>
     </application>
 
 </manifest>
