@@ -41,26 +41,31 @@ public class DishFragment extends Fragment {
         setEvent();
         return root;
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
     }
-    int i=0;
-    private void setEvent() {
 
+    int i = 0;
+
+    private void setEvent() {
         fData.getReference().child("Bill").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.child("status").getValue(Integer.class) == 2){
-                    for (DataSnapshot postSnapshot : snapshot.child("Dish").getChildren()){
-                        data_chef.add(postSnapshot.getValue(ChefModel.class));
+                if (snapshot.child("status").getValue(Integer.class) == 2) {
+                    for (DataSnapshot postSnapshot : snapshot.child("Dish").getChildren()) {
+                        if (postSnapshot.child("status").getValue(Integer.class) != null && postSnapshot.child("status").getValue(Integer.class) == 1){
+                            data_chef.add(postSnapshot.getValue(ChefModel.class));
                         data_chef.get(i).setIdBill(snapshot.getKey());
                         data_chef.get(i).setType(snapshot.child("type").getValue(Integer.class));
                         data_chef.get(i).setTable(snapshot.child("nameTable").getValue(String.class));
+                        data_chef.get(i).setTotalPrice(snapshot.child("price").getValue(String.class));
                         data_chef.get(i).setKeyDish(postSnapshot.getKey());
                         i++;
                         chefAdapter_chef.notifyDataSetChanged();
+                    }
                     }
                 }
             }
@@ -85,7 +90,7 @@ public class DishFragment extends Fragment {
 
             }
         });
-        chefAdapter_chef = new ChefAdapter(context, R.layout.item_chef, data_chef,"DishFragment");
+        chefAdapter_chef = new ChefAdapter(context, R.layout.item_chef, data_chef, "DishFragment");
         list_invoice.setAdapter(chefAdapter_chef);
 
 

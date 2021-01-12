@@ -90,7 +90,28 @@
         android:background="@drawable/layout_item"
         android:gravity="center_vertical"
         android:orientation="vertical">
-
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ln_deposit_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:textSize="15dp"
+                android:text="Tiền cọc" />
+            <TextView
+                android:gravity="right"
+                android:id="@+id/tv_deposit"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:imeOptions="actionDone"
+                android:singleLine="true" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

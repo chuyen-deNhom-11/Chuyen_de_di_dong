@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.foodonline.Chef.ChefActivity;
+import com.example.foodonline.DataModel.BillModel;
 import com.example.foodonline.DataModel.ChefModel;
 import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
@@ -65,13 +67,24 @@ public class ChefAdapter extends BaseAdapter {
         TextView txt_table = (TextView) convertView.findViewById(R.id.table);
         Button btn_cancel = (Button) convertView.findViewById(R.id.btn_cancel);
         Button btn_done_cook = (Button) convertView.findViewById(R.id.btn_done_cook);
+        LinearLayout ln_confirm = convertView.findViewById(R.id.ln_confirm);
+        LinearLayout ln_cooking = convertView.findViewById(R.id.ln_cooking);
+        Button btn_confirm = convertView.findViewById(R.id.btn_confirm);
+        TextView reason = convertView.findViewById(R.id.reason);
+        Button btn_return = convertView.findViewById(R.id.btn_return);
         //Gán giá trị
         final ChefModel chefModel = data.get(position);
         txt_name_food.setText(chefModel.getNameFood());
         txt_amount.setText(chefModel.getSoLuong()+"");
+        if (sLayout.equals("DishFragment")){
+            ln_confirm.setVisibility(View.VISIBLE);
+            ln_cooking.setVisibility(View.GONE);
+            reason.setVisibility(View.VISIBLE);
+            reason.setText("Lý do: "+chefModel.getReason());
+        }
         if (chefModel.getType()==0){
             sTable = "Online";
-        }if(chefModel.getType()==1){
+        }else if(chefModel.getType()==1){
             sTable = chefModel.getTable()+"(Online)";
         } else {
             sTable = chefModel.getTable();
@@ -149,6 +162,38 @@ public class ChefAdapter extends BaseAdapter {
                 Dialog dialog = builder.create();
                 dialog.show();
 
+            }
+        });
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Hủy món "+data.get(position).getNameFood());
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        fData.getReference().child("Bill").child(data.get(position).
+                                getIdBill()).child("Dish").child(data.get(position).getKeyDish()).removeValue();
+                        int p = Integer.parseInt(data.get(position).getTotalPrice())-data.get(position).getPrice();
+                        fData.getReference().child("Bill").child(data.get(position).getIdBill()).child("price").setValue(p+"");
+                        data.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("Không", null);
+                Dialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+        btn_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fData.getReference().child("Bill").child(data.get(position).
+                        getIdBill()).child("Dish").child(data.get(position).getKeyDish()).child("status").removeValue();
+                fData.getReference().child("Bill").child(data.get(position).getIdBill()).child("Dish")
+                        .child(data.get(position).getKeyDish()).child("reason").removeValue();
+                data.remove(position);
+                notifyDataSetChanged();
             }
         });
         return convertView;

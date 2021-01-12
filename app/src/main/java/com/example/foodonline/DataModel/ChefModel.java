@@ -1,8 +1,24 @@
 package com.example.foodonline.DataModel;
 
 public class ChefModel {
-    String idBill, nameFood, amount, table, keyDish;
-    int status,type,soLuong;
+    String idBill, nameFood, amount, table, keyDish,reason,totalPrice;
+    int status,type,soLuong,price;
+
+    public String getReason() {
+        return reason;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public int getPrice() {
+        return price;
+    }
 
     public String getKeyDish() {
         return keyDish;
