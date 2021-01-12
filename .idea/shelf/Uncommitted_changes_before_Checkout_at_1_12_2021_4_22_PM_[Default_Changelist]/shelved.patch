@@ -1,0 +1,170 @@
+Index: app/src/main/res/layout/activity_invoice.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\">\r\n\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:background=\"@color/colorYellow\"\r\n        android:gravity=\"center\"\r\n        android:text=\"CHI TIẾT HÓA ĐƠN\"\r\n        android:textSize=\"20dp\"\r\n        android:textStyle=\"bold\" />\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_gravity=\"center\"\r\n        android:layout_weight=\"0.3\"\r\n        android:paddingTop=\"10dp\">\r\n\r\n        <TextView\r\n            android:id=\"@+id/tv_type_booking\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:gravity=\"center\"\r\n            android:text=\"Bàn 1 (online)\"\r\n            android:textStyle=\"bold\" />\r\n\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_margin=\"5dp\"\r\n        android:layout_weight=\"1.5\"\r\n        android:background=\"@drawable/layout_item\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n\r\n            android:layout_weight=\"1\"\r\n            android:orientation=\"horizontal\"\r\n            android:paddingTop=\"10dp\">\r\n\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"1\"\r\n                android:paddingLeft=\"5dp\"\r\n                android:text=\"Khách hàng : \" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/tv_name\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"3\"\r\n                android:paddingLeft=\"10dp\"\r\n                android:text=\"Nguyễn Hoàng Duy\" />\r\n\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n\r\n            android:paddingTop=\"10dp\">\r\n\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"1\"\r\n                android:paddingLeft=\"5dp\"\r\n                android:text=\"Số người :\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/tv_total_people\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"3\"\r\n                android:paddingLeft=\"10dp\"\r\n                android:text=\"2\" />\r\n\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n            android:paddingTop=\"10dp\"\r\n\r\n            >\r\n\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"1\"\r\n                android:paddingLeft=\"5dp\"\r\n                android:text=\"Số điện thoại :\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/tv_PhoneNumber\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"3\"\r\n                android:paddingLeft=\"10dp\"\r\n                android:text=\"0394582840\" />\r\n\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1.5\"\r\n            android:paddingTop=\"10dp\"\r\n\r\n            >\r\n\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"1\"\r\n                android:paddingLeft=\"5dp\"\r\n                android:text=\"Địa chỉ : \" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/tv_address\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"3\"\r\n                android:paddingLeft=\"10dp\"\r\n                android:text=\"53 Võ Văn Ngân\" />\r\n\r\n        </LinearLayout>\r\n\r\n\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_margin=\"5dp\"\r\n        android:layout_weight=\"2\"\r\n        android:background=\"@drawable/layout_item\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"3\">\r\n\r\n            <ListView\r\n                android:id=\"@+id/lv_detail_invoice\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\" />\r\n\r\n        </LinearLayout>\r\n\r\n\r\n\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:orientation=\"vertical\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"1.5\"\r\n        android:layout_margin=\"5dp\"\r\n        android:background=\"@drawable/layout_item\"\r\n        android:paddingTop=\"5dp\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n            >\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"1\"\r\n                android:paddingLeft=\"5dp\"\r\n                android:text=\"Ngày đặt: \" />\r\n\r\n\r\n\r\n            <TextView\r\n                android:id=\"@+id/tv_day_booking\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"3\"\r\n                android:gravity=\"right\"\r\n                android:paddingRight=\"10dp\"\r\n                android:text=\"01/01/2021\"\r\n                />\r\n        </LinearLayout>\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n            >\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"1\"\r\n                android:paddingLeft=\"5dp\"\r\n                android:text=\"Giờ đặt: \" />\r\n\r\n\r\n\r\n            <TextView\r\n                android:id=\"@+id/tv_time_booking\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"3\"\r\n                android:gravity=\"right\"\r\n                android:paddingRight=\"10dp\"\r\n                android:text=\"20:00\"\r\n                />\r\n        </LinearLayout>\r\n\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n\r\n            >\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"1\"\r\n                android:paddingLeft=\"5dp\"\r\n                android:text=\"Tiền cọc: \" />\r\n\r\n\r\n\r\n            <TextView\r\n                android:id=\"@+id/tv_deposit\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"3\"\r\n                android:gravity=\"right\"\r\n                android:paddingRight=\"10dp\"\r\n                android:text=\"100.000đ\"\r\n                 />\r\n        </LinearLayout>\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n            >\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"1\"\r\n                android:paddingLeft=\"5dp\"\r\n                android:text=\"Tổng tiền: \" />\r\n\r\n\r\n\r\n            <TextView\r\n                android:id=\"@+id/tv_price\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"3\"\r\n                android:gravity=\"right\"\r\n                android:paddingRight=\"10dp\"\r\n                android:text=\"200.000đ\"\r\n                android:textSize=\"20dp\"\r\n                android:textStyle=\"bold\" />\r\n        </LinearLayout>\r\n\r\n\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"1\"\r\n        android:gravity=\"center_vertical\"\r\n        android:orientation=\"horizontal\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:gravity=\"center\">\r\n\r\n            <Button\r\n                android:id=\"@+id/btn_HuyDon\"\r\n                android:layout_width=\"1in\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/btn_custom\"\r\n                android:backgroundTint=\"@color/colorRed\"\r\n                android:gravity=\"center\"\r\n                android:text=\"@string/btn_cancel\"\r\n                android:textAllCaps=\"false\" />\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:gravity=\"center\">\r\n\r\n            <Button\r\n                android:id=\"@+id/btn_XNDon\"\r\n                android:layout_width=\"1in\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/btn_custom\"\r\n                android:backgroundTint=\"@color/colorGreen\"\r\n                android:gravity=\"center\"\r\n                android:text=\"Xác nhận\"\r\n                android:textAllCaps=\"false\" />\r\n        </LinearLayout>\r\n\r\n\r\n    </LinearLayout>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_invoice.xml	(revision b4d850be6a0615dbfffe20ab5c575f9977ce6f54)
++++ app/src/main/res/layout/activity_invoice.xml	(date 1610158520409)
+@@ -2,6 +2,7 @@
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
++    android:background="@color/colorLightBlue"
+     android:orientation="vertical">
+ 
+     <TextView
+@@ -26,6 +27,7 @@
+             android:layout_height="wrap_content"
+             android:gravity="center"
+             android:text="Bàn 1 (online)"
++            android:textColor="@color/black"
+             android:textStyle="bold" />
+ 
+     </LinearLayout>
+@@ -161,23 +163,22 @@
+         </LinearLayout>
+ 
+ 
+-
+     </LinearLayout>
+ 
+     <LinearLayout
+         android:layout_width="match_parent"
+-        android:orientation="vertical"
+         android:layout_height="0dp"
+-        android:layout_weight="1.5"
+         android:layout_margin="5dp"
++        android:layout_weight="1.5"
+         android:background="@drawable/layout_item"
++        android:orientation="vertical"
+         android:paddingTop="5dp">
+ 
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+-            android:layout_weight="1"
+-            >
++            android:layout_weight="1">
++
+             <TextView
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+@@ -186,7 +187,6 @@
+                 android:text="Ngày đặt: " />
+ 
+ 
+-
+             <TextView
+                 android:id="@+id/tv_day_booking"
+                 android:layout_width="0dp"
+@@ -194,14 +194,14 @@
+                 android:layout_weight="3"
+                 android:gravity="right"
+                 android:paddingRight="10dp"
+-                android:text="01/01/2021"
+-                />
++                android:text="01/01/2021" />
+         </LinearLayout>
++
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+-            android:layout_weight="1"
+-            >
++            android:layout_weight="1">
++
+             <TextView
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+@@ -210,7 +210,6 @@
+                 android:text="Giờ đặt: " />
+ 
+ 
+-
+             <TextView
+                 android:id="@+id/tv_time_booking"
+                 android:layout_width="0dp"
+@@ -218,8 +217,7 @@
+                 android:layout_weight="3"
+                 android:gravity="right"
+                 android:paddingRight="10dp"
+-                android:text="20:00"
+-                />
++                android:text="20:00" />
+         </LinearLayout>
+ 
+ 
+@@ -229,6 +227,7 @@
+             android:layout_weight="1"
+ 
+             >
++
+             <TextView
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+@@ -237,7 +236,6 @@
+                 android:text="Tiền cọc: " />
+ 
+ 
+-
+             <TextView
+                 android:id="@+id/tv_deposit"
+                 android:layout_width="0dp"
+@@ -245,14 +243,14 @@
+                 android:layout_weight="3"
+                 android:gravity="right"
+                 android:paddingRight="10dp"
+-                android:text="100.000đ"
+-                 />
++                android:text="100.000đ" />
+         </LinearLayout>
++
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+-            android:layout_weight="1"
+-            >
++            android:layout_weight="1">
++
+             <TextView
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+@@ -261,7 +259,6 @@
+                 android:text="Tổng tiền: " />
+ 
+ 
+-
+             <TextView
+                 android:id="@+id/tv_price"
+                 android:layout_width="0dp"
+Index: app/src/main/res/layout/activity_censor.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <ListView\r\n        android:id=\"@+id/list_invoice\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layout_margin=\"10dp\"\r\n        android:divider=\"@null\"\r\n        android:dividerHeight=\"10dp\"\r\n        />\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_censor.xml	(revision b4d850be6a0615dbfffe20ab5c575f9977ce6f54)
++++ app/src/main/res/layout/activity_censor.xml	(date 1610156484424)
+@@ -1,7 +1,8 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent">
++    android:layout_height="match_parent"
++    android:background="@color/colorLightBlue">
+ 
+     <ListView
+         android:id="@+id/list_invoice"
+@@ -9,7 +10,6 @@
+         android:layout_height="match_parent"
+         android:layout_margin="10dp"
+         android:divider="@null"
+-        android:dividerHeight="10dp"
+-        />
++        android:dividerHeight="10dp" />
+ 
+ </LinearLayout>
+\ No newline at end of file
