@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/action_bar_bill" />
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="20dp">
+
+        <EditText
+            android:id="@+id/edt_day"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@color/colorLightBlue"
+            android:hint="Ngày"
+            android:inputType="number"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/edt_month"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@color/colorLightBlue"
+            android:hint="Tháng"
+            android:inputType="number"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/edt_year"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@color/colorLightBlue"
+            android:hint="Năm"
+            android:inputType="number"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_loc"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Lọc"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+
+    </TableRow>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/rv_bill"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/item_bill" />
+
+
+</LinearLayout>

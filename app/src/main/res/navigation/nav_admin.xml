@@ -44,8 +44,13 @@
     </fragment>
 
     <fragment
+        android:id="@+id/billFragment"
+        android:name="com.example.foodonline.Admin.fragment.M004BillFragment"
+        tools:layout="@layout/fragment_bill_admin" />
+
+    <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.foodonline.Admin.fragment.M004AccountFragment"
+        android:name="com.example.foodonline.Admin.fragment.M005AccountFragment"
         tools:layout="@layout/fragment_tai_khoan" />
 
     <fragment

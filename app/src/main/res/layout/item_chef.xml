@@ -36,6 +36,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bàn: 1" />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lý do" />
 
         </LinearLayout>
 
@@ -85,6 +91,14 @@
                 android:background="@drawable/btn_custom"
                 android:backgroundTint="@color/colorRed"
                 android:text="@string/btn_cancel"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/btn_return"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_custom"
+                android:backgroundTint="@color/colorGreen"
+                android:text="Nấu"
                 android:textAllCaps="false" />
 
         </LinearLayout>

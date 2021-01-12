@@ -15,10 +15,9 @@ public class CombooEntity {
         this.dish = dish;
     }
 
-    public CombooEntity(String imageCombo, String nameCombo, String priceCombo) {
+    public CombooEntity(String imageCombo, String nameCombo) {
         this.imageCombo = imageCombo;
         this.nameCombo = nameCombo;
-        this.priceCombo = priceCombo;
     }
 
     public CombooEntity() {

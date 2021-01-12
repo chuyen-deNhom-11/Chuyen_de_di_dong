@@ -2,18 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/adminHomeFragment"
-        android:title="Nhân viên"
-        android:icon="@drawable/ic_baseline_home"/>
+        android:icon="@drawable/ic_baseline_home"
+        android:title="Nhân viên" />
     <item
         android:id="@+id/tableFragment"
-        android:title="Bàn"
-        android:icon="@drawable/ic_baseline_list"/>
+        android:icon="@drawable/ic_table"
+        android:title="Bàn" />
     <item
         android:id="@+id/bookingFragment"
-        android:title="Món ăn"
-        android:icon="@drawable/ic_table"/>
+        android:icon="@drawable/ic_food"
+        android:title="Món ăn" />
+
+    <item
+        android:id="@+id/billFragment"
+        android:icon="@drawable/ic_baseline_list"
+        android:title="Hoá đơn" />
     <item
         android:id="@+id/profileFragment"
-        android:title="Tài khoản"
-        android:icon="@drawable/ic_baseline_account"/>
+        android:icon="@drawable/ic_baseline_account"
+        android:title="Tài khoản" />
 </menu>

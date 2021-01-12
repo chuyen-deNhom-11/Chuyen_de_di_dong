@@ -15,5 +15,9 @@
             android:title="Đã thanh toán" />
         <item android:id="@+id/nav_dish"
             android:title="Yêu cầu hủy"/>
+        <item android:id="@+id/nav_browse_table"
+            android:title="Chờ duyệt bàn"/>
+        <item android:id="@+id/nav_browse"
+            android:title="Bàn đã duyệt"/>
     </group>
 </menu>

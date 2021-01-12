@@ -27,8 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".User.HomeUserActivity" />
         <activity android:name=".SignInActivity" />
+
         <activity android:name=".Chef.ChefActivity" />
         <activity android:name=".User.NoficationActivity" />
         <activity android:name=".User.HistoryActivity" />
@@ -36,6 +38,7 @@
         <activity android:name=".User.ListDishComboActivity" />
         <activity android:name=".User.ListTableActivity" />
         <activity android:name=".Censor.InvoiceActivity" />
+        <activity android:name=".Chef.InfomationActivity"/>
     </application>
 
 </manifest>

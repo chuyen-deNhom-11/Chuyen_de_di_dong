@@ -5,9 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,27 +19,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.foodonline.Adpter.HistoryAdapter;
 import com.example.foodonline.DataModel.UserModel;
 import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
-import com.example.foodonline.SignInActivity;
 import com.example.foodonline.User.HistoryActivity;
 import com.example.foodonline.User.NoficationActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Date;
 
 import static com.example.foodonline.utils.Constant.USER_REFERENCES;
 import static com.example.foodonline.utils.Constant.USER_ID;
@@ -87,10 +76,10 @@ public class InformationFragment extends Fragment {
     private void creat(View view) {
         btn_history = view.findViewById(R.id.history);
         btn_nofication = view.findViewById(R.id.notification);
-        tv_Name = view.findViewById(R.id.tv_Name);
-        tv_PhoneNumber = view.findViewById(R.id.tv_PhoneNumber);
-        tv_Adress = view.findViewById(R.id.tv_Adress);
-        tv_Email = view.findViewById(R.id.tv_Email);
+        tv_Name = view.findViewById(R.id.tv_name);
+        tv_PhoneNumber = view.findViewById(R.id.tv_phone_no);
+        tv_Adress = view.findViewById(R.id.tv_adress);
+        tv_Email = view.findViewById(R.id.tv_email);
         tv_LogOut = view.findViewById(R.id.tv_LogOut);
         tv_ChangePass = view.findViewById(R.id.tv_ChangePass);
         tvUpdate = view.findViewById(R.id.tvUpdate);
@@ -101,6 +90,7 @@ public class InformationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 intent = new Intent(context, NoficationActivity.class);
+                intent.putExtra(USER_ID,userID);
                 startActivity(intent);
             }
         });
@@ -150,14 +140,14 @@ public class InformationFragment extends Fragment {
                 if (snapshot.getKey().equals(userID)){
                     UserModel user = snapshot.getValue(UserModel.class);
                     tv_Name.setText(user.getName());
-                    tv_PhoneNumber.setText(user.getPhoneNumber());
+                    tv_PhoneNumber.setText(user.getNumberPhone());
                     tv_Email.setText(user.getEmail());
                     tv_Adress.setText(user.getAdress());
                     sPassword = user.getPassword();
                     sEmail = user.getEmail();
                     sAdress= user.getAdress();
                     sName = user.getName();
-                    sPhone = user.getPhoneNumber();
+                    sPhone = user.getNumberPhone();
                 }
             }
 
@@ -258,7 +248,7 @@ public class InformationFragment extends Fragment {
                     Toast.makeText(context,"Vui Lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
                 }else {
                     fData.getReference().child("Users").child(userID).child("name").setValue(sName);
-                    fData.getReference().child("Users").child(userID).child("phoneNumber").setValue(sPhone);
+                    fData.getReference().child("Users").child(userID).child("numberPhone").setValue(sPhone);
                     fData.getReference().child("Users").child(userID).child("adress").setValue(sAdress);
                     dialog.dismiss();
                 }

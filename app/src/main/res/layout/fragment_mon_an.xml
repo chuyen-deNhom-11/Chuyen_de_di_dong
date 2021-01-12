@@ -29,7 +29,19 @@
             android:spinnerMode="dropdown" />
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:text="Huỷ"
+        android:textSize="20dp"
+        android:visibility="gone" />
+
     <RelativeLayout
+        android:id="@+id/parent_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -38,11 +50,11 @@
             android:id="@+id/rv_dish"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
             android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"
-            tools:listitem="@layout/item_dish_staff">
-
-        </androidx.recyclerview.widget.RecyclerView>
+            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/d_50"
+            tools:listitem="@layout/item_dish_staff" />
 
         <ImageView
             android:id="@+id/iv_add"
@@ -55,6 +67,23 @@
             android:background="@drawable/background_round"
             android:padding="5dp"
             android:src="@drawable/ic_add"
+            app:tint="@color/colorPrimaryDark" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="25dp"
+            android:background="@color/white"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="Xoá"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
             app:tint="@color/colorPrimaryDark" />
 
 

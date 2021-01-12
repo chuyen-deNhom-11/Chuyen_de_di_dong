@@ -58,9 +58,8 @@ public class ProgressLoading {
                 } catch (Exception ignored) {
                     //ignored.printStackTrace();
                 }
-            }, 800);
+            }, 200);
         }
-
     }
 
 

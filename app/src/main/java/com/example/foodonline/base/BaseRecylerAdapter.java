@@ -51,6 +51,10 @@ public abstract class BaseRecylerAdapter<VH extends BaseHolder, D> extends Recyc
         notifyDataSetChanged();
     }
 
+    public ArrayList<D> getListData() {
+        return mListData;
+    }
+
     public interface AdapterCallBack{
         void callBack(String key, Object data);
     }
