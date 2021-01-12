@@ -206,10 +206,10 @@ public class InfomationActivity extends AppCompatActivity {
         });
     }
     private void creat() {
-        tv_Name = findViewById(R.id.tv_Name);
-        tv_PhoneNumber = findViewById(R.id.tv_PhoneNumber);
-        tv_Adress = findViewById(R.id.tv_Adress);
-        tv_Email = findViewById(R.id.tv_Email);
+        tv_Name = findViewById(R.id.tv_name);
+        tv_PhoneNumber = findViewById(R.id.tv_phone_no);
+        tv_Adress = findViewById(R.id.tv_adress);
+        tv_Email = findViewById(R.id.tv_email);
         tv_LogOut = findViewById(R.id.tv_LogOut);
         tv_ChangePass = findViewById(R.id.tv_ChangePass);
         tvUpdate = findViewById(R.id.tvUpdate);

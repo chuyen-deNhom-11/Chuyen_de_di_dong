@@ -77,7 +77,7 @@ public class InformationFragment extends Fragment {
         btn_history = view.findViewById(R.id.history);
         btn_nofication = view.findViewById(R.id.notification);
         tv_Name = view.findViewById(R.id.tv_name);
-        tv_PhoneNumber = view.findViewById(R.id.tv_PhoneNumber);
+        tv_PhoneNumber = view.findViewById(R.id.tv_phone_no);
         tv_Adress = view.findViewById(R.id.tv_adress);
         tv_Email = view.findViewById(R.id.tv_email);
         tv_LogOut = view.findViewById(R.id.tv_LogOut);
