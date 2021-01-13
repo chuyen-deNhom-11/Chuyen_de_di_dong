@@ -82,6 +82,12 @@ public class ChefAdapter extends BaseAdapter {
             reason.setVisibility(View.VISIBLE);
             reason.setText("Lý do: "+chefModel.getReason());
         }
+        if (sLayout.equals("DishCancel")){
+            ln_confirm.setVisibility(View.GONE);
+            ln_cooking.setVisibility(View.GONE);
+            reason.setVisibility(View.VISIBLE);
+            reason.setText("Lý do: "+chefModel.getReason());
+        }
         if (chefModel.getType()==0){
             sTable = "Online";
         }else if(chefModel.getType()==1){

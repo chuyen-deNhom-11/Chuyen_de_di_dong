@@ -40,7 +40,7 @@ public class InvoiceActivity extends AppCompatActivity {
     int iType,iStatus;
     TextView tv_price,tv_address,tv_PhoneNumber,tv_total_people,tv_name,tv_type_booking,tv_deposit;
     ListView lv_detail_invoice;
-    LinearLayout ln_deposit_money;
+    LinearLayout ln_deposit_money,ln_button;
     FirebaseDatabase fData= FirebaseDatabase.getInstance();
     ArrayList<CartModel> cartModels = new ArrayList<>();
     public static final String COC = "Cọc tiền";
@@ -60,6 +60,9 @@ public class InvoiceActivity extends AppCompatActivity {
     }
 
     private void setOnClick() {
+        if (sLayout.equals("PaidFragment")){
+            ln_button.setVisibility(View.GONE);
+        }
         btn_HuyDon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -267,6 +270,7 @@ public class InvoiceActivity extends AppCompatActivity {
         lv_detail_invoice = findViewById(R.id.lv_detail_invoice);
         ln_deposit_money = findViewById(R.id.ln_deposit_money);
         tv_deposit = findViewById(R.id.tv_deposit);
+        ln_button=findViewById(R.id.ln_button);
     }
 
     @Override

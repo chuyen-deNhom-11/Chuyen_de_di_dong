@@ -103,7 +103,7 @@ public class ChefActivity extends AppCompatActivity {
                             data_chef.get(i).setTotalPrice(snapshot.child("price").getValue(String.class));
                             data_chef.get(i).setKeyDish(postSnapshot.getKey());
                             i++;
-                           chefAdapter_chef = new ChefAdapter(ChefActivity.this, R.layout.item_chef, data_chef,"DishFragment");
+                           chefAdapter_chef = new ChefAdapter(ChefActivity.this, R.layout.item_chef, data_chef,"DishCancel");
                            lv_DS_Chef.setAdapter(chefAdapter_chef);
                         }
                     }
