@@ -5,8 +5,16 @@ public class NoficationModel {
     int status;
     long time;
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public long getTime() {

@@ -8,10 +8,12 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.foodonline.Chef.InfomationActivity;
 import com.example.foodonline.DataModel.UserModel;
 import com.example.foodonline.LoginActivity;
 import com.example.foodonline.R;
 import com.example.foodonline.User.Fragment.InformationFragment;
+import com.example.foodonline.User.HomeUserActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -61,8 +63,16 @@ public class HomeCensor extends AppCompatActivity {
         setData();
         Bundle args = new Bundle();
         args.putString(USER_ID, userId);
+        tv_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(HomeCensor.this, InfomationActivity.class);
+                intent.putExtra(USER_ID, userId);
+                startActivity(intent);
+            }
+        });
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_dish)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_dish,R.id.nav_browse_table,R.id.nav_browse)
                 .setDrawerLayout(drawer)
                 .build();
 //        Navigation.findNavController(navigationView).navigate(R.id.informationFragment,args);

@@ -92,6 +92,7 @@ public class PaidFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(context, InvoiceActivity.class);
                 intent.putExtra("BillId",arrayListBill.get(i).getId());
+                intent.putExtra("sLayout","PaidFragment");
                 startActivity(intent);
             }
         });

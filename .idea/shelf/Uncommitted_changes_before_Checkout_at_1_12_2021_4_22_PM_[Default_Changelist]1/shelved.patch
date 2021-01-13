@@ -1,0 +1,183 @@
+Index: app/src/main/res/drawable/btn_custom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<shape xmlns:android=\"http://schemas.android.com/apk/res/android\" >\r\n\r\n    <stroke\r\n        android:color=\"#494848\"\r\n        android:width=\"1dp\"/>\r\n    <corners\r\n        android:radius=\"10dp\" />\r\n\r\n</shape>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/btn_custom.xml	(revision b4d850be6a0615dbfffe20ab5c575f9977ce6f54)
++++ app/src/main/res/drawable/btn_custom.xml	(date 1610159140922)
+@@ -1,9 +1,10 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <shape xmlns:android="http://schemas.android.com/apk/res/android" >
++    <solid android:color="@android:color/white" />
+ 
+     <stroke
+         android:color="#494848"
+-        android:width="1dp"/>
++        android:width="2dp"/>
+     <corners
+         android:radius="10dp" />
+ 
+Index: app/src/main/res/layout/activity_sign_in.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:fillViewport=\"true\"\r\n    android:gravity=\"center\"\r\n    android:orientation=\"vertical\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"0.5\">\r\n\r\n        <TextView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:gravity=\"center\"\r\n            android:text=\"@string/btn_sign_up\"\r\n            android:textSize=\"40dp\"\r\n            android:textStyle=\"bold\" />\r\n\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n\r\n        android:layout_weight=\"4\"\r\n        android:orientation=\"vertical\"\r\n        android:padding=\"10dp\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\">\r\n\r\n            <EditText\r\n                android:id=\"@+id/txt_Name\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/btn_custom\"\r\n                android:hint=\"@string/tv_name\"\r\n                android:padding=\"10dp\" />\r\n        </LinearLayout>\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\">\r\n\r\n            <EditText\r\n                android:id=\"@+id/txt_Pass\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/btn_custom\"\r\n                android:hint=\"@string/pass_word\"\r\n                android:inputType=\"textPassword\"\r\n                android:padding=\"10dp\" />\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\">\r\n\r\n            <EditText\r\n                android:id=\"@+id/txt_ConfirmPass\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/btn_custom\"\r\n                android:hint=\"@string/tv_confirm_passwork\"\r\n                android:inputType=\"textPassword\"\r\n                android:padding=\"10dp\" />\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\">\r\n\r\n            <EditText\r\n                android:id=\"@+id/txt_adress\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/btn_custom\"\r\n                android:hint=\"@string/tv_adress\"\r\n                android:padding=\"10dp\" />\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\">\r\n\r\n            <EditText\r\n                android:id=\"@+id/txt_email\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/btn_custom\"\r\n                android:hint=\"@string/tv_email\"\r\n                android:padding=\"10dp\" />\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\">\r\n\r\n            <EditText\r\n                android:id=\"@+id/txt_PhoneNumber\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/btn_custom\"\r\n                android:hint=\"@string/tv_sdt\"\r\n                android:inputType=\"number\"\r\n                android:padding=\"10dp\" />\r\n        </LinearLayout>\r\n\r\n\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"1\"\r\n        android:orientation=\"horizontal\">\r\n\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:gravity=\"center\"\r\n            android:orientation=\"horizontal\">\r\n\r\n            <Button\r\n\r\n                android:id=\"@+id/btn_Cancel\"\r\n                android:layout_width=\"1in\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/btn_custom\"\r\n                android:backgroundTint=\"@color/colorRed\"\r\n                android:text=\"@string/btn_cancel\"\r\n\r\n                android:textAllCaps=\"false\" />\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:gravity=\"center\"\r\n            android:orientation=\"horizontal\">\r\n\r\n            <Button\r\n                android:id=\"@+id/btn_Register\"\r\n\r\n                android:layout_width=\"1in\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/btn_custom\"\r\n                android:backgroundTint=\"@color/colorGreen\"\r\n                android:text=\"@string/btn_sign_up\"\r\n                android:textAllCaps=\"false\" />\r\n\r\n        </LinearLayout>\r\n\r\n    </LinearLayout>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_sign_in.xml	(revision b4d850be6a0615dbfffe20ab5c575f9977ce6f54)
++++ app/src/main/res/layout/activity_sign_in.xml	(date 1610161022344)
+@@ -3,6 +3,7 @@
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:fillViewport="true"
++    android:background="@color/colorLightBlue"
+     android:gravity="center"
+     android:orientation="vertical">
+ 
+@@ -38,9 +39,11 @@
+                 android:id="@+id/txt_Name"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
++                android:drawableLeft="@drawable/ic_baseline_account"
+                 android:background="@drawable/btn_custom"
+                 android:hint="@string/tv_name"
+-                android:padding="10dp" />
++                android:padding="10dp"
++                />
+         </LinearLayout>
+         <LinearLayout
+             android:layout_width="match_parent"
+@@ -53,6 +56,7 @@
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/btn_custom"
+                 android:hint="@string/pass_word"
++                android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+                 android:inputType="textPassword"
+                 android:padding="10dp" />
+         </LinearLayout>
+@@ -68,6 +72,7 @@
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/btn_custom"
+                 android:hint="@string/tv_confirm_passwork"
++                android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+                 android:inputType="textPassword"
+                 android:padding="10dp" />
+         </LinearLayout>
+@@ -83,6 +88,7 @@
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/btn_custom"
+                 android:hint="@string/tv_adress"
++                android:drawableLeft="@drawable/ic_baseline_home_work_24"
+                 android:padding="10dp" />
+         </LinearLayout>
+ 
+@@ -97,6 +103,7 @@
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/btn_custom"
+                 android:hint="@string/tv_email"
++                android:drawableLeft="@drawable/ic_email"
+                 android:padding="10dp" />
+         </LinearLayout>
+ 
+@@ -112,6 +119,7 @@
+                 android:background="@drawable/btn_custom"
+                 android:hint="@string/tv_sdt"
+                 android:inputType="number"
++                android:drawableLeft="@drawable/ic_baseline_phone_iphone_24"
+                 android:padding="10dp" />
+         </LinearLayout>
+ 
+Index: app/src/main/res/drawable/ic_baseline_home_work_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_baseline_home_work_24.xml	(date 1610160818649)
++++ app/src/main/res/drawable/ic_baseline_home_work_24.xml	(date 1610160818649)
+@@ -0,0 +1,13 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24"
++    android:tint="?attr/colorControlNormal">
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M8.17,5.7L1,10.48V21h5v-8h4v8h5V10.25z"/>
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M10,3v1.51l2,1.33L13.73,7L15,7v0.85l2,1.34L17,11h2v2h-2v2h2v2h-2v4h6L23,3L10,3zM19,9h-2L17,7h2v2z"/>
++</vector>
+Index: app/src/main/res/drawable/ic_baseline_vpn_key_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_baseline_vpn_key_24.xml	(date 1610160626645)
++++ app/src/main/res/drawable/ic_baseline_vpn_key_24.xml	(date 1610160626645)
+@@ -0,0 +1,10 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24"
++    android:tint="?attr/colorControlNormal">
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M12.65,10C11.83,7.67 9.61,6 7,6c-3.31,0 -6,2.69 -6,6s2.69,6 6,6c2.61,0 4.83,-1.67 5.65,-4H17v4h4v-4h2v-4H12.65zM7,14c-1.1,0 -2,-0.9 -2,-2s0.9,-2 2,-2 2,0.9 2,2 -0.9,2 -2,2z"/>
++</vector>
+Index: app/src/main/res/drawable/ic_baseline_email_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_baseline_email_24.xml	(date 1610160844581)
++++ app/src/main/res/drawable/ic_baseline_email_24.xml	(date 1610160844581)
+@@ -0,0 +1,10 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24"
++    android:tint="?attr/colorControlNormal">
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M20,4L4,4c-1.1,0 -1.99,0.9 -1.99,2L2,18c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,6c0,-1.1 -0.9,-2 -2,-2zM20,8l-8,5 -8,-5L4,6l8,5 8,-5v2z"/>
++</vector>
+Index: app/src/main/res/layout/activity_chef.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\">\r\n\r\n\r\n    <ListView\r\n        android:id=\"@+id/lv_chef\"\r\n        android:layout_margin=\"10dp\"\r\n        android:divider=\"@null\"\r\n        android:dividerHeight=\"20dp\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\" />\r\n\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_chef.xml	(revision b4d850be6a0615dbfffe20ab5c575f9977ce6f54)
++++ app/src/main/res/layout/activity_chef.xml	(date 1610156390128)
+@@ -2,6 +2,7 @@
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
++    android:background="@color/colorLightBlue"
+     android:orientation="vertical">
+ 
+ 
+Index: app/src/main/res/drawable/ic_baseline_phone_iphone_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_baseline_phone_iphone_24.xml	(date 1610160907471)
++++ app/src/main/res/drawable/ic_baseline_phone_iphone_24.xml	(date 1610160907471)
+@@ -0,0 +1,10 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24"
++    android:tint="?attr/colorControlNormal">
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M15.5,1h-8C6.12,1 5,2.12 5,3.5v17C5,21.88 6.12,23 7.5,23h8c1.38,0 2.5,-1.12 2.5,-2.5v-17C18,2.12 16.88,1 15.5,1zM11.5,22c-0.83,0 -1.5,-0.67 -1.5,-1.5s0.67,-1.5 1.5,-1.5 1.5,0.67 1.5,1.5 -0.67,1.5 -1.5,1.5zM16,18L7,18L7,4h9v14z"/>
++</vector>

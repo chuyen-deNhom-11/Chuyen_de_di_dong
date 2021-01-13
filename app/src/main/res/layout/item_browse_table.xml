@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/btn_custom"
-    
+
     android:orientation="horizontal">
 
     <LinearLayout
@@ -19,34 +19,33 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/name_food"
+                android:id="@+id/name_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lẩu hải sản"
+                android:text="Tên bàn"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/amount"
+                android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Số lượng: 1" />
+                android:text="date- time" />
 
             <TextView
-                android:id="@+id/table"
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bàn: 1" />
+                android:text="tên" />
             <TextView
-                android:visibility="gone"
-                android:id="@+id/reason"
+                android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lý do" />
+                android:text="sdt" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ln_cooking"
+            android:id="@+id/ln_booking"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
@@ -64,16 +63,17 @@
                 android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/btn_done_cook"
+                android:id="@+id/btn_done"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_custom"
                 android:backgroundTint="@color/colorGreen"
-                android:text="@string/btn_cook_done"
+                android:text="Xác nhận"
                 android:textAllCaps="false" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/ln_confirm"
@@ -91,14 +91,6 @@
                 android:background="@drawable/btn_custom"
                 android:backgroundTint="@color/colorRed"
                 android:text="@string/btn_cancel"
-                android:textAllCaps="false" />
-            <Button
-                android:id="@+id/btn_return"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_custom"
-                android:backgroundTint="@color/colorGreen"
-                android:text="Nấu"
                 android:textAllCaps="false" />
 
         </LinearLayout>

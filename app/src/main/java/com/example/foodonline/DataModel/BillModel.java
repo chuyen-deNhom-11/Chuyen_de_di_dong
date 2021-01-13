@@ -3,9 +3,17 @@ package com.example.foodonline.DataModel;
 import java.util.ArrayList;
 
 public class BillModel {
-    String id, user,name,adress,phone,price,nameTable,dateBooking,timeBooking,tableID;
+    String id, user,name,adress,phone,price,nameTable,dateBooking,timeBooking,tableID,depositMoney;
     long time;
     int amount,status,type;
+
+    public String getDepositMoney() {
+        return depositMoney;
+    }
+
+    public void setDepositMoney(String depositMoney) {
+        this.depositMoney = depositMoney;
+    }
 
     public void setId(String id) {
         this.id = id;

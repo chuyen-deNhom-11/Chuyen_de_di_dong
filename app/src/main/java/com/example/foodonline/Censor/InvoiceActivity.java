@@ -36,17 +36,16 @@ import java.util.ArrayList;
 public class InvoiceActivity extends AppCompatActivity {
     Button btn_HuyDon, btn_XNDon;
     Intent intent;
-    String sIdBill,sLayout,sUserID,sDepositMoney;
+    String sIdBill,sLayout,sUserID,sDepositMoney,sTableID;
     int iType,iStatus;
     TextView tv_price,tv_address,tv_PhoneNumber,tv_total_people,tv_name,tv_type_booking,tv_deposit;
     ListView lv_detail_invoice;
-    LinearLayout ln_deposit_money;
+    LinearLayout ln_deposit_money,ln_button;
     FirebaseDatabase fData= FirebaseDatabase.getInstance();
     ArrayList<CartModel> cartModels = new ArrayList<>();
     public static final String COC = "Cọc tiền";
     public static final String THANHTOAN = "Thanh toán";
     public static final String NAU = "Nấu";
-    public static final String XACNHAN = "Xác nhận";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +60,9 @@ public class InvoiceActivity extends AppCompatActivity {
     }
 
     private void setOnClick() {
+        if (sLayout.equals("PaidFragment")){
+            ln_button.setVisibility(View.GONE);
+        }
         btn_HuyDon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +105,12 @@ public class InvoiceActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             fData.getReference().child("Bill").child(sIdBill).child("status").setValue(2);
+                            if (sLayout.equals("ApprovedFragment")){
+                                if (iType==1){
+                                    fData.getReference().child("Table").child(sTableID).child("status").setValue(2);
+                                    fData.getReference().child("Table").child(sTableID).child("id_nvoice").setValue(sIdBill);
+                                }
+                            }
                             finish();
                         }
                     });
@@ -148,6 +156,9 @@ public class InvoiceActivity extends AppCompatActivity {
                     iStatus = snapshot.child("status").getValue(Integer.class);
                     tv_PhoneNumber.setText(snapshot.child("phone").getValue(String.class));
                     sDepositMoney = snapshot.child("depositMoney").getValue(String.class);
+                    if (snapshot.child("tableID").getValue(String.class)!=null){
+                        sTableID= snapshot.child("tableID").getValue(String.class);
+                    }
                     if (sDepositMoney != null){
                         ln_deposit_money.setVisibility(View.VISIBLE);
                         tv_deposit.setText(sDepositMoney);
@@ -259,6 +270,7 @@ public class InvoiceActivity extends AppCompatActivity {
         lv_detail_invoice = findViewById(R.id.lv_detail_invoice);
         ln_deposit_money = findViewById(R.id.ln_deposit_money);
         tv_deposit = findViewById(R.id.tv_deposit);
+        ln_button=findViewById(R.id.ln_button);
     }
 
     @Override

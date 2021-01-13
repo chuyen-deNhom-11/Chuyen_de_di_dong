@@ -2,9 +2,22 @@ package com.example.foodonline.DataModel;
 
 public class BookingTableModel {
     String id,userId,userName,phoneNumber,adress,tableName,dateBooking,timeBooking,tableID;
+    int status;
+
+    public int getStatus() {
+        return status;
+    }
 
     public String getId() {
         return id;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTableID() {
