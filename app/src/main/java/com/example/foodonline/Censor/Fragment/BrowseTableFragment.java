@@ -45,7 +45,7 @@ public class BrowseTableFragment extends Fragment {
         fData.getReference().child("BookingTable").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.child("status").getValue(Integer.class) ==null){
+                if (snapshot.child("status").getValue(Integer.class) ==null ||snapshot.child("status").getValue(Integer.class) ==0){
                     bookingTableModels.add(snapshot.getValue(BookingTableModel.class));
                     bookingTableModels.get(i).setId(snapshot.getKey());
                     i++;
