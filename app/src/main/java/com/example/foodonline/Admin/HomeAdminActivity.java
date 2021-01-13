@@ -20,7 +20,6 @@ public class HomeAdminActivity extends BaseActivity {
         bottomNav = findViewById(R.id.bottom_navigation);
         navController = Navigation.findNavController(this, R.id.host_fragment);
         NavigationUI.setupWithNavController(bottomNav, navController);
-
     }
 
     @Override

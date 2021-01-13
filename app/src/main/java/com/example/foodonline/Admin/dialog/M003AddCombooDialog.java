@@ -115,6 +115,7 @@ public class M003AddCombooDialog extends BaseDialog implements FRealtimeRequest.
         ivComboo.setImageURI(file);
     }
 
+    // upload file success
     @Override
     public void uploadFileDone(String tag, String link) {
         ProgressLoading.dismiss();

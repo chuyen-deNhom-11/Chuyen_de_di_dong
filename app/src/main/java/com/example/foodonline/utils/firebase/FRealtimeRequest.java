@@ -12,10 +12,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by nguyencapt 11/2/2020
- * FRealtimeRequest
- */
 
 public class FRealtimeRequest {
 
@@ -23,7 +19,6 @@ public class FRealtimeRequest {
     public static final String METHOD_GET = "METHOD_GET";
     public static final String METHOD_PUSH = "METHOD_PUSH";
     public static final String METHOD_SET = "METHOD_SET";
-    public static final String METHOD_DELETE = "METHOD_DELETE";
     public static final String METHOD_CHILD_ADDED = "METHOD_LISTEN_CHILD_ADDED";
 
 

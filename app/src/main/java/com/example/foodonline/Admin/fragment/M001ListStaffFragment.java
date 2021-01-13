@@ -110,6 +110,7 @@ public class M001ListStaffFragment extends BaseFragment implements FRealtimeRequ
         getListStaff(type);
     }
 
+    // Lấy danh sách nhân viên
     private void getListStaff(String type) {
         ProgressLoading.show(mContext);
         new FRealtimeRequest("Users")
@@ -117,6 +118,7 @@ public class M001ListStaffFragment extends BaseFragment implements FRealtimeRequ
                 .callRequest(KEY_GET_STAFF, this);
     }
 
+    //lấy data từ firebase về -> callback dữ liệu về đây
     @Override
     public void onRealtimeUpdate(String tag, DataSnapshot data) {
         ProgressLoading.dismiss();
